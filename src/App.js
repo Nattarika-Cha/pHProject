@@ -22,7 +22,7 @@ const RootStack = createStackNavigator({
   Device:{
     screen: DeviceScreen
   },
-}, { initialRouteName: 'Home' },);
+}, { initialRouteName: 'Login' },);
 
 class App extends Component {
   constructor(props) {
