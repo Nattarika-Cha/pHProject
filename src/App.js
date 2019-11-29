@@ -8,6 +8,8 @@ import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import HomeScreen from './HomeScreen';
 import DeviceScreen from './DeviceScreen';
+import ReportScreen from './ReportScreen'
+import ProfileScreen from './ProfileScreen'
 
 const RootStack = createStackNavigator({
   Login: {
@@ -22,7 +24,13 @@ const RootStack = createStackNavigator({
   Device:{
     screen: DeviceScreen
   },
-}, { initialRouteName: 'Login' },);
+  Report:{
+    screen: ReportScreen
+  },
+  Profile:{
+    screen: ProfileScreen
+  },
+}, { initialRouteName: 'Device' },);
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +43,7 @@ class App extends Component {
     return (
       // <RootStack></RootStack>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Hello, world!</Text>
+        
       </View>
     );
   }
