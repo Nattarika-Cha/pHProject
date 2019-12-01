@@ -10,6 +10,7 @@ import HomeScreen from './HomeScreen';
 import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
+import ProfileEditScreen from './ProfileEditScreen'
 
 const RootStack = createStackNavigator({
   Login: {
@@ -30,7 +31,10 @@ const RootStack = createStackNavigator({
   Profile:{
     screen: ProfileScreen
   },
-}, { initialRouteName: 'Device' },);
+  ProfileEdit:{
+    screen: ProfileEditScreen
+  },
+}, { initialRouteName: 'ProfileEdit' },);
 
 class App extends Component {
   constructor(props) {
