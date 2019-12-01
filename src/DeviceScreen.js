@@ -41,7 +41,7 @@ class DeviceScreen extends Component{
                             <View style={styles.box}>
                                 <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
                                 source={require('../img/device.png')}></Image>
-                                <Text>Device 2</Text>
+                                <Text>Device 3</Text>
                                 <Text>Off</Text>
                                 <Text>Humidity</Text>
                             </View>
