@@ -5,40 +5,45 @@ class DeviceScreen extends Component{
     
     render() {
         return (
-            <ScrollView>
-                <Text>DeviceScreen</Text>
-                <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>
-                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff',}}>
-                        <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10, }}
+            <ScrollView style={{backgroundColor:'#FAFAFA'}}>
+              <View style={{faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10}}>
+                <Text style={styles.header}>Device</Text>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start',}}>
+                        <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
                     source={require('../img/noti.png')}></Image>
                     </View>
+                    </View>
+                <View style={{ flex: 1,  flexDirection: 'column', justifyContent: 'flex-start', }}>
                     <View style={{ flexDirection: "row-reverse", padding: 10 }}>
                         <TouchableOpacity >
-                            <Text style={styles.label}>+ Add Device</Text>
+                            <Text style={{fontSize: 17, color:'#3ED400' }}>+ Add Device</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>
-                    <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>
-                        <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'row', justifyContent: 'flex-start', }}>
+                <View style={{ flex: 1,  flexDirection: 'column', justifyContent: 'flex-start', }}>
+                    <View style={{ flex: 1,  flexDirection: 'column', justifyContent: 'flex-start', }}>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
                             {/* <Button></Button> */}
-                            <View>
-                                <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10, }}
-                                source={require('../img/router_2.png')}></Image>
+                            <View style={styles.box}>
+                                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
+                                source={require('../img/device.png')}></Image>
                                 <Text>Device 1</Text>
                                 <Text>On</Text>
                                 <Text>Humidity</Text>
                             </View>
-                            <View>
-                                <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10, }}
-                                source={require('../img/router_2.png')}></Image>
+                            <View style={styles.box}>
+                                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
+                                source={require('../img/device.png')}></Image>
                                 <Text>Device 2</Text>
                                 <Text>Off</Text>
                                 <Text>Humidity</Text>
                             </View>
                         </View>
                     </View>               
-                </View>              
+                </View>
+                <View>
+                </View>   
+                          
             </ScrollView>
         );
       }
@@ -47,8 +52,8 @@ class DeviceScreen extends Component{
 
 const styles = StyleSheet.create({
     header: {
-      fontSize: 20,
-      color: '#5BB95A',
+      fontSize: 25,
+      color: '#000000',
       fontWeight: 'bold',
       paddingVertical: 14,
       alignItems: 'center',
@@ -101,6 +106,18 @@ const styles = StyleSheet.create({
       color: "#5BB95A"
   
   },
+  box:{
+    paddingLeft: 10, 
+    paddingRight: 10,
+    paddingBottom: 10, 
+    borderWidth: 1, 
+    borderColor:'#E5E5E5' ,
+    // margin: 10 ,
+    // marginRight:10, 
+    marginLeft: 20,
+    borderRadius:10,
+    backgroundColor: '#ffffff'
+  }
   });
 
 export default DeviceScreen;
