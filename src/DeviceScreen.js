@@ -7,7 +7,7 @@ class DeviceScreen extends Component{
         return (
             <ScrollView style={{backgroundColor:'#FAFAFA'}}>
               <View style={{faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10}}>
-                <Text style={styles.header}>Device</Text>
+                {/* <Text style={styles.header}>Device</Text> */}
                 <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start',}}>
                         <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
                     source={require('../img/noti.png')}></Image>

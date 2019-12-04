@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+// import Icon from 'react-native-ionicons';
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -59,8 +60,7 @@ class RegisterScreen extends Component {
       <ScrollView>
         <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
-            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-              source={require('../img/back.png')}></Image>
+            <Button title="Back" color="#5BB95A" onPress={() => this.props.navigation.navigate('Login')} />
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>

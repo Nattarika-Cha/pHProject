@@ -14,27 +14,49 @@ import ProfileEditScreen from './ProfileEditScreen';
 
 const RootStack = createStackNavigator({
   Login: {
-    screen: LoginScreen
+    screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   Register: {
-    screen: RegisterScreen
+    screen: RegisterScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   Home: {
-    screen: HomeScreen
+    screen: HomeScreen,
+    navigationOptions: {
+      header: null,
+    }
   },
   Device:{
-    screen: DeviceScreen
+    screen: DeviceScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   Report:{
-    screen: ReportScreen
+    screen: ReportScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   Profile:{
-    screen: ProfileScreen
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   ProfileEdit:{
-    screen: ProfileEditScreen
+    screen: ProfileEditScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
-}, { initialRouteName: 'Device' },);
+}, 
+{ initialRouteName: 'Login' },);
 
 class App extends Component {
   constructor(props) {
