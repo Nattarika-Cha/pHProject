@@ -22,12 +22,12 @@ class RegisterScreen extends Component {
   // };
 
   onSubmit() {
-    axios.post('http://10.0.2.2:5000/user/register', {
+    axios.post('https://phproject-260514.appspot.com/user/register', {
       username: this.state.username,
       password: this.state.password,
       fname: this.state.fname,
       lname: this.state.lname,
-      sex: this.state.gender
+      gender: this.state.gender
     })
       .then((response) => {
         if (response.data == "Registration success") {
