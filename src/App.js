@@ -12,6 +12,8 @@ import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
 import ProfileEditScreen from './ProfileEditScreen';
 
+import ScanScreen from './ScanScreen';
+
 const RootStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
@@ -55,8 +57,14 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
+  Scan:{
+    screen: ScanScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 }, 
-{ initialRouteName: 'Login' },);
+{ initialRouteName: 'Home' },);
 
 class App extends Component {
   constructor(props) {

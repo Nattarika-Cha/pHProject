@@ -6,8 +6,9 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import DeviceScreen from './DeviceScreen'
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
+import Icon from 'react-native-vector-icons/Ionicons';
 
-// import HomeIcon from './Grop3.png'
+// import HomeIcon from './img/Group3.png'
 
 class HomeScreen extends React.Component {
   render() {
@@ -23,19 +24,39 @@ export default createMaterialBottomTabNavigator(
   {
     Home: { 
       screen: HomeScreen,
-      navigationOptions: {
-        // headerLeft: <HomeIcon />
-      }
+      navigationOptions:{  
+        tabBarLabel:'',  
+        tabBarIcon: ({ tintColor }) => (  
+            <View>  
+                <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 5, borderWidth: 0, }}
+                  source={require('../img/Path8.png')}></Image>  
+            </View>),  
+    }  
     },
-    Device: { screen: DeviceScreen , initialRouteName:'Device' },
-    Report: { screen: ReportScreen, initialRouteName: 'Report'},
+    Device: { screen: DeviceScreen ,
+      navigationOptions:{  
+          
+        tabBarIcon: ({ tintColor }) => (  
+            <View>  
+                <Icon style={[{color: tintColor}]} size={25} name={'stepforward'}/>  
+            </View>),  
+    }, initialRouteName:'Device' },
+    Report: { screen: ReportScreen, 
+      navigationOptions:{  
+        tabBarLabel:'Report',  
+        tabBarIcon: ({ tintColor }) => (  
+            <View>  
+                <Icon style={[{color: tintColor}]} size={25} name={'line-graph'}/>  
+            </View>),  
+    },
+      initialRouteName: 'Report'},
     Profile: { screen: ProfileScreen, initialRouteName: 'Profile'},
   }, 
     {
       initialRouteName: 'Home',
-      activeColor: '#f0edf6',
-      activeTincolor: '#3e2465',
-      inactiveColor: '#3e2465',
-      barStyle: { backgroundColor: '#694fad' },
+      activeColor: '#ffffff',
+      activeTincolor: '#ffffff',
+      inactiveColor: '#ffffff',
+      barStyle: { backgroundColor: '#ffffff' },
     }
 );
