@@ -25,10 +25,10 @@ class EditDeviceScreen extends Component {
               </TouchableOpacity>
             </View>
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
-              <Text style={{ fontSize: 20 }}>
+              <Text style={{ fontSize: 18 }}>
                 Serial Number :
   </Text>
-              <Text style={{ fontSize: 20 }}>
+              <Text style={{ fontSize: 18 }}>
                 s000000000000
   </Text>
             </View>
@@ -36,17 +36,18 @@ class EditDeviceScreen extends Component {
           </View>
         </View>
         <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10,  }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: ' flex-start', alignItems: 'center', marginBottom: 10 }}>
+          
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Name Plant :
+            Name Plant :
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
                 onValueChange={() => this.setState({})}
                 items={[
-                  { label: '.......', value: '.......' },
-                  { label: '.......', value: '.......' },
-                  { label: '.......', value: '.......' },
+                  { label: 'ลำไย', value: 'ลำไย' },
+                  { label: 'ส้มโอ', value: 'ส้มโอ' },
+                  { label: 'ฝรั่ง', value: 'ฝรั่ง' },
                 ]}
               />
             </View>
@@ -140,7 +141,7 @@ class EditDeviceScreen extends Component {
         </View>
         <View style={{flex:1, alignItems:'center', flexDirection: 'column'}}>
         <View style={styles.buttonContainer}>
-                <Button title="OK" color="#5BB95A" borderRadius='30'/>
+                <Button title="OK" color="#5BB95A" />
               </View>
         </View>
         
@@ -154,7 +155,7 @@ class EditDeviceScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#5BB95A',
     fontWeight: 'bold',
     paddingVertical: 14,
