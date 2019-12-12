@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
 
 class DeviceScreen extends Component {
 
@@ -58,7 +58,6 @@ class DeviceScreen extends Component {
         <View>
 
         </View>
-
       </ScrollView>
     );
   }
