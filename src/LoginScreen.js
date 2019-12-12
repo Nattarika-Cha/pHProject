@@ -45,7 +45,7 @@ class LoginScreen extends Component {
         <ScrollView>
           <View style={{
             faex: 1, flexDirection: 'column',
-            padding: 10,
+            padding: 40,
             justifyContent: 'center',
             alignContent: 'center',
           }} >
