@@ -71,7 +71,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Home' },);
+}, { initialRouteName: 'Editdevice' },);
 
 class App extends Component {
   constructor(props) {

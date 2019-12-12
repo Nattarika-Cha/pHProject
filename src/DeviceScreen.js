@@ -7,11 +7,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 class DeviceScreen extends Component {
-  onSuccess = (e) => {
-    Linking
-      .openURL(e.data)
-      .catch(err => console.error('An error occured', err));
-  }
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>

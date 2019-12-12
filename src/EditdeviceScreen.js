@@ -4,6 +4,50 @@ import RNPickerSelect from 'react-native-picker-select';
 
 
 class EditdeviceScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      age: '',
+      area: '',
+      soil_type: '',
+      humidity: ''
+    };
+  }
+
+  onEdit() {
+    axios.post('https://phproject-260514.appspot.com/user/add', {
+      name: this.state.name,
+      age: this.state.age,
+      area: this.state.area,
+      soil_type: this.state.soil_type,
+      humidity: this.state.humidity
+    })
+      .then((response) => {
+        if (response.data == "Edit success") {
+          Alert.alert(
+            'Success',
+            'Edit success',
+            [
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
+            ],
+            { cancelable: false }
+          )
+        } else {
+          Alert.alert(
+            'Error',
+            response.data,
+            [
+              { text: 'OK' },
+            ],
+            { cancelable: false }
+          )
+        }
+        //console.log(response.data);
+      }, (error) => {
+        console.log(error);
+      });
+  }
 
   render() {
     return (
@@ -49,6 +93,7 @@ class EditdeviceScreen extends Component {
                   { label: 'ส้มโอ', value: 'ส้มโอ' },
                   { label: 'ฝรั่ง', value: 'ฝรั่ง' },
                 ]}
+                value={this.state.name}
               />
             </View>
           </View>
@@ -70,13 +115,14 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
+                value={this.state.age}
               />
             </View>
             <Text style={styles.txtname}>
               week
             </Text>
           </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 ,}}>
             <Text style={styles.txtname}>
               Area :
             </Text>
@@ -94,6 +140,7 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
+                value={this.state.area}
               />
             </View>
             <Text style={styles.txtname}>
@@ -112,6 +159,7 @@ class EditdeviceScreen extends Component {
                   { label: 'ดินทราย', value: 'ดินทราย' },
                   { label: 'ดินเหนียว', value: 'ดินเหนียว' },
                 ]}
+                value={this.state.soil_type}
               />
             </View>
           </View>
@@ -133,6 +181,7 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
+                value={this.state.pH}
               />
             </View>
 
@@ -141,7 +190,7 @@ class EditdeviceScreen extends Component {
         </View>
         <View style={{flex:1, alignItems:'center', flexDirection: 'column'}}>
         <View style={styles.buttonContainer}>
-                <Button title="OK" color="#5BB95A" />
+                <Button title="OK" color="#5BB95A" onPress={this.onEdit.bind(this)}/>
               </View>
         </View>
         
