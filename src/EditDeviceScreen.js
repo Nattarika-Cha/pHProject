@@ -117,7 +117,29 @@ class EditDeviceScreen extends Component {
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              pH :
+              ค่า pH :
+            </Text>
+            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000',paddingLeft: 10, }}>
+              <RNPickerSelect
+                onValueChange={() => this.setState({})}
+                items={[
+                  { label: '1', value: '1' },
+                  { label: '2', value: '2' },
+                  { label: '3', value: '3' },
+                  { label: '4', value: '4' },
+                  { label: '5', value: '5' },
+                  { label: '6', value: '6' },
+                  { label: '7', value: '7' },
+                  { label: '8', value: '8' },
+                  { label: '9', value: '9' },
+                ]}
+              />
+            </View>
+
+          </View>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+            <Text style={styles.txtname}>
+              ค่าความชื้น :
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000',paddingLeft: 10, }}>
               <RNPickerSelect
