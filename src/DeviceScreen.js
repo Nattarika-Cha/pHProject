@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
 
-import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-
-
 class DeviceScreen extends Component {
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10 }}>
-          {/* <Text style={styles.header}>Device</Text> */}
+          <Text style={styles.header}>Device</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
               source={require('../img/noti.png')}></Image>
@@ -19,9 +15,9 @@ class DeviceScreen extends Component {
         </View>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>
-            <TouchableOpacity > 
-              <Button style={{ fontSize: 20, color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ Add Device</Button>
-            </TouchableOpacity >
+            <TouchableOpacity >
+              <Text style={{ fontSize: 17, color: '#3ED400' }}>+ Add Device</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
@@ -130,29 +126,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderWidth: 1,
     borderColor: '#E5E5E5',
-    margin: 10 ,
-    marginRight:10, 
+    // margin: 10 ,
+    // marginRight:10, 
     marginLeft: 20,
     borderRadius: 10,
     backgroundColor: '#ffffff'
-  },
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
+  }
 });
 
 export default DeviceScreen;

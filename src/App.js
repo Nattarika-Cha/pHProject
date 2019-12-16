@@ -11,6 +11,7 @@ import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
 import ProfileEditScreen from './ProfileEditScreen';
+import EditDeviceScreen from './EditDeviceScreen';
 
 import EditdeviceScreen from './EditdeviceScreen';
 
@@ -71,7 +72,11 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Editdevice' },);
+  EditDevice:{
+    screen: EditDeviceScreen
+  },
+  
+}, { initialRouteName: 'EditDevice' },);
 
 class App extends Component {
   constructor(props) {
