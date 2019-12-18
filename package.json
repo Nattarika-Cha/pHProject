@@ -19,12 +19,7 @@
     "react-native-axios": "^0.17.1",
     "react-native-camera": "^3.14.0",
     "react-native-gesture-handler": "^1.5.1",
-<<<<<<< HEAD
     "react-native-maps": "^0.26.1",
-=======
-    "react-native-ionicons": "^4.6.3",
-    "react-native-maps": "git+https://git@github.com/react-native-community/react-native-maps.git",
->>>>>>> 24ab47e6c06dacd6146ed82222763b3b91d9cc35
     "react-native-paper": "^3.2.1",
     "react-native-permissions": "^2.0.8",
     "react-native-picker-select": "^6.3.3",
