@@ -1,56 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import axios from 'axios';
 
 
-class EditdeviceScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      area: '',
-      soil_type: '',
-      pH: '',
-      humidity: ''
-    };
-  }
-
-  onEdit() {
-    axios.post('http://165.22.250.24:3030/config/add', {
-      name: this.state.name,
-      age: this.state.age,
-      area: this.state.area,
-      soil_type: this.state.soil_type,
-      pH: this.state.pH,
-      humidity: this.state.humidity
-    })
-      .then((response) => {
-        if (response.data == "Save success") {
-          Alert.alert(
-            'Success',
-            'Edit success',
-            [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
-            ],
-            { cancelable: false }
-          )
-        } else {
-          Alert.alert(
-            'Error',
-            response.data,
-            [
-              { text: 'OK' },
-            ],
-            { cancelable: false }
-          )
-        }
-        //console.log(response.data);
-      }, (error) => {
-        console.log(error);
-      });
-  }
+class EditDeviceScreen extends Component {
 
   render() {
     return (
@@ -72,26 +25,30 @@ class EditdeviceScreen extends Component {
               </TouchableOpacity>
             </View>
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
-              <Text style={{ fontSize: 18 }}>Serial Number :</Text>
-              <Text style={{ fontSize: 18 }}>s000000000000</Text>
+              <Text style={{ fontSize: 18 }}>
+                Serial Number :
+  </Text>
+              <Text style={{ fontSize: 18 }}>
+                s000000000000
+  </Text>
             </View>
+
           </View>
         </View>
-        <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10, }}>
+        <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10,  }}>
+          
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Name Plant :
+            Name Plant :
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                onValueChange={(name) => this.setState({name})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: 'ลำไย', value: 'ลำไย' },
                   { label: 'ส้มโอ', value: 'ส้มโอ' },
                   { label: 'ฝรั่ง', value: 'ฝรั่ง' },
                 ]}
-                
-                value={this.state.name}
               />
             </View>
           </View>
@@ -99,9 +56,9 @@ class EditdeviceScreen extends Component {
             <Text style={styles.txtname}>
               Age :
             </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,}}>
               <RNPickerSelect
-                onValueChange={(age) => this.setState({age})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -113,20 +70,19 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
-                value={this.state.age}
               />
             </View>
             <Text style={styles.txtname}>
               week
             </Text>
           </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               Area :
             </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,}}>
               <RNPickerSelect
-                onValueChange={(area) => this.setState({area})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -138,7 +94,6 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
-                value={this.state.area}
               />
             </View>
             <Text style={styles.txtname}>
@@ -151,23 +106,22 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                onValueChange={(soil_type) => this.setState({soil_type})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: 'ดินร่วน', value: 'ดินร่วน' },
                   { label: 'ดินทราย', value: 'ดินทราย' },
                   { label: 'ดินเหนียว', value: 'ดินเหนียว' },
                 ]}
-                value={this.state.soil_type}
               />
             </View>
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              pH :
+              ค่า pH :
             </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000',paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(pH) => this.setState({pH})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -179,17 +133,17 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
-                value={this.state.pH}
               />
             </View>
+
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Humidity :
+              ค่าความชื้น :
             </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000',paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(humidity) => this.setState({humidity})}
+                onValueChange={() => this.setState({})}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -201,21 +155,25 @@ class EditdeviceScreen extends Component {
                   { label: '8', value: '8' },
                   { label: '9', value: '9' },
                 ]}
-                value={this.state.humidity}
               />
             </View>
+
           </View>
+         
         </View>
-        <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column' }}>
-          <View style={styles.buttonContainer}>
-            <Button title="OK" color="#5BB95A" onPress={this.onEdit.bind(this)} />
-          </View>
+        <View style={{flex:1, alignItems:'center', flexDirection: 'column'}}>
+        <View style={styles.buttonContainer}>
+                <Button title="OK" color="#5BB95A" />
+              </View>
         </View>
+        
+         
+
       </View>
     );
   }
-}
 
+}
 
 const styles = StyleSheet.create({
   header: {
@@ -276,7 +234,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonContainer: {
-
+    
     margin: 10,
     borderRadius: 30,
 
@@ -303,4 +261,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditdeviceScreen;
+export default EditDeviceScreen;
+
