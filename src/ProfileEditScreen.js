@@ -21,7 +21,7 @@ class ProfileEditScreen extends Component {
   // };
 
   onSubmit() {
-    axios.post('http://10.0.2.2:5000/user/register', {
+    axios.post('http://165.22.250.24:3030/user/register', {
       username: this.state.username,
       password: this.state.password,
       fname: this.state.fname,

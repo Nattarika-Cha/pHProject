@@ -16,7 +16,7 @@ class LoginScreen extends Component {
   };
 
   onButtonLogin() {
-    axios.post('https://phproject-260514.appspot.com/user/login', {
+    axios.post('http://165.22.250.24:3030/user/login', {
       username: this.state.username,
       password: this.state.password
     })
