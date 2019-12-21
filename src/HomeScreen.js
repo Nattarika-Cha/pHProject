@@ -3,30 +3,35 @@ import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackg
 // import { createAppContainer } from 'react-navigation';
 // import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-// import DeviceScreen from './DeviceScreen'
-// import ReportScreen from './ReportScreen'
-// import ProfileScreen from './ProfileScreen'
+import Icon from 'react-native-vector-icons/Ionicons';
+// import { Icon } from 'antd';
+import DeviceScreen from './DeviceScreen'
+import ReportScreen from './ReportScreen'
+import ProfileScreen from './ProfileScreen'
 
-
-
+// import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+// import { BottomNavigationAction } from '@material-ui/core';
+// import { AccessAlarm } from '@material-ui/icons';
+// import RestoreIcon from '@material-ui/icons/Restore';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 class HomeScreen extends React.Component {
   render() {
+    // const [value, setValue] = React.useState('recents');
+
+    // const handleChange = (event, newValue) => {
+    //   setValue(newValue);
+    // };
+
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10 }}>
-          <Text style={{fontSize: 15, color: '#5483EF',padding: 10, margin:10}}>Bangkok, Thailand</Text>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center',padding: 10, margin:10 }}>
-            <Image style={{ width: 35, height: 35, resizeMode: 'contain',}}
+          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 10 }}>Bangkok, Thailand</Text>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 10 }}>
+            <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
-              <Text style={{fontSize: 20, color: '#000000',paddingLeft:5}}>35°c</Text>
-          </View>
-        </View>
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ flexDirection: "row-reverse", padding: 10 }}>
-            <TouchableOpacity >
-              <Text style={{ fontSize: 17, color: '#3ED400' }}>+ Add Device</Text>
-            </TouchableOpacity>
+            <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
@@ -68,6 +73,12 @@ class HomeScreen extends React.Component {
 
         </View>
 
+        {/* <BottomNavigation value={value} onChange={handleChange}>
+          <BottomNavigationAction label="Recents" value="recents" icon={<AccessAlarm />} />
+          <BottomNavigationAction label="Favorites" value="favorites" icon={<AccessAlarm />} />
+          <BottomNavigationAction label="Nearby" value="nearby" icon={<AccessAlarm />} />
+          <BottomNavigationAction label="Folder" value="folder" icon={<AccessAlarm />} />
+        </BottomNavigation> */}
       </ScrollView>
     );
   }
@@ -144,5 +155,53 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
-
+export default createMaterialBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        // tabBarLabel: '',
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{ color: tintColor }]} size={25} name={'md-home'} />
+          </View>),
+      }
+    },
+    Device: {
+      screen: DeviceScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{ color: tintColor }]} size={25} name={'md-easel'} />
+          </View>),
+      }, initialRouteName: 'Device'
+    },
+    Report: {
+      screen: ReportScreen,
+      navigationOptions: {
+        // tabBarLabel: 'Report',
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            {/* <Icon type="bar-chart" /> */}
+            <Icon style={[{ color: tintColor }]} size={25} name={'md-stats'} />
+          </View>),
+      }, initialRouteName: 'Report'
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        // tabBarLabel: 'Report',o
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon style={[{ color: tintColor }]} size={25} name={'md-contact'} />
+          </View>),
+      }, initialRouteName: 'Profile'
+    },
+  },
+  {
+    activeColor: '#000000',
+    activeTincolor: '#000000',
+    inactiveColor: '#000000',
+    barStyle: { backgroundColor: '#ffffff' },
+  }
+);
