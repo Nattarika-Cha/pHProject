@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Button } from 'react-native-paper';
 
 class DeviceScreen extends Component {
 
@@ -16,7 +17,7 @@ class DeviceScreen extends Component {
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>
             <TouchableOpacity >
-              <Text style={{ fontSize: 17, color: '#3ED400' }}>+ Add Device</Text>
+              <Text style={{ fontSize: 17, color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ Add Device</Text>
             </TouchableOpacity>
           </View>
         </View>

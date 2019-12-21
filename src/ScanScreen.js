@@ -12,7 +12,7 @@ console.disableYellowBox = true;
 
 class test extends Component {
   onSuccess(e) {
-    alert(e.data);
+    Linkking.openURL(e.data).catch(err => console.error('An error occured', err));
   }
 
   makeSlideOutTranslation(translationType, fromValue) {

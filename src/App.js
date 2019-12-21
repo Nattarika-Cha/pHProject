@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 import { createAppContainer } from 'react-navigation';
@@ -11,7 +12,6 @@ import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
 import ProfileEditScreen from './ProfileEditScreen';
-import EditDeviceScreen from './EditDeviceScreen';
 
 import EditdeviceScreen from './EditdeviceScreen';
 
@@ -36,47 +36,44 @@ const RootStack = createStackNavigator({
       header: null,
     }
   },
-  Device:{
+  Device: {
     screen: DeviceScreen,
     navigationOptions: {
       header: null,
     },
   },
-  Report:{
+  Report: {
     screen: ReportScreen,
     navigationOptions: {
       header: null,
     },
   },
-  Profile:{
+  Profile: {
     screen: ProfileScreen,
     navigationOptions: {
       header: null,
     },
   },
-  ProfileEdit:{
+  ProfileEdit: {
     screen: ProfileEditScreen,
     navigationOptions: {
       header: null,
     },
   },
-  Scan:{
+  Scan: {
     screen: ScanScreen,
     navigationOptions: {
       header: null,
     },
   },
-  Editdevice:{
+  Editdevice: {
     screen: EditdeviceScreen,
     navigationOptions: {
       header: null,
     },
   },
-  EditDevice:{
-    screen: EditDeviceScreen
-  },
-  
-}, { initialRouteName: 'EditDevice' },);
+
+}, { initialRouteName: 'Home' });
 
 class App extends Component {
   constructor(props) {
@@ -89,7 +86,7 @@ class App extends Component {
     return (
       // <RootStack></RootStack>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        
+
       </View>
     );
   }
