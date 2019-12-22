@@ -14,6 +14,7 @@ import ProfileEditScreen from './ProfileEditScreen';
 // import EditdeviceScreen from './EditdeviceScreen';
 import ScanScreen from './ScanScreen';
 import EditDeviceScreen from './EditDeviceScreen';
+import EditDeviceScreen2 from './EditDeviceScreen2';
 
 const RootStack = createStackNavigator({
   Login: {
@@ -70,14 +71,21 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
+  
   EditDevice:{
-    screen: EditDeviceScreen
+    screen: EditDeviceScreen,
+    navigationOptions: {
+      header: null,
+    },
   },
   EditDevice2:{
-    screen: EditDeviceScreen2
+    screen: EditDeviceScreen2,
+    navigationOptions: {
+      header: null,
+    },
   },
   
-}, { initialRouteName: 'EditDevice2' },);
+}, { initialRouteName: 'Report' },);
 
 class App extends Component {
   constructor(props) {

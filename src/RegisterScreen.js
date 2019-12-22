@@ -63,16 +63,26 @@ class RegisterScreen extends Component {
             <Button title="Back" color="#5BB95A" onPress={() => this.props.navigation.navigate('Login')} />
           </View>
 
-          <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, backgroundColor: '#ffffff', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#ffffff', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>REGISTER</Text>
             </View>
-            <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#ffffff', alignItems: 'center' }} >
-              <TouchableOpacity onPress={() => navigation.navigate('')}>
-                <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, borderWidth: 1, borderColor: '#000000', }}
-                  source={require('../img/add-img.png')}></Image>
-              </TouchableOpacity>
+            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+              <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
+                source={require('../img/user.png')}></Image>
+
+              <View style={{
+                position: 'absolute', width: 40, height: 40, borderRadius: 20
+                , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 60,
+                borderWidth: 1, borderColor: '#5BB95A'
+              }}>
+                <TouchableOpacity onPress={() => navigation.navigate('')}>
+                  <Image style={{ padding: 5, width: 30, height: 30, resizeMode: 'contain', margin: 5, }}
+                    source={require('../img/add.png')}></Image>
+                </TouchableOpacity>
+              </View>
             </View>
+            
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#ffffff', alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
                 <TextInput
@@ -202,7 +212,7 @@ const styles = StyleSheet.create({
     width: 200,
     color: "#5BB95A"
 
-},
+  },
 });
 
 export default RegisterScreen;

@@ -24,16 +24,17 @@ class HomeScreen extends React.Component {
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
+        { <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>
             <MapView initialRegion={{
               latitude: 37.78825,
               longitude: -122.4324,
+
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }} />
           </View>
-        </View>
+        </View> }
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
