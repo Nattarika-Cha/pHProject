@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
-import { View, Dimensions, Text, Image, Button } from "react-native";
+import { View, Dimensions, Text, Image, Button, Alert } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from "react-native-animatable";
+import axios from 'axios';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -12,7 +13,33 @@ console.disableYellowBox = true;
 
 class test extends Component {
   onSuccess(e) {
-    Linkking.openURL(e.data).catch(err => console.error('An error occured', err));
+    axios.post('http://165.22.250.24:3030/device/select', {
+      serialQR: e.data
+    })
+    .then((response) => {
+      if (response.data == "Add device success") {
+        Alert.alert(
+          'Success',
+          'Serial',
+          [
+            {text: 'OK', onPress: () => this.props.navigation.navigate('Device')},
+          ],
+          {cancelable: false},
+        );
+      } else {
+        Alert.alert(
+          'Error',
+          'Not device',
+          [
+            { text: 'OK' },
+          ],
+          { cancelable: false }
+        )
+      }
+      //console.log(response.data);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   makeSlideOutTranslation(translationType, fromValue) {
