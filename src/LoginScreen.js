@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, AsyncStorage, Alert } from 'react-native';
 import axios from 'axios';
 
 class LoginScreen extends Component {
@@ -21,9 +21,7 @@ class LoginScreen extends Component {
       password: this.state.password
     })
       .then((response) => {
-        if (response.data == "Login success") {
-          this.props.navigation.navigate('Home');
-        } else {
+        if (response.data === 'Email not exists' || response.data === 'Wrong password') {
           Alert.alert(
             'Error',
             response.data,
@@ -32,12 +30,31 @@ class LoginScreen extends Component {
             ],
             { cancelable: false }
           )
+        } else {
+          this._storeData(response.data);
         }
         //console.log(response.data);
       }, (error) => {
         console.log(error);
       });
   }
+
+  _storeData = async (user) => {
+    try {
+      await AsyncStorage.setItem('user',JSON.stringify(user));
+      this.props.navigation.navigate('Home');
+    } catch (error) {
+      Alert.alert(
+        'Error',
+        'เข้าสู่ระบบผิดพลาด กรุณาลองใหม่อีกครั้ง',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+    }
+  };
+  
 
   render() {
     return (
