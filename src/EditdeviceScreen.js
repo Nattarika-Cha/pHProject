@@ -18,7 +18,7 @@ class EditdeviceScreen extends Component {
   }
 
   onEdit() {
-    axios.post('http://165.22.250.24:3030/configModel/add', {
+    axios.post('http://165.22.250.24:3030/config/add', {
       name: this.state.name,
       age: this.state.age,
       area: this.state.area,
