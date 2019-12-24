@@ -12,34 +12,39 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 console.disableYellowBox = true;
 
 class test extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   onSuccess(e) {
     axios.post('http://165.22.250.24:3030/device/select', {
       serialQR: e.data
     })
-    .then((response) => {
-      if (response.data == "Add device success") {
-        Alert.alert(
-          'Success',
-          'Serial',
-          [
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Device')},
-          ],
-          {cancelable: false},
-        );
-      } else {
-        Alert.alert(
-          'Error',
-          'Not device',
-          [
-            { text: 'OK' },
-          ],
-          { cancelable: false }
-        )
-      }
-      //console.log(response.data);
-    }, (error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        console.log(response.data);
+        if (response.data == "Not Device") {
+          Alert.alert(
+            'Error',
+            'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
+            [
+              { text: 'OK' },
+            ],
+            { cancelable: false }
+          )
+        } else {
+          Alert.alert(
+            'Success',
+            response.data.serialDevice,
+            [
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+            ],
+            { cancelable: false },
+          );
+        }
+        //console.log(response.data);
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   makeSlideOutTranslation(translationType, fromValue) {
@@ -62,15 +67,15 @@ class test extends Component {
         customMarker={
           <View style={styles.rectangleContainer}>
             <View style={styles.top}>
-            <Icon
-                  name="ios-close"
-                  size={SCREEN_WIDTH * 0.15}
-                  color={iconScanColor}
-                  style={{ marginLeft: 10 }}
-                  onPress={() => {
-                    this.props.navigation.navigate('Device')
-                  }}
-                />
+              <Icon
+                name="ios-close"
+                size={SCREEN_WIDTH * 0.15}
+                color={iconScanColor}
+                style={{ marginLeft: 10 }}
+                onPress={() => {
+                  this.props.navigation.navigate('Device')
+                }}
+              />
             </View>
             <View style={styles.topOverlay}>
               <Text style={{ fontSize: 30, color: "white" }}>
@@ -82,7 +87,7 @@ class test extends Component {
               <View style={styles.leftAndRightOverlay} />
 
               <View style={styles.rectangle}>
-                  {/* scan squar black */}
+                {/* scan squar black */}
                 {/* <Icon
                   name="ios-qr-scanner"
                   size={SCREEN_WIDTH * 0.75}

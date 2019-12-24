@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
+import { withNavigation } from 'react-navigation';
+import axios from 'axios';
+
+import ShowDeviceScreen from './ShowDeviceScreen';
 
 class DeviceScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { Device: [] };
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      axios.get('http://165.22.250.24:3030/device/device_list')
+        .then(response => {
+          const Device = response.data;
+          this.setState({ Device });
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    });
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  deviceList() {
+    return this.state.Device.map(function (object, i) {
+      return <ShowDeviceScreen obj={object} key={i} />
+    });
+  }
 
   render() {
     return (
@@ -25,34 +57,7 @@ class DeviceScreen extends Component {
           <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
               {/* <Button></Button> */}
-              <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 1</Text>
-                <Text>On</Text>
-                <Text>Humidity</Text>
-              </View>
-              <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 2</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
-              </View>
-              <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 3</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
-              </View>
-              <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 4</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
-              </View>
+              {this.deviceList()}
             </View>
           </View>
         </View>
@@ -135,5 +140,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeviceScreen;
+export default withNavigation(DeviceScreen);
 
