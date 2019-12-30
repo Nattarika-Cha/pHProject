@@ -40,7 +40,7 @@ class DeviceScreen extends Component {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10 }}>
-          <Text style={styles.header}>Device</Text>
+          <Button>Device</Button>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
               source={require('../img/noti.png')}></Image>
@@ -53,15 +53,72 @@ class DeviceScreen extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
-              {/* <Button></Button> */}
-              {this.deviceList()}
+
+        <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+
+          <View style={{
+            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
+            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
+          }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
+              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
+                  source={require('../img/device.png')}></Image>
+                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
+                  <Text style={styles.headerDevice}>เครื่องที่ 1</Text>
+                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
+                    source={require('../img/on.png')}></Image>
+                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
+                      source={require('../img/can.png')}></Image>
+                    <Text style={styles.txtcanON}>ลดน้ำเมื่อ 3ชม. 5นาที</Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-        <View>
+          <View style={{
+            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
+            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
+          }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
+              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
+                  source={require('../img/device.png')}></Image>
+                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
+                  <Text style={styles.headerDevice}>เครื่องที่ 2</Text>
+                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
+                    source={require('../img/off.png')}></Image>
+                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
+                      source={require('../img/can-off.png')}></Image>
+                    <Text style={styles.txtcanOFF}>ลดน้ำเมื่อ 2 วันที่แล้ว</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={{
+            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
+            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
+          }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
+              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
+                  source={require('../img/device.png')}></Image>
+                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
+                  <Text style={styles.headerDevice}>เครื่องที่ 2</Text>
+                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
+                    source={require('../img/off.png')}></Image>
+                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
+                      source={require('../img/can-off.png')}></Image>
+                    <Text style={styles.txtcanOFF}>ลดน้ำเมื่อ 2 วันที่แล้ว</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
 
         </View>
       </ScrollView>
@@ -77,6 +134,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingVertical: 14,
     alignItems: 'center',
+  },
+  headerDevice: {
+    fontSize: 17,
+    color: '#000000',
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  txtcanON: {
+    fontSize: 15,
+    color: '#51B1FB',
+    alignItems: 'center',
+    marginLeft:10
+  },
+  txtcanOFF: {
+    fontSize: 15,
+    color: '#b7b7b7',
+    alignItems: 'center',
+    marginLeft:10
   },
   txtinput: {
     flexDirection: 'row',

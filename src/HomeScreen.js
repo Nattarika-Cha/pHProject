@@ -39,33 +39,70 @@ class HomeScreen extends React.Component {
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
               {/* <Button></Button> */}
               <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 1</Text>
-                <Text>On</Text>
-                <Text>Humidity</Text>
+
+                <Text style={{ FontSize: 15 }}>Device 1</Text>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h1.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h3.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h2.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
+                </View>
               </View>
               <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 2</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
+                <Text style={{ FontSize: 15 }}>Device 2</Text>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h1.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h3.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h2.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
+                </View>
               </View>
               <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 3</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
+                <Text style={{ FontSize: 15 }}>Device 3</Text>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h1.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h3.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h2.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
+                </View>
               </View>
-              <View style={styles.box}>
-                <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/device.png')}></Image>
-                <Text>Device 4</Text>
-                <Text>Off</Text>
-                <Text>Humidity</Text>
-              </View>
+
             </View>
           </View>
         </View>
@@ -144,16 +181,29 @@ const styles = StyleSheet.create({
   box: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingBottom: 10,
+    paddingBottom: 5,
+    paddingTop: 10,
     borderWidth: 1,
     borderColor: '#E5E5E5',
     // margin: 10 ,
     // marginRight:10, 
     marginLeft: 20,
+
     borderRadius: 10,
-    backgroundColor: '#ffffff'
-  }
+    backgroundColor: '#ffffff',
+
+
+  },
+  map: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  mapStyle: {
+    width: 80,
+    height: 80,
+  },
 });
+
 
 export default createMaterialBottomTabNavigator(
   {
