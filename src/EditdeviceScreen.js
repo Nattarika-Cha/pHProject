@@ -80,7 +80,7 @@ class EditdeviceScreen extends Component {
         <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10, }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Name Plant :
+              ชนิดพืช :
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
@@ -97,7 +97,7 @@ class EditdeviceScreen extends Component {
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Age :
+              อายุพืช :
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
@@ -117,12 +117,12 @@ class EditdeviceScreen extends Component {
               />
             </View>
             <Text style={styles.txtname}>
-              week
+              ปี
             </Text>
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
             <Text style={styles.txtname}>
-              Area :
+              ขนาดพื้นที่ :
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
@@ -142,12 +142,12 @@ class EditdeviceScreen extends Component {
               />
             </View>
             <Text style={styles.txtname}>
-              rai
+              ไร่
             </Text>
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Soil type :
+              ชนิดของดิน :
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
@@ -163,7 +163,7 @@ class EditdeviceScreen extends Component {
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              pH :
+              ค่า pH ที่พืชต้องการ :
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
@@ -185,7 +185,7 @@ class EditdeviceScreen extends Component {
           </View>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              Humidity :
+              ความชื้นที่พืชต้องการ :
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect

@@ -12,10 +12,14 @@ import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
 import ProfileEditScreen from './ProfileEditScreen';
-
 import EditdeviceScreen from './EditdeviceScreen';
-
 import ScanScreen from './ScanScreen';
+import DevicedataScreen from './DevicedataScreen';
+
+import TitleScreen from './TitleScreen';
+import ShowdeviceScreen from './ShowdeviceScreen';
+
+
 
 const RootStack = createStackNavigator({
   Login: {
@@ -72,8 +76,25 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-
-}, { initialRouteName: 'Home' });
+  Devicedata: {
+    screen: DevicedataScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Title: {
+    screen: TitleScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Showdevice: {
+    screen: ShowdeviceScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Showdevice' });
 
 class App extends Component {
   constructor(props) {

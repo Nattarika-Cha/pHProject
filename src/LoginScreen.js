@@ -60,25 +60,28 @@ class LoginScreen extends Component {
     return (
       <ImageBackground style={styles.container2} source={require('../img/bg_login.jpg')}>
         <ScrollView>
+        <View style={{ height: 200}}></View>
           <View style={{
             faex: 1, flexDirection: 'column',
             padding: 40,
             justifyContent: 'center',
             alignContent: 'center',
           }} >
-            <Text style={{ fontSize: 30 }}>Welcome to App</Text>
+            <Text style={{ fontSize: 30 , color:'#000000', fontWeight:"bold"}}>ยินดีต้อนรับ</Text>
           </View>
+        <View style={{faex: 1, flexDirection: 'column', justifyContent: 'flex-start',  alignItems: 'center', padding: 5}}>  
           <View style={{
             faex: 1, flexDirection: 'row',
             justifyContent: 'flex-start',
             alignContent: 'center',
             backgroundColor: "#FFFFFF", borderRadius: 5,
-            margin: 5
+            margin: 5,
+            width:380
           }}>
-            <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10 }} source={require('../img/email-icon.png')}></Image>
+            <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10 ,marginTop:15}} source={require('../img/email-icon.png')}></Image>
             <TextInput
-              style={{ backgroundColor: "#FFFFFF", height: 40, padding: 10 }}
-              placeholder="Username"
+              style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10 ,fontSize:15}}
+              placeholder="ชื่อผู้ใช้"
               onChangeText={(username) => this.setState({ username })}
               value={this.state.username}
             />
@@ -87,27 +90,29 @@ class LoginScreen extends Component {
             faex: 1, flexDirection: 'row',
             justifyContent: 'flex-start',
             alignContent: 'center',
-            backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5
+            backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width:380
           }}>
-            <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10 }} source={require('../img/pass.png')}></Image>
+            <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10,marginTop:15 }} source={require('../img/pass.png')}></Image>
             <TextInput
-              style={{ backgroundColor: "#FFFFFF", padding: 10, height: 40, }}
-              placeholder="Password"
+              style={{ backgroundColor: "#FFFFFF", padding: 10, height: 40, fontSize:15  }}
+              placeholder="รหัสผ่าน"
               secureTextEntry={true}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
             />
           </View>
-          <View style={{ flexDirection: "row-reverse", padding: 10 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('')}>
-              <Text style={styles.label}>Forgot your password?</Text>
-            </TouchableOpacity>
+        </View>
+        
+        <View style={{ flexDirection: "row-reverse", padding: 10, width:400 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('')}>
+            <Text style={styles.label}>ลืมรหัสผ่าน?</Text>
+          </TouchableOpacity>
+        </View>
+          <View style={styles.buttonContainer}>
+            <Button title="เข้าสู่ระบบ" color="#5BB95A" onPress={this.onButtonLogin.bind(this)} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="LOGIN" color="#5BB95A" onPress={this.onButtonLogin.bind(this)} />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button title="REGISTER" color="#5BB95A" onPress={() => this.props.navigation.navigate('Register')} />
+            <Button title="ลงทะเบียน" color="#5BB95A" onPress={() => this.props.navigation.navigate('Register')} />
           </View>
         </ScrollView>
       </ImageBackground>
@@ -121,7 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonContainer: {
-    margin: 10
+    flex:1,
+    margin: 10,
+    fontSize:15,
+    width:380,
+    marginLeft:27,
+    fontWeight:'bold'
+    
   },
   alternativeLayoutButtonContainer: {
     margin: 20,
@@ -133,9 +144,11 @@ const styles = StyleSheet.create({
     position: 'relative',
     resizeMode: 'cover'
   },
-  buttonContainer: {
-    margin: 10
-  },
+  
+  label:{
+    fontSize:15,
+    fontWeight:'bold'
+  }
 });
 
 export default LoginScreen;

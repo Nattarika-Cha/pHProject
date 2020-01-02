@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image} from 'react-native';
 import axios from 'axios';
 
-class ShowDeviceScreen extends Component {
+class ShowdeviceScreen extends Component {
 
     render() {
         return (
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ShowDeviceScreen;
+export default ShowdeviceScreen;
