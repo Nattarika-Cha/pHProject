@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
-import ShowDeviceScreen from './ShowDeviceScreen';
+import ShowDeviceScreen from './ShowdeviceScreen';
 
 class DeviceScreen extends Component {
   constructor(props) {

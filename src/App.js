@@ -19,6 +19,7 @@ import DevicedataScreen from './DevicedataScreen';
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 
+import TestScreen from './TestScreen';
 
 
 const RootStack = createStackNavigator({
@@ -94,7 +95,13 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Showdevice' });
+  Test: {
+    screen: TestScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Test' });
 
 class App extends Component {
   constructor(props) {
