@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import MapView from 'react-native-maps';
+import MapView, { Marker }from 'react-native-maps';
 class TestScreen extends Component {
   constructor(props) {
     super(props);

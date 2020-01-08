@@ -20,6 +20,7 @@ import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 
 import TestScreen from './TestScreen';
+import TestmapScreen from './TestmapScreen';
 
 
 const RootStack = createStackNavigator({
@@ -101,7 +102,13 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Home' });
+  Testmap: {
+    screen: TestmapScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Testmap' });
 
 class App extends Component {
   constructor(props) {
