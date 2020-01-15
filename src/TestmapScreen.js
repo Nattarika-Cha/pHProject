@@ -37,7 +37,7 @@ export default class TestmapScreen extends Component {
               latitude: 45.524548,
               longitude: -122.6749817,
             },
-            title: "Best Place",
+            Humidity: "Best Place",
             description: "This is the best place in Portland",
             image: Images[0],
           },
@@ -46,7 +46,7 @@ export default class TestmapScreen extends Component {
               latitude: 45.524698,
               longitude: -122.6655507,
             },
-            title: "Second Best Place",
+            Humidity: "Second Best Place",
             description: "This is the second best place in Portland",
             image: Images[1],
           },
@@ -55,7 +55,7 @@ export default class TestmapScreen extends Component {
               latitude: 45.5230786,
               longitude: -122.6701034,
             },
-            title: "Third Best Place",
+            Humidity: "Third Best Place",
             description: "This is the third best place in Portland",
             image: Images[2],
           },
@@ -64,7 +64,7 @@ export default class TestmapScreen extends Component {
               latitude: 45.521016,
               longitude: -122.6561917,
             },
-            title: "Fourth Best Place",
+            Humidity: "Fourth Best Place",
             description: "This is the fourth best place in Portland",
             image: Images[3],
           },
@@ -97,6 +97,42 @@ export default class TestmapScreen extends Component {
                     );
                 })}
         </MapView>
+        <Animated.ScrollView
+          horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={CARD_WIDTH}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: this.animation,
+                  },
+                },
+              },
+            ],
+            { useNativeDriver: true }
+          )}
+          style={styles.scrollView}
+          contentContainerStyle={styles.endPadding}
+        >
+          {this.state.markers.map((marker, index) => (
+            <View style={styles.card} key={index}>
+              <Image
+                source={marker.image}
+                style={styles.cardImage}
+                resizeMode="cover"
+              />
+              <View style={styles.textContent}>
+                <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                <Text numberOfLines={1} style={styles.cardDescription}>
+                  {marker.Humidity}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </Animated.ScrollView>
       </View>
     );
   }
@@ -165,4 +201,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
+  
 });

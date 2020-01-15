@@ -27,7 +27,7 @@ class test extends Component {
             'Error',
             'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
             [
-              { text: 'OK' },
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
             ],
             { cancelable: false }
           )

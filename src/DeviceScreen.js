@@ -55,71 +55,7 @@ class DeviceScreen extends Component {
         </View>
 
         <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
-
-          <View style={{
-            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
-          }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
-              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/device.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
-                  <Text style={styles.headerDevice}>เครื่องที่ 1</Text>
-                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
-                    source={require('../img/on.png')}></Image>
-                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
-                      source={require('../img/can.png')}></Image>
-                    <Text style={styles.txtcanON}>ลดน้ำเมื่อ 3ชม. 5นาที</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={{
-            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
-          }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
-              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/device.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
-                  <Text style={styles.headerDevice}>เครื่องที่ 2</Text>
-                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
-                    source={require('../img/off.png')}></Image>
-                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
-                      source={require('../img/can-off.png')}></Image>
-                    <Text style={styles.txtcanOFF}>ลดน้ำเมื่อ 2 วันที่แล้ว</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={{
-            flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
-          }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
-              <View style={{ flexDirection: 'row', faex:1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/device.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
-                  <Text style={styles.headerDevice}>เครื่องที่ 2</Text>
-                  <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
-                    source={require('../img/off.png')}></Image>
-                  <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5,marginTop:10, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
-                      source={require('../img/can-off.png')}></Image>
-                    <Text style={styles.txtcanOFF}>ลดน้ำเมื่อ 2 วันที่แล้ว</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-
+          {this.deviceList()}
         </View>
       </ScrollView>
     );

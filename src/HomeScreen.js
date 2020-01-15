@@ -1,122 +1,169 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, Alert, Dimensions, Animated } from 'react-native';
 // import { createAppContainer } from 'react-navigation';
-// import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import { Icon } from 'antd';
+
 import DeviceScreen from './DeviceScreen'
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
+import MapView from "react-native-maps";
 
-// import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-// import { BottomNavigationAction } from '@material-ui/core';
-// import { AccessAlarm } from '@material-ui/icons';
-// import RestoreIcon from '@material-ui/icons/Restore';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import LocationOnIcon from '@material-ui/icons/LocationOn';
+const Images = [
+  { uri: "https://i.imgur.com/sNam9iJ.jpg" },
+  { uri: "https://i.imgur.com/N7rlQYt.jpg" },
+  { uri: "https://i.imgur.com/UDrH0wm.jpg" },
+  { uri: "https://i.imgur.com/Ka8kNST.jpg" }
+]
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = height / 4;
+const CARD_WIDTH = CARD_HEIGHT - 50;
 
 class HomeScreen extends React.Component {
-  render() {
-    // const [value, setValue] = React.useState('recents');
 
-    // const handleChange = (event, newValue) => {
-    //   setValue(newValue);
-    // };
+  componentWillMount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    markers: [
+      {
+        coordinate: {
+          latitude: 45.524548,
+          longitude: -122.6749817,
+        },
+        Humidity: "35 C",
+        pH: "5.5",
+        image: Images[0],
+      },
+      {
+        coordinate: {
+          latitude: 45.524698,
+          longitude: -122.6655507,
+        },
+        Humidity: "35 C",
+        pH: "5.5",
+        image: Images[1],
+      },
+      {
+        coordinate: {
+          latitude: 45.5230786,
+          longitude: -122.6701034,
+        },
+        Humidity: " 35 C",
+        pH: "6.0",
+        image: Images[2],
+      },
+      {
+        coordinate: {
+          latitude: 45.521016,
+          longitude: -122.6561917,
+        },
+        Humidity: " 35 C",
+        pH: "6.0",
+        image: Images[3],
+      },
+      {
+        coordinate: {
+          latitude: 45.521016,
+          longitude: -122.6561917,
+        },
+        Humidity: " 35 C",
+        pH: "6.0",
+        image: Images[3],
+      },
+    ],
+    region: {
+      latitude: 45.52220671242907,
+      longitude: -122.6653281029795,
+      latitudeDelta: 0.04864195044303443,
+      longitudeDelta: 0.040142817690068,
+    },
+  };
+  }
+
+  render() {
 
     return (
-      <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10 }}>
-          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 10 }}>Bangkok, Thailand</Text>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 10 }}>
+      
+      <View style={styles.container}>
+        
+        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor:'#FFF' }}>
+          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 0, alignItems:'center' }}>Bangkok, Thailand</Text>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
-              {/* <Button></Button> */}
-              <View style={styles.box}>
-
-                <Text style={{ FontSize: 15 }}>Device 1</Text>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h1.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h3.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h2.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
-                </View>
-              </View>
-              <View style={styles.box}>
-                <Text style={{ FontSize: 15 }}>Device 2</Text>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h1.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h3.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h2.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
-                </View>
-              </View>
-              <View style={styles.box}>
-                <Text style={{ FontSize: 15 }}>Device 3</Text>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h1.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>35°c</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h3.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>5.6</Text>
-                </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h2.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>60%</Text>
-                </View>
+      
+        <MapView
+            ref={map => this.map = map}
+            initialRegion={this.state.region}
+            style={styles.container}
+            >
+                {this.state.markers.map((marker, index) => {
+                    return (
+                    <MapView.Marker key={index} coordinate={marker.coordinate}>
+                        <Animated.View style={[styles.markerWrap]}>
+                        <Animated.View style={[styles.ring]} />
+                        <View style={styles.marker} />
+                        </Animated.View>
+                    </MapView.Marker>
+                    );
+                })}
+        </MapView>
+      
+      <View >
+        <Animated.ScrollView
+          horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={CARD_WIDTH}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: this.animation,
+                  },
+                },
+              },
+            ],
+            { useNativeDriver: true }
+          )}
+          style={styles.scrollView}
+          contentContainerStyle={styles.endPadding}
+        >
+          {this.state.markers.map((marker, index) => (
+            <View style={styles.card} key={index}>
+              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                      source={require('../img/h1.png')}></Image>
+                <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
               </View>
 
+              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h3.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text> 
+                <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+              </View>
+              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h2.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
+              </View>
             </View>
-          </View>
-        </View>
-        <View>
-
-        </View>
-
-        {/* <BottomNavigation value={value} onChange={handleChange}>
-          <BottomNavigationAction label="Recents" value="recents" icon={<AccessAlarm />} />
-          <BottomNavigationAction label="Favorites" value="favorites" icon={<AccessAlarm />} />
-          <BottomNavigationAction label="Nearby" value="nearby" icon={<AccessAlarm />} />
-          <BottomNavigationAction label="Folder" value="folder" icon={<AccessAlarm />} />
-        </BottomNavigation> */}
-      </ScrollView>
+          ))}
+        </Animated.ScrollView> 
+      </View>
+      </View>
     );
   }
 
@@ -143,7 +190,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
   },
   inputContainer: {
     marginRight: 20,
@@ -202,6 +249,67 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
   },
+  scrollView: {
+    position: "absolute",
+    bottom: 30,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+  },
+  endPadding: {
+    paddingRight: width - CARD_WIDTH,
+  },
+  card: {
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "#FFF",
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: { x: 2, y: -2 },
+    height: CARD_HEIGHT,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardImage: {
+    flex: 3,
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+  },
+  textContent: {
+    flex: 1,
+  },
+  cardtitle: {
+    fontSize: 12,
+    marginTop: 5,
+    fontWeight: "bold",
+  },
+  cardDescription: {
+    fontSize: 12,
+    color: "#444",
+  },
+  markerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  marker: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "rgba(130,4,150, 0.9)",
+  },
+  ring: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "rgba(130,4,150, 0.3)",
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "rgba(130,4,150, 0.5)",
+  },
+  
 });
 
 
