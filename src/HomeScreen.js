@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, Alert, Dimensions, Animated } from 'react-native';
 // import { createAppContainer } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-import DeviceScreen from './DeviceScreen'
-import ReportScreen from './ReportScreen'
-import ProfileScreen from './ProfileScreen'
 import MapView from "react-native-maps";
+import { withNavigation } from 'react-navigation';
+import axios from 'axios';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -26,143 +22,177 @@ class HomeScreen extends React.Component {
     this.animation = new Animated.Value(0);
   }
 
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-    markers: [
-      {
-        coordinate: {
-          latitude: 45.524548,
-          longitude: -122.6749817,
+      markers: [
+        {
+          coordinate: {
+            latitude: 45.524548,
+            longitude: -122.6749817,
+          },
+          Humidity: "35 C",
+          pH: "5.5",
+          image: Images[0],
         },
-        Humidity: "35 C",
-        pH: "5.5",
-        image: Images[0],
-      },
-      {
-        coordinate: {
-          latitude: 45.524698,
-          longitude: -122.6655507,
+        {
+          coordinate: {
+            latitude: 45.524698,
+            longitude: -122.6655507,
+          },
+          Humidity: "35 C",
+          pH: "5.5",
+          image: Images[1],
         },
-        Humidity: "35 C",
-        pH: "5.5",
-        image: Images[1],
-      },
-      {
-        coordinate: {
-          latitude: 45.5230786,
-          longitude: -122.6701034,
+        {
+          coordinate: {
+            latitude: 45.5230786,
+            longitude: -122.6701034,
+          },
+          Humidity: " 35 C",
+          pH: "6.0",
+          image: Images[2],
         },
-        Humidity: " 35 C",
-        pH: "6.0",
-        image: Images[2],
-      },
-      {
-        coordinate: {
-          latitude: 45.521016,
-          longitude: -122.6561917,
+        {
+          coordinate: {
+            latitude: 45.521016,
+            longitude: -122.6561917,
+          },
+          Humidity: " 35 C",
+          pH: "6.0",
+          image: Images[3],
         },
-        Humidity: " 35 C",
-        pH: "6.0",
-        image: Images[3],
-      },
-      {
-        coordinate: {
-          latitude: 45.521016,
-          longitude: -122.6561917,
+        {
+          coordinate: {
+            latitude: 45.521016,
+            longitude: -122.6561917,
+          },
+          Humidity: " 35 C",
+          pH: "6.0",
+          image: Images[3],
         },
-        Humidity: " 35 C",
-        pH: "6.0",
-        image: Images[3],
+      ],
+      region: {
+        latitude: 45.52220671242907,
+        longitude: -122.6653281029795,
+        latitudeDelta: 0.04864195044303443,
+        longitudeDelta: 0.040142817690068,
       },
-    ],
-    region: {
-      latitude: 45.52220671242907,
-      longitude: -122.6653281029795,
-      latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068,
-    },
-  };
+      Device: []
+    };
+  }
+
+  componentDidMount() {
+    var device = [];
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      axios.get('http://165.22.250.24:3030/device/device_list')
+        .then(response => {
+          const Device = response.data;
+          this.setState({ Device });
+          for (let i = 0; i < this.state.Device.length; i++) {
+            // console.log(i);
+            device[i] = {
+              coordinate: {
+                latitude: 45.524548,
+                longitude: -122.6749817,
+              },
+              Humidity: "35 C",
+              pH: "5.5",
+              image: Images[0],
+            }
+          }
+          this.setState({ Device:device });
+          // console.log(device);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        })
+    });
   }
 
   render() {
 
     return (
-      
+
       <View style={styles.container}>
-        
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor:'#FFF' }}>
-          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 0, alignItems:'center' }}>Bangkok, Thailand</Text>
+
+        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
+          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 0, alignItems: 'center' }}>Bangkok, Thailand</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-      
+
         <MapView
-            ref={map => this.map = map}
-            initialRegion={this.state.region}
-            style={styles.container}
-            >
-                {this.state.markers.map((marker, index) => {
-                    return (
-                    <MapView.Marker key={index} coordinate={marker.coordinate}>
-                        <Animated.View style={[styles.markerWrap]}>
-                        <Animated.View style={[styles.ring]} />
-                        <View style={styles.marker} />
-                        </Animated.View>
-                    </MapView.Marker>
-                    );
-                })}
+          ref={map => this.map = map}
+          initialRegion={this.state.region}
+          style={styles.container}
+        >
+          {this.state.markers.map((marker, index) => {
+            return (
+              <MapView.Marker key={index} coordinate={marker.coordinate}>
+                <Animated.View style={[styles.markerWrap]}>
+                  <Animated.View style={[styles.ring]} />
+                  <View style={styles.marker} />
+                </Animated.View>
+              </MapView.Marker>
+            );
+          })}
         </MapView>
-      
-      <View >
-        <Animated.ScrollView
-          horizontal
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={CARD_WIDTH}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    x: this.animation,
+
+        <View >
+          <Animated.ScrollView
+            horizontal
+            scrollEventThrottle={1}
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={CARD_WIDTH}
+            onScroll={Animated.event(
+              [
+                {
+                  nativeEvent: {
+                    contentOffset: {
+                      x: this.animation,
+                    },
                   },
                 },
-              },
-            ],
-            { useNativeDriver: true }
-          )}
-          style={styles.scrollView}
-          contentContainerStyle={styles.endPadding}
-        >
-          {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index}>
-              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h1.png')}></Image>
-                <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-              </View>
+              ],
+              { useNativeDriver: true }
+            )}
+            style={styles.scrollView}
+            contentContainerStyle={styles.endPadding}
+          >
+            {this.state.Device.map((marker, index) => (
+              <View style={styles.card} key={index}>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                    source={require('../img/h1.png')}></Image>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                </View>
 
-              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                   <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
                     source={require('../img/h3.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text> 
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-              </View>
-              <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                  <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                </View>
+                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                   <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
                     source={require('../img/h2.png')}></Image>
                   <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
+                  <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
+                </View>
               </View>
-            </View>
-          ))}
-        </Animated.ScrollView> 
-      </View>
+            ))}
+          </Animated.ScrollView>
+        </View>
       </View>
     );
   }
@@ -309,57 +339,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
-  
+
 });
 
-
-export default createMaterialBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        // tabBarLabel: '',
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-home'} />
-          </View>),
-      }
-    },
-    Device: {
-      screen: DeviceScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-easel'} />
-          </View>),
-      }, initialRouteName: 'Device'
-    },
-    Report: {
-      screen: ReportScreen,
-      navigationOptions: {
-        // tabBarLabel: 'Report',
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            {/* <Icon type="bar-chart" /> */}
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-stats'} />
-          </View>),
-      }, initialRouteName: 'Report'
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        // tabBarLabel: 'Report',o
-        tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-contact'} />
-          </View>),
-      }, initialRouteName: 'Profile'
-    },
-  },
-  {
-    activeColor: '#000000',
-    activeTincolor: '#000000',
-    inactiveColor: '#000000',
-    barStyle: { backgroundColor: '#ffffff' },
-  }
-);
+export default withNavigation(HomeScreen);
