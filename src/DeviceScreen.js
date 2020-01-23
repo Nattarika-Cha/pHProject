@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
 import ShowdeviceScreen from './ShowdeviceScreen';
+
+var token = '';
 
 class DeviceScreen extends Component {
   constructor(props) {
@@ -12,17 +14,50 @@ class DeviceScreen extends Component {
     this.state = { Device: [] };
   }
 
+  _retrieveData = async () => {
+    //console.log("test");
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        //console.log(data.token);
+        token = data.token;
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
   componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
-      axios.get('http://165.22.250.24:3030/device/device_list')
-        .then(response => {
-          const Device = response.data;
-          this.setState({ Device });
+      this._retrieveData();
+      //console.log(token);
+      if (token != '') {
+        axios.get('http://165.22.250.24:3030/device/device_list', {
+          params: {
+            token: token
+          }
         })
-        .catch(function (error) {
-          console.log(error);
-        })
+          .then(response => {
+            const Device = response.data;
+            this.setState({ Device });
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      } else {
+        Alert.alert(
+          'Error',
+          'หมดอายุเข้าใช้งาน',
+          [
+            { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+          ],
+          { cancelable: false }
+        )
+      }
     });
   }
 
@@ -81,13 +116,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#51B1FB',
     alignItems: 'center',
-    marginLeft:10
+    marginLeft: 10
   },
   txtcanOFF: {
     fontSize: 15,
     color: '#b7b7b7',
     alignItems: 'center',
-    marginLeft:10
+    marginLeft: 10
   },
   txtinput: {
     flexDirection: 'row',
