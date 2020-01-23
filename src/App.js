@@ -7,7 +7,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
-import HomeScreen from './HomeScreen';
+import HomeScreen from './NavigatorBar';
 import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
@@ -20,7 +20,7 @@ import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 
 import TestScreen from './TestScreen';
-import TestmapScreen from './TestmapScreen';
+
 
 
 const RootStack = createStackNavigator({
@@ -98,12 +98,6 @@ const RootStack = createStackNavigator({
   },
   Test: {
     screen: TestScreen,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Testmap: {
-    screen: TestmapScreen,
     navigationOptions: {
       header: null,
     },

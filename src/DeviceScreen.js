@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
-import ShowDeviceScreen from './ShowdeviceScreen';
+import ShowdeviceScreen from './ShowdeviceScreen';
 
 class DeviceScreen extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class DeviceScreen extends Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      return <ShowDeviceScreen obj={object} key={i} />
+      return <ShowdeviceScreen obj={object} key={i} />
     });
   }
 
