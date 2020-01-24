@@ -16,6 +16,24 @@ class ProfileEditScreen extends Component {
     };
   }
 
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        console.log(value);
+      }
+    } catch (error) {
+      Alert.alert(
+        'Error',
+        'ดึงข้อมูลผิดพลาด กรุณาลองใหม่',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+    }
+  };
+
   // static navigationOptions = {
   //   title: 'Register',
   // };
@@ -55,6 +73,7 @@ class ProfileEditScreen extends Component {
   }
 
   render() {
+    this._retrieveData();
     return (
       <ScrollView style={{backgroundColor:'#FAFAFA'}}> 
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
