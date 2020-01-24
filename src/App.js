@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
-import HomeScreen from './HomeScreen';
+import HomeScreen from './NavigatorBar';
 import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
@@ -15,12 +13,11 @@ import ProfileEditScreen from './ProfileEditScreen';
 import EditdeviceScreen from './EditdeviceScreen';
 import ScanScreen from './ScanScreen';
 import DevicedataScreen from './DevicedataScreen';
-
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
-
 import TestScreen from './TestScreen';
-import TestmapScreen from './TestmapScreen';
+import SettingScreen from './SettingScreen';
+import ManualScreen from './ManualScreen';
 
 
 const RootStack = createStackNavigator({
@@ -102,13 +99,25 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  Testmap: {
-    screen: TestmapScreen,
+  Setting : {
+    screen: SettingScreen,
     navigationOptions: {
       header: null,
     },
   },
-}, { initialRouteName: 'ProfileEdit' });
+  Manual: {
+    screen: ManualScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  // Testmap: {
+  //   screen: TestmapScreen,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+}, { initialRouteName: 'Manual' });
 
 class App extends Component {
   constructor(props) {
