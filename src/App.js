@@ -97,13 +97,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  Testchart:{
-    screen: Testchart,
-    navigationOptions: {
-      header: null,
-    },
-  },
-}, { initialRouteName: 'Testchart' });
+}, { initialRouteName: 'Login' });
 
 class App extends Component {
   constructor(props) {

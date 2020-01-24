@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Dimensions, Text, Image, Button, Alert } from "react-native";
+import { View, Dimensions, Text, Image, Button, Alert, AsyncStorage } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from "react-native-animatable";
@@ -9,6 +9,8 @@ import axios from 'axios';
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
+var token = '';
+
 console.disableYellowBox = true;
 
 class test extends Component {
@@ -16,35 +18,65 @@ class test extends Component {
     super(props);
   }
 
+  _retrieveData = async () => {
+    //console.log("test");
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        //console.log(data.token);
+        token = data.token;
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
   onSuccess(e) {
-    axios.post('http://165.22.250.24:3030/device/select', {
-      serialQR: e.data
-    })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data == "Not Device") {
-          Alert.alert(
-            'Error',
-            'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
-            [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
-            ],
-            { cancelable: false }
-          )
-        } else {
-          Alert.alert(
-            'Success',
-            response.data.serialDevice,
-            [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
-            ],
-            { cancelable: false },
-          );
-        }
-        //console.log(response.data);
-      }, (error) => {
-        console.log(error);
-      });
+    //console.log(token);
+    this._retrieveData();
+    if (token != '') {
+      axios.post('http://165.22.250.24:3030/device/select', {
+        serialQR: e.data,
+        token: token
+      })
+        .then((response) => {
+          // console.log(response.data);
+          if (response.data == "Not Device") {
+            Alert.alert(
+              'Error',
+              'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false }
+            )
+          } else {
+            Alert.alert(
+              'Success',
+              response.data.serialDevice,
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false },
+            );
+          }
+          //console.log(response.data);
+        }, (error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert(
+        'Error',
+        'หมดอายุเข้าใช้งาน',
+        [
+          { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+        ],
+        { cancelable: false }
+      )
+    }
   }
 
   makeSlideOutTranslation(translationType, fromValue) {
