@@ -6,11 +6,11 @@ class ShowdeviceScreen extends Component {
 
     deviceList() {
         if(this.props.obj.status == 'ON'){
-            console.log("ON");
+            // console.log("ON");
             return <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
             source={require('../img/on.png')}></Image>
         } else {
-            console.log("OFF");
+            // console.log("OFF");
             return <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
             source={require('../img/off.png')}></Image>
         }

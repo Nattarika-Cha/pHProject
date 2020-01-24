@@ -6,23 +6,55 @@ import axios from 'axios';
 
 import ShowdeviceScreen from './ShowdeviceScreen';
 
-var token = '';
+// var token = '';
+var status = 0;
 
 class DeviceScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { Device: [] };
+    this.state = { Device: [], token: '' };
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
   }
 
   _retrieveData = async () => {
-    //console.log("test");
+    status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
         // We have data!!
         var data = JSON.parse(value);
         //console.log(data.token);
-        token = data.token;
+        this.setState({ token: data.token });
+        if (this.state.token != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/device/device_list', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const Device = response.data;
+              this.setState({ Device });
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
       }
     } catch (error) {
       // Error retrieving data
@@ -34,35 +66,34 @@ class DeviceScreen extends Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
-      //console.log(token);
-      if (token != '') {
-        axios.get('http://165.22.250.24:3030/device/device_list', {
-          params: {
-            token: token
-          }
-        })
-          .then(response => {
-            const Device = response.data;
-            this.setState({ Device });
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      } else {
-        Alert.alert(
-          'Error',
-          'หมดอายุเข้าใช้งาน',
-          [
-            { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-          ],
-          { cancelable: false }
-        )
-      }
+      // if (this.state.token != '') {
+      //   status = 0;
+      //   axios.get('http://165.22.250.24:3030/device/device_list', {
+      //     params: {
+      //       token: this.state.token
+      //     }
+      //   })
+      //     .then(response => {
+      //       const Device = response.data;
+      //       this.setState({ Device });
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     })
+      // } else {
+      //   if (status == 5) {
+      //     status = 0;
+      //     Alert.alert(
+      //       'Error',
+      //       'หมดอายุเข้าใช้งาน',
+      //       [
+      //         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+      //       ],
+      //       { cancelable: false }
+      //     )
+      //   }
+      // }
     });
-  }
-
-  componentWillUnmount() {
-    this.focusListener.remove();
   }
 
   deviceList() {
