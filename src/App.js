@@ -16,7 +16,8 @@ import DevicedataScreen from './DevicedataScreen';
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
-import Testchart from './Testchart';
+import ChartScreen from './ChartScreen';
+import ShowreportScreen from './ShowreportScreen';
 
 const RootStack = createStackNavigator({
   Login: {
@@ -97,7 +98,19 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Login' });
+  ChartScreen: {
+    screen: ChartScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Showreport: {
+    screen: ShowreportScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Devicedata' });
 
 class App extends Component {
   constructor(props) {

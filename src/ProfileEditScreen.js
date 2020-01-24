@@ -113,6 +113,10 @@ class ProfileEditScreen extends Component {
                 <RNPickerSelect
                   onValueChange={(gender) => this.setState({ gender })}
                   title="เพศ"
+                  placeholder={{
+                    label: 'เพศ',
+                    value: '',
+                  }}
                   items={[
                     { label: 'ชาย', value: 'Male' },
                     { label: 'หญิง', value: 'Female' },

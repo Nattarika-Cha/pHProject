@@ -85,6 +85,10 @@ class EditdeviceScreen extends Component {
             <View style={styles.select}>
               <RNPickerSelect
                 onValueChange={(name) => this.setState({name})}
+                placeholder={{
+                  label: 'พืช',
+                  value: '',
+                }}
                 items={[
                   { label: 'ลำไย', value: 'ลำไย' },
                   { label: 'ส้มโอ', value: 'ส้มโอ' },
@@ -102,6 +106,10 @@ class EditdeviceScreen extends Component {
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
                 onValueChange={(age) => this.setState({age})}
+                placeholder={{
+                  label: 'อายุ',
+                  value: '',
+                }}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -127,6 +135,10 @@ class EditdeviceScreen extends Component {
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
                 onValueChange={(area) => this.setState({area})}
+                placeholder={{
+                  label: 'ขนาดพื้นที่',
+                  value: '',
+                }}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -152,6 +164,10 @@ class EditdeviceScreen extends Component {
             <View style={styles.select}>
               <RNPickerSelect
                 onValueChange={(soil_type) => this.setState({soil_type})}
+                placeholder={{
+                  label: 'ชนิดดิน',
+                  value: '',
+                }}
                 items={[
                   { label: 'ดินร่วน', value: 'ดินร่วน' },
                   { label: 'ดินทราย', value: 'ดินทราย' },
@@ -168,6 +184,10 @@ class EditdeviceScreen extends Component {
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
                 onValueChange={(pH) => this.setState({pH})}
+                placeholder={{
+                  label: 'ค่า pH ',
+                  value: '',
+                }}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
@@ -190,6 +210,10 @@ class EditdeviceScreen extends Component {
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
                 onValueChange={(humidity) => this.setState({humidity})}
+                placeholder={{
+                  label: 'ค่าความชื้น',
+                  value: '',
+                }}
                 items={[
                   { label: '1', value: '1' },
                   { label: '2', value: '2' },
