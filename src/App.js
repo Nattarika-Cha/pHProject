@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
@@ -15,13 +13,10 @@ import ProfileEditScreen from './ProfileEditScreen';
 import EditdeviceScreen from './EditdeviceScreen';
 import ScanScreen from './ScanScreen';
 import DevicedataScreen from './DevicedataScreen';
-
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
-
 import TestScreen from './TestScreen';
-
-
+import Testchart from './Testchart';
 
 const RootStack = createStackNavigator({
   Login: {
@@ -102,7 +97,13 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Home' });
+  Testchart:{
+    screen: Testchart,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Testchart' });
 
 class App extends Component {
   constructor(props) {

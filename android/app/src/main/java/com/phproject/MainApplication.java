@@ -1,5 +1,6 @@
 package com.phproject;
 
+import com.horcrux.svg.SvgPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -15,6 +16,7 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
+  
       new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
@@ -23,6 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
+          new SvgPackage();
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
