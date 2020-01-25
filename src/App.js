@@ -19,6 +19,9 @@ import TestScreen from './TestScreen';
 import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
 import CameraScreen from './CameraScreen'
+import ForgotpasslScreen from './ForgotpasslScreen';
+
+import ShowdeviceHome from './ShowdeviceHome';
 
 
 const RootStack = createStackNavigator({
@@ -118,7 +121,13 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Camera' });
+  Forgotpassl: {
+    screen: ForgotpasslScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Login' });
 
 class App extends Component {
   constructor(props) {

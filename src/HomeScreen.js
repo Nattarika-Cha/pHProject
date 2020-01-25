@@ -19,7 +19,7 @@ const CARD_WIDTH = CARD_HEIGHT - 50;
 
 //var token = '';
 var status = 0;
-
+var pop = [];
 class HomeScreen extends React.Component {
 
   componentWillMount() {
@@ -33,6 +33,7 @@ class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    pop = this.props;
     this.state = {
       markers: [
         {
@@ -92,7 +93,7 @@ class HomeScreen extends React.Component {
     };
   }
 
-  _retrieveData = async () => { 
+  _retrieveData = async () => {
     var device = [];
     status += 1;
     try {
@@ -202,13 +203,61 @@ class HomeScreen extends React.Component {
   }
 
   deviceList() {
+    // for(let i=0;i< this.state.Device.length;i++) {
+    //   return <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}>
+    //     <View style={styles.card}>
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h1.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardtitle}>{this.state.Device[i].Humidity} </Text>
+    //       </View>
+
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h3.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardtitle}>{this.state.Device[i].Humidity}</Text>
+    //       </View>
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h2.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardDescription}>{this.state.Device[i].pH}</Text>
+    //       </View>
+    //     </View>
+    //   </TouchableOpacity>
+    // }
     return this.state.Device.map(function (object, i) {
-      return <ShowdeviceHome obj={object} key={i} />
+      return <ShowdeviceHome obj={object} key={i} pop={pop}/>
+    //   return <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}>
+    //     <View style={styles.card}>
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h1.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardtitle}>{object.Humidity} </Text>
+    //       </View>
+
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h3.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardtitle}>{object.Humidity}</Text>
+    //       </View>
+    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+    //           source={require('../img/h2.png')}></Image>
+    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+    //         <Text numberOfLines={1} style={styles.cardDescription}>{object.pH}</Text>
+    //       </View>
+    //     </View>
+    //   </TouchableOpacity>
     });
   }
 
   render() {
-    // console.log("status: " + status);
+    // console.log(this.props);
     return (
       <View style={styles.container}>
 
@@ -259,7 +308,9 @@ class HomeScreen extends React.Component {
             style={styles.scrollView}
             contentContainerStyle={styles.endPadding}
           >
+            {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}> */}
             {this.deviceList()}
+            {/* </TouchableOpacity> */}
             {/* {this.state.Device.map((marker, index) => (
               <View style={styles.card} key={index}>
                 <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>

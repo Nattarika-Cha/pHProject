@@ -1,34 +1,43 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image , Dimensions} from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, Button } from 'react-native';
+// import { navigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
 class ShowdeviceHome extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
     render() {
         return (
-            <View style={styles.card}>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                        source={require('../img/h1.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity}</Text>
-                </View>
+            <TouchableOpacity onPress={() => this.props.pop.navigation.navigate('Devicedata')}>
+                <View style={styles.card}>
+                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                        <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                            source={require('../img/h1.png')}></Image>
+                        <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                        <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
+                    </View>
 
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                        source={require('../img/h3.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity}</Text>
+                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                        <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                            source={require('../img/h3.png')}></Image>
+                        <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                        <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity}</Text>
+                    </View>
+                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                        <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                            source={require('../img/h2.png')}></Image>
+                        <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                        <Text numberOfLines={1} style={styles.cardDescription}>{this.props.obj.pH}</Text>
+                    </View>
                 </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                        source={require('../img/h2.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardDescription}>{this.props.obj.pH}</Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
