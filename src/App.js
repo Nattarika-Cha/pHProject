@@ -18,6 +18,7 @@ import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
 import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
+import CameraScreen from './CameraScreen'
 
 
 const RootStack = createStackNavigator({
@@ -111,7 +112,13 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Login' });
+  Camera: {
+    screen: CameraScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Camera' });
 
 class App extends Component {
   constructor(props) {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Text,Linking, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
@@ -97,7 +96,7 @@ class ProfileScreen extends Component {
   }
 
   componentDidMount(){ //
-    const { navigation} = this.props;
+    const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus' , () => {
       this._retrieveData();
     });
@@ -118,7 +117,7 @@ class ProfileScreen extends Component {
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <TouchableOpacity>
             <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/setting.png')}></Image>

@@ -121,8 +121,7 @@ class ProfileEditScreen extends Component {
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
             <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-              source={require('../img/back.png')} 
-              onPress={() => {this.props.navigation.navigate('Profile')}}></Image>
+              source={require('../img/back.png')}></Image>
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems:'center' }}>
@@ -192,6 +191,8 @@ class ProfileEditScreen extends Component {
                   placeholder="ชื่อผู้ใช้"
                   onChangeText={(username) => this.setState({ username })}
                   value={this.state.username}
+                  // display: "none"
+                  editable={false}
                 />
               </View>
               {/* <View style={styles.txtinput}>

@@ -1,5 +1,6 @@
 package com.phproject;
 
+// import com.wix.RNCameraKit.RNCameraKitPackage;
 import com.horcrux.svg.SvgPackage;
 import android.app.Application;
 import android.content.Context;
@@ -25,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
+          // new RNCameraKitPackage();
           new SvgPackage();
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
