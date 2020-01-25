@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
 
 class DevicedataScreen extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//     };
-//   }
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   render() {
     return (
@@ -18,7 +18,7 @@ class DevicedataScreen extends Component {
           </View>
           <Text style={styles.header}>เครื่องที่ 1</Text>
           <TouchableOpacity >
-            <Text style={{ fontSize: 17, color: '#00000', margin: 10, marginTop: 21, fontWeight: 'bold' }}>แก้ไข</Text>
+            <Text style={{ fontSize: 17, color: '#00000', margin: 10, marginTop: 21, fontWeight: 'bold' }} onPress={() => {this.props.navigation.navigate('Editdevice')}}>แก้ไข</Text>
           </TouchableOpacity>
         </View>
 

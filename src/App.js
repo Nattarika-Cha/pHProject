@@ -19,6 +19,8 @@ import TestScreen from './TestScreen';
 import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
 
+import ShowdeviceHome from './ShowdeviceHome';
+
 
 const RootStack = createStackNavigator({
   Login: {
@@ -107,6 +109,12 @@ const RootStack = createStackNavigator({
   },
   Manual: {
     screen: ManualScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  ShowdeviceHome: {
+    screen: ShowdeviceHome,
     navigationOptions: {
       header: null,
     },
