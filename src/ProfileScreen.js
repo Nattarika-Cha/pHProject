@@ -1,38 +1,83 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View,Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert ,fontFamily ,AsyncStorage } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { withNavigation } from 'react-navigation';
+import axios from 'axios';
 
+var status = 0;
 class ProfileScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+      fname: '',
+      lname: ''
+    };
   }
 
-  _removeData = async () => {
-    try {
-      await AsyncStorage.removeItem('user');
-      this.props.navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert(
-        'Error',
-        'ออกสู่ระบบผิดพลาด กรุณาลองใหม่',
-        [
-          { text: 'OK' },
-        ],
-        { cancelable: false }
-      )
-    }
-  };
+  // _removeData = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('user');
+  //     this.props.navigation.navigate('Login');
+  //   } catch (error) {
+  //     Alert.alert(
+  //       'Error',
+  //       'ออกสู่ระบบผิดพลาด กรุณาลองใหม่',
+  //       [
+  //         { text: 'OK' },
+  //       ],
+  //       { cancelable: false }
+  //     )
+  //   }
+  // };
 
-  clearAsyncStorage = async() => {
+  clearAsyncStorage = async () => {
     AsyncStorage.clear();
     this.props.navigation.navigate('Login');
-}
+  }
 
   _retrieveData = async () => {
+    status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
-        console.log(value);
+        var data = JSON.parse(value);
+        this.setState({ username: data.username });
+        if (this.state.username != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/user/pro', {
+            params: {
+              username: this.state.username
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              this.setState({
+                fname: response.data.fname,
+                lname: response.data.lname,
+                gender: response.data.gender,
+              });
+              // console.log(this.state.Device.length);
+              // console.log(this.state.Device);
+
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
       }
     } catch (error) {
       Alert.alert(
@@ -43,8 +88,20 @@ class ProfileScreen extends Component {
         ],
         { cancelable: false }
       )
+      //console.log(error);
     }
   };
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  componentDidMount(){ //
+    const { navigation} = this.props;
+    this.focusListener = navigation.addListener('didFocus' , () => {
+      this._retrieveData();
+    });
+  }
 
   render() {
     return (
@@ -54,36 +111,36 @@ class ProfileScreen extends Component {
             <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, }}
               source={require('../img/user.png')}></Image>
           </View>
-          <Text style={styles.header2}>Name......................</Text>
+          <Text style={styles.header2}>{this.state.fname} {this.state.lname}</Text>
           <View style={styles.button}>
-            <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('ProfileEdit')}/>
-          </View> 
+            <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('ProfileEdit')} />
+          </View>
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('')}>
-          <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
-              source={require('../img/setting.png')}></Image>
-            <Text style={styles.header3}> ตั้งค่า </Text>
-          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('')}>
+            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+                source={require('../img/setting.png')}></Image>
+              <Text style={styles.header3}> ตั้งค่า </Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
-          <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
-              source={require('../img/help.png')}></Image>
-            <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
-          </View>
+            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+                source={require('../img/help.png')}></Image>
+              <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.clearAsyncStorage.bind(this)}>
-          <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
-              source={require('../img/log-out.png')}></Image>
-            <Text style={styles.header3}> ออกจากระบบ </Text>
-          </View>
+            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+                source={require('../img/log-out.png')}></Image>
+              <Text style={styles.header3}> ออกจากระบบ </Text>
+            </View>
           </TouchableOpacity>
         </View>
-        </View>
+      </View>
     );
   }
 }
@@ -104,7 +161,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header3: {
-    fontFamily:'Prompt',
+    fontFamily: 'Prompt',
     fontSize: 17,
     color: '#000000',
 
@@ -137,9 +194,9 @@ const styles = StyleSheet.create({
     height: 40,
   },
   button: {
-    padding:2,
-    margin:2,
-    fontSize:15
+    padding: 2,
+    margin: 2,
+    fontSize: 15
   },
   alternativeLayoutButtonContainer: {
     margin: 20,
@@ -162,5 +219,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default withNavigation(ProfileScreen);
 

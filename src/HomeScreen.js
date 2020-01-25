@@ -92,7 +92,7 @@ class HomeScreen extends React.Component {
     };
   }
 
-  _retrieveData = async () => {
+  _retrieveData = async () => { 
     var device = [];
     status += 1;
     try {

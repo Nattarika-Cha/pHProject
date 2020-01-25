@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+import { withNavigation } from 'react-navigation';
 
+var status = 0;
 class ProfileEditScreen extends Component {
   constructor(props) {
     super(props);
@@ -10,27 +12,62 @@ class ProfileEditScreen extends Component {
       username: '',
       password: '',
       fname: '',
-      lname: '',
-      gender: '',
-      Cpassword: ''
+      lname: ''
     };
   }
 
-  _retrieveData = async () => {
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  _retrieveData = async () => { 
+    status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
-        console.log(value);
+        // We have data!!
+        var data = JSON.parse(value);
+        this.setState({ username: data.username });
+        if (this.state.username != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/user/pro', {
+            params: {
+              username: this.state.username
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              this.setState({ 
+                fname: response.data.fname,
+                lname: response.data.lname,
+                gender: response.data.gender,
+                });
+              // console.log(this.state.Device.length);
+              // console.log(this.state.Device);
+              
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
       }
     } catch (error) {
-      Alert.alert(
-        'Error',
-        'ดึงข้อมูลผิดพลาด กรุณาลองใหม่',
-        [
-          { text: 'OK' },
-        ],
-        { cancelable: false }
-      )
+      // Error retrieving data
+      console.log(error);
     }
   };
 
@@ -39,20 +76,19 @@ class ProfileEditScreen extends Component {
   // };
 
   onSubmit() {
-    axios.post('http://165.22.250.24:3030/user/register', {
+    axios.post('http://165.22.250.24:3030/user/edituser', {
       username: this.state.username,
-      password: this.state.password,
       fname: this.state.fname,
       lname: this.state.lname,
-      sex: this.state.gender
+      gender: this.state.gender
     })
       .then((response) => {
-        if (response.data == "Registration success") {
+        if (response.data == "Edit user success") {
           Alert.alert(
             'Success',
-            'Registration success',
+            'Edit user success',
             [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Profile') },
             ],
             { cancelable: false }
           )
@@ -72,15 +108,21 @@ class ProfileEditScreen extends Component {
       });
   }
 
+  componentDidMount(){ //
+    const { navigation} = this.props;
+    this.focusListener = navigation.addListener('didFocus' , () => {
+      this._retrieveData();
+    });
+  }
+
   render() {
-    this._retrieveData();
     return (
       <ScrollView style={{backgroundColor:'#FAFAFA'}}> 
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
             <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
               source={require('../img/back.png')} 
-              onPress={() => {this.props.navigation.navigate('Device')}}></Image>
+              onPress={() => {this.props.navigation.navigate('Profile')}}></Image>
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems:'center' }}>
@@ -152,7 +194,7 @@ class ProfileEditScreen extends Component {
                   value={this.state.username}
                 />
               </View>
-              <View style={styles.txtinput}>
+              {/* <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
                   placeholder="รหัสผ่าน"
@@ -169,7 +211,7 @@ class ProfileEditScreen extends Component {
                   onChangeText={(Cpassword) => this.setState({ Cpassword })}
                   value={this.state.Cpassword}
                 />
-              </View>
+              </View> */}
               <View style={styles.buttonContainer}>
                 <Button title="ยืนยัน" color="#5BB95A" onPress={this.onSubmit.bind(this)} />
               </View>
@@ -239,4 +281,4 @@ const styles = StyleSheet.create({
 },
 });
 
-export default ProfileEditScreen;
+export default withNavigation(ProfileEditScreen);
