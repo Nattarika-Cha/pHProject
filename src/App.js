@@ -18,6 +18,7 @@ import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
 import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
+import ForgotpasslScreen from './ForgotpasslScreen';
 
 import ShowdeviceHome from './ShowdeviceHome';
 
@@ -113,8 +114,8 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  ShowdeviceHome: {
-    screen: ShowdeviceHome,
+  Forgotpassl: {
+    screen: ForgotpasslScreen,
     navigationOptions: {
       header: null,
     },
