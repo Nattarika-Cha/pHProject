@@ -20,6 +20,8 @@ import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
 import ForgotpasslScreen from './ForgotpasslScreen';
 
+import ShowdeviceHome from './ShowdeviceHome';
+
 
 const RootStack = createStackNavigator({
   Login: {
@@ -118,7 +120,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Forgotpassl' });
+}, { initialRouteName: 'Login' });
 
 class App extends Component {
   constructor(props) {

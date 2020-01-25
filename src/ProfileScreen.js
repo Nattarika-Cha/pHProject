@@ -118,7 +118,7 @@ class ProfileScreen extends Component {
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
             <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/setting.png')}></Image>
