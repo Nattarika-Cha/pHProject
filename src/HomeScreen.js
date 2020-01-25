@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, Alert, Dimensions, Animated } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, Alert, Dimensions, Animated, AsyncStorage } from 'react-native';
 // import { createAppContainer } from 'react-navigation';
 import MapView from "react-native-maps";
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
+
+import ShowdeviceHome from './ShowdeviceHome';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -14,6 +16,9 @@ const Images = [
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
+
+//var token = '';
+var status = 0;
 
 class HomeScreen extends React.Component {
 
@@ -82,43 +87,129 @@ class HomeScreen extends React.Component {
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
-      Device: []
+      Device: [],
+      token: ''
     };
   }
 
-  componentDidMount() {
+  _retrieveData = async () => {
     var device = [];
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        this.setState({ token: data.token });
+        if (this.state.token != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/device/device_list', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const Device = response.data;
+              this.setState({ Device });
+              // console.log(this.state.Device.length);
+              // console.log(this.state.Device);
+              for (let i = 0; i < this.state.Device.length; i++) {
+                device[i] = {
+                  coordinate: {
+                    latitude: 45.524548,
+                    longitude: -122.6749817,
+                  },
+                  Humidity: "35 C",
+                  pH: "5.5",
+                  image: Images[0],
+                }
+              }
+              this.setState({ Device: device });
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    // var device = [];
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
-      axios.get('http://165.22.250.24:3030/device/device_list')
-        .then(response => {
-          const Device = response.data;
-          this.setState({ Device });
-          for (let i = 0; i < this.state.Device.length; i++) {
-            // console.log(i);
-            device[i] = {
-              coordinate: {
-                latitude: 45.524548,
-                longitude: -122.6749817,
-              },
-              Humidity: "35 C",
-              pH: "5.5",
-              image: Images[0],
-            }
-          }
-          this.setState({ Device:device });
-          // console.log(device);
-        })
-        .catch(function (error) {
-          // console.log(error);
-        })
+      this._retrieveData();
+      // if (this.state.token != '') {
+      //   status = 0;
+      //   axios.get('http://165.22.250.24:3030/device/device_list', {
+      //     params: {
+      //       token: this.state.token
+      //     }
+      //   })
+      //     .then(response => {
+      //       const Device = response.data;
+      //       this.setState({ Device });
+      //       // console.log(this.state.Device.length);
+      //       // console.log(this.state.Device);
+      //       for (let i = 0; i < this.state.Device.length; i++) {
+      //         // console.log(i);
+      //         device[i] = {
+      //           coordinate: {
+      //             latitude: 45.524548,
+      //             longitude: -122.6749817,
+      //           },
+      //           Humidity: "35 C",
+      //           pH: "5.5",
+      //           image: Images[0],
+      //         }
+      //       }
+      //       this.setState({ Device: device });
+      //     })
+      //     .catch(function (error) {
+      //       // console.log(error);
+      //     })
+      // } else {
+      //   if (status == 2) {
+      //     status = 0;
+      //     Alert.alert(
+      //       'Error',
+      //       'หมดอายุเข้าใช้งาน',
+      //       [
+      //         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+      //       ],
+      //       { cancelable: false }
+      //     )
+      //   }
+      // }
+    });
+  }
+
+  deviceList() {
+    return this.state.Device.map(function (object, i) {
+      return <ShowdeviceHome obj={object} key={i} />
     });
   }
 
   render() {
-
+    // console.log("status: " + status);
     return (
-
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
@@ -168,7 +259,8 @@ class HomeScreen extends React.Component {
             style={styles.scrollView}
             contentContainerStyle={styles.endPadding}
           >
-            {this.state.Device.map((marker, index) => (
+            {this.deviceList()}
+            {/* {this.state.Device.map((marker, index) => (
               <View style={styles.card} key={index}>
                 <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                   <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
@@ -190,7 +282,7 @@ class HomeScreen extends React.Component {
                   <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
                 </View>
               </View>
-            ))}
+            ))} */}
           </Animated.ScrollView>
         </View>
       </View>

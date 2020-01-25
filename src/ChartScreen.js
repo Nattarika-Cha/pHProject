@@ -31,7 +31,7 @@ const chartConfig = {
   barPercentage: 0.5
 };
 
-class Testchart extends Component {
+class ChartScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,4 +100,4 @@ class Testchart extends Component {
 //   },
 // });
 
-export default Testchart;
+export default ChartScreen;

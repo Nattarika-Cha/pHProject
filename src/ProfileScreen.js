@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View,Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert,fontFamily } from 'react-native';
+import { Text, TextInput, View,Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert ,fontFamily ,AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class ProfileScreen extends Component {
@@ -22,6 +22,11 @@ class ProfileScreen extends Component {
       )
     }
   };
+
+  clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+    this.props.navigation.navigate('Login');
+}
 
   _retrieveData = async () => {
     try {
@@ -51,7 +56,7 @@ class ProfileScreen extends Component {
           </View>
           <Text style={styles.header2}>Name......................</Text>
           <View style={styles.button}>
-            <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" />
+            <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('ProfileEdit')}/>
           </View> 
         </View>
 
@@ -63,14 +68,14 @@ class ProfileScreen extends Component {
             <Text style={styles.header3}> ตั้งค่า </Text>
           </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
           <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
             <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
               source={require('../img/help.png')}></Image>
             <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
           </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <TouchableOpacity onPress={this.clearAsyncStorage.bind(this)}>
           <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
             <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
               source={require('../img/log-out.png')}></Image>

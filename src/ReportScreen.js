@@ -2,41 +2,145 @@ import React, { Component } from "react";
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+//import ChartScreenfrom from './ChartScreen';
+import {LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
 
+const screenWidth = Dimensions.get("window").width;
+
+const chartConfig = {
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5
+};
 class ReportScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-
+      Report: []
     };
   }
 
-
+  reportList() {
+    return this.state.Report.map(function (object, i) {
+      return <ShowreportScreen obj={object} key={i} />
+    });
+  }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column',  }}>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 30 }}>
-
           <Text style={styles.header}>รายงาน</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกอุปกรณ์ :
             </Text>
             <View style={styles.select}>
-
-              <Text>
-                อุปกรณ์
-</Text>
+              <RNPickerSelect
+                  onValueChange={(device) => this.setState({ device })}
+                  title="อุปกรณ์"
+                  placeholder={{
+                    label: 'อุปกรณ์',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'อุปกรณ์1', value: 'อุปกรณ์1' },
+                    { label: 'อุปกรณ์2', value: 'อุปกรณ์2' },
+                  ]}
+                  value={this.state.device}
+                />
             </View>
           </View>
         </View>
 
-        <View style={{ height: 200, backgroundColor: '#FFCCFF' }}>
-          <Text>
-            กราฟ
-          </Text>
+        <View style={{ height: 250, backgroundColor: '#FFFFFF' }}>
+              <RNPickerSelect
+                  onValueChange={(Month) => this.setState({ Month })}
+                  title="เดือน"
+                  placeholder={{
+                    label: 'เดือน',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'มกราคม', value: 'January' },
+                    { label: 'กุมภาพันธ์', value: 'Febryary' },
+                    { label: 'มีนาคม', value: 'March' },
+                    { label: 'เมษายน', value: 'April' },
+                    { label: 'พฤษภาคม', value: 'May' },
+                    { label: 'มิถุนายน', value: 'June' },
+                    { label: 'กรกฎาคม', value: 'July' },
+                    { label: 'สิงหาคม', value: 'August' },
+                    { label: 'กันยายน', value: 'September' },
+                    { label: 'ตุาคม', value: 'October' },
+                    { label: 'พฤศจิกายน', value: 'November' },
+                    { label: 'ธันวาคม', value: 'December' },
+                  ]}
+                  value={this.state.Month}
+                />
+                <RNPickerSelect
+                  onValueChange={(Week) => this.setState({ Week })}
+                  title="สัปดาห์"
+                  placeholder={{
+                    label: 'สัปดาห์',
+                    value: '',
+                  }}
+                  items={[
+                    { label: '1', value: '1' },
+                    { label: '2', value: '2' },
+                    { label: '3', value: '3' },
+                    { label: '4', value: '4' },
+                  ]}
+                  value={this.state.Week}
+                />  
+        <View>
+        <LineChart
+          data={{
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                data: [
+                  5,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          yAxisLabel=""
+          yAxisSuffix="k"
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            backgroundGradientFrom: "#fb8c00",
+            backgroundGradientTo: "#ffa726",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
+        />
+      </View>
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
@@ -45,173 +149,11 @@ class ReportScreen extends Component {
               ประวัติ
             </Text>
           </View>
-          
-
-          <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/sunc.png')}></Image>
-                <Text style={styles.header3}> อากาศดี</Text>
-              </View>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-
-                <Text style={styles.header3}> 16 ธ.ค. 2563</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 360, }}>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/tm.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>อุณหภูมิ</Text>
-                  <Text style={styles.txtdata}>35°c</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/hum.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>ความชื้น</Text>
-                  <Text style={styles.txtdata}>70%</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/ph2.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>pH</Text>
-                  <Text style={styles.txtdata}>7</Text>
-                </View>
-              </View>
-            </View>
-
-          </View>
-
-          <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/sunc.png')}></Image>
-                <Text style={styles.header3}> อากาศดี</Text>
-              </View>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-
-                <Text style={styles.header3}> 15 ธ.ค. 2563</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 360, }}>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/tm.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>อุณหภูมิ</Text>
-                  <Text style={styles.txtdata}>35°c</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/hum.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>ความชื้น</Text>
-                  <Text style={styles.txtdata}>70%</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/ph2.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>pH</Text>
-                  <Text style={styles.txtdata}>7</Text>
-                </View>
-              </View>
-            </View>
-
-          </View>
-          <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/sunc.png')}></Image>
-                <Text style={styles.header3}> อากาศดี</Text>
-              </View>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-
-                <Text style={styles.header3}> 14 ธ.ค. 2563</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 360, }}>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/tm.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>อุณหภูมิ</Text>
-                  <Text style={styles.txtdata}>35°c</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/hum.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>ความชื้น</Text>
-                  <Text style={styles.txtdata}>70%</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/ph2.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>pH</Text>
-                  <Text style={styles.txtdata}>7</Text>
-                </View>
-              </View>
-            </View>
-
-          </View>
-          <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/sunc.png')}></Image>
-                <Text style={styles.header3}> อากาศดี</Text>
-              </View>
-              <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-
-                <Text style={styles.header3}> 13 ธ.ค. 2563</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 360, }}>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/tm.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>อุณหภูมิ</Text>
-                  <Text style={styles.txtdata}>35°c</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/hum.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>ความชื้น</Text>
-                  <Text style={styles.txtdata}>70%</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
-                  source={require('../img/ph2.png')}></Image>
-                <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-                  <Text style={styles.header3}>pH</Text>
-                  <Text style={styles.txtdata}>7</Text>
-                </View>
-              </View>
-            </View>
-
-          </View>
         </View>
-      </View>
-
-
+        <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+          {this.reportList()}
+        </View>
+      </ScrollView>
     );
   }
 }
