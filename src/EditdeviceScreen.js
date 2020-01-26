@@ -197,10 +197,14 @@ class EditdeviceScreen extends Component {
     this.state = {
       name: '',
       age: '',
+      age_type: '',
       area: '',
+      area_type: '',
       soil_type: '',
-      pH: '',
-      humidity: ''
+      pH_low: '',
+      pH_hight: '',
+      humidity_low: '',
+      humidity_hight: ''
     };
   }
 
@@ -208,10 +212,14 @@ class EditdeviceScreen extends Component {
     axios.post('http://165.22.250.24:3030/config/add', {
       name: this.state.name,
       age: this.state.age,
+      age_type: this.state.age_type,
       area: this.state.area,
+      area_type: this.state.area_type,
       soil_type: this.state.soil_type,
-      pH: this.state.pH,
-      humidity: this.state.humidity,
+      pH_low: this.state.pH_low,
+      pH_hight: this.state.pH_hight,
+      humidity_low: this.state.humidity_low,
+      humidity_hight: this.state.humidity_hight,
       serialDevice: this.props.navigation.state.params.serialDevice
     })
       .then((response) => {
@@ -242,186 +250,188 @@ class EditdeviceScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#FAFAFA', alignItems: 'stretch', flexDirection: 'column' }}>
-        <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '', }}>
-            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-              source={require('../img/back.png')}></Image>
-          </View>
+      <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
+        <View style={{ flex: 1, backgroundColor: '#FAFAFA', alignItems: 'stretch', flexDirection: 'column' }}>
           <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-            <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '', alignItems: 'center', }}>
-              <Text style={styles.header}>Edit Device</Text>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '', }}>
+              <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                source={require('../img/back.png')}></Image>
             </View>
+            <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
+              <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '', alignItems: 'center', }}>
+                <Text style={styles.header}>Edit Device</Text>
+              </View>
 
-            <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', }} >
-              <TouchableOpacity onPress={() => navigation.navigate('')}>
-                <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, borderWidth: 1, borderColor: '#5BB95A', }}
-                  source={require('../img/device.png')}></Image>
-              </TouchableOpacity>
-            </View>
-            <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
-              <Text style={{ fontSize: 18 }}>Serial Number :</Text>
-              <Text style={{ fontSize: 18 }}> {this.props.navigation.state.params.serialDevice}</Text>
+              <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', }} >
+                <TouchableOpacity onPress={() => navigation.navigate('')}>
+                  <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, borderWidth: 1, borderColor: '#5BB95A', }}
+                    source={require('../img/device.png')}></Image>
+                </TouchableOpacity>
+              </View>
+              <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
+                <Text style={{ fontSize: 18 }}>Serial Number :</Text>
+                <Text style={{ fontSize: 18 }}> {this.props.navigation.state.params.serialDevice}</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10, }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={styles.txtname}>
-              ชนิดพืช :
+          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10, }}>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname}>
+                ชนิดพืช :
             </Text>
-            <View style={styles.select}>
-              <RNPickerSelect
-                onValueChange={(name) => this.setState({ name })}
-                placeholder={{
-                  label: 'พืช',
-                  value: '',
-                }}
-                items={[
-                  { label: 'ลำไย', value: 'ลำไย' },
-                  { label: 'ส้มโอ', value: 'ส้มโอ' },
-                  { label: 'ฝรั่ง', value: 'ฝรั่ง' },
-                ]}
+              <View style={styles.select}>
+                <RNPickerSelect
+                  onValueChange={(name) => this.setState({ name })}
+                  placeholder={{
+                    label: 'พืช',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'ลำไย', value: 'ลำไย' },
+                    { label: 'ส้มโอ', value: 'ส้มโอ' },
+                    { label: 'ฝรั่ง', value: 'ฝรั่ง' },
+                  ]}
 
-                value={this.state.name}
-              />
+                  value={this.state.name}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={styles.txtname}>
-              อายุ :
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname}>
+                อายุ :
             </Text>
-            <TextInput
+              <TextInput
                 style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
-                placeholder="ชื่อผู้ใช้"
-                //onChangeText={(username) => this.setState({ username })}
-                value={this.state.username}
-              />
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-              <RNPickerSelect
-                onValueChange={(age) => this.setState({ age })}
-                placeholder={{
-                  label: 'อายุ',
-                  value: '',
-                }}
-                items={[
-                  { label: 'วัน', value: 'วัน' },
-                  { label: 'เดือน', value: 'เดือน' },
-                  { label: 'ปี', value: 'ปี' },
-                ]}
+                placeholder="อายุ"
+                onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
               />
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(age_type) => this.setState({ age_type })}
+                  placeholder={{
+                    label: 'อายุ',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'วัน', value: 'D' },
+                    { label: 'เดือน', value: 'M' },
+                    { label: 'ปี', value: 'Y' },
+                  ]}
+                  value={this.state.age_type}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
-            <Text style={styles.txtname}>
-              พื้นที่ :
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
+              <Text style={styles.txtname}>
+                พื้นที่ :
             </Text>
-            <TextInput
+              <TextInput
                 style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
-                placeholder="ชื่อผู้ใช้"
-                //onChangeText={(username) => this.setState({ username })}
-                value={this.state.username}
-              />
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-              <RNPickerSelect
-                onValueChange={(area) => this.setState({ area })}
-                placeholder={{
-                  label: 'ขนาดพื้นที่',
-                  value: '',
-                }}
-                items={[
-                  { label: 'ตารางวา', value: 'ตารางวา' },
-                  { label: 'ตารางเมตร', value: 'ตารางเมตร' },
-                  { label: 'ไร่', value: 'ไร่' },
-                ]}
+                placeholder="พื้นที่"
+                onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
               />
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(area_type) => this.setState({ area_type })}
+                  placeholder={{
+                    label: 'ขนาดพื้นที่',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'ตารางวา', value: 'V' },
+                    { label: 'ตารางเมตร', value: 'M' },
+                    { label: 'ไร่', value: 'R' },
+                  ]}
+                  value={this.state.area_type}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={styles.txtname}>
-              ชนิดดิน :
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname}>
+                ชนิดดิน :
             </Text>
-            <View style={styles.select}>
-              <RNPickerSelect
-                onValueChange={(soil_type) => this.setState({ soil_type })}
-                placeholder={{
-                  label: 'ชนิดดิน',
-                  value: '',
-                }}
-                items={[
-                  { label: 'ดินร่วน', value: 'ดินร่วน' },
-                  { label: 'ดินทราย', value: 'ดินทราย' },
-                  { label: 'ดินเหนียว', value: 'ดินเหนียว' },
-                ]}
-                value={this.state.soil_type}
-              />
+              <View style={styles.select}>
+                <RNPickerSelect
+                  onValueChange={(soil_type) => this.setState({ soil_type })}
+                  placeholder={{
+                    label: 'ชนิดดิน',
+                    value: '',
+                  }}
+                  items={[
+                    { label: 'ดินร่วน', value: 'ดินร่วน' },
+                    { label: 'ดินทราย', value: 'ดินทราย' },
+                    { label: 'ดินเหนียว', value: 'ดินเหนียว' },
+                  ]}
+                  value={this.state.soil_type}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={styles.txtname}>
-              ค่า pH :
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname}>
+                ค่า pH :
             </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-              <RNPickerSelect
-                onValueChange={(pH) => this.setState({ pH })}
-                placeholder={{
-                  label: 'ค่า pH ',
-                  value: '',
-                }}
-                items={itempH}
-                value={this.state.pH}
-              />           
-            </View>
-            <Text style={styles.txtname}> ถึง </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-              <RNPickerSelect
-                onValueChange={(pH) => this.setState({ pH })}
-                placeholder={{
-                  label: 'ค่า pH ',
-                  value: '',
-                }}
-                items={itempH}
-                value={this.state.pH}
-              />
-            </View>
-          </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={styles.txtname}>
-              ความชื้น :
-            </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-              <RNPickerSelect
-                onValueChange={(humidity) => this.setState({ humidity })}
-                placeholder={{
-                  label: 'ค่าความชื้น',
-                  value: '',
-                }}
-                items={itemHM}
-                value={this.state.humidity}
-              />
-            </View>
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(pH_low) => this.setState({ pH_low })}
+                  placeholder={{
+                    label: 'ค่า pH ต่ำสุด',
+                    value: '',
+                  }}
+                  items={itempH}
+                  value={this.state.pH_low}
+                />
+              </View>
               <Text style={styles.txtname}> ถึง </Text>
-            <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>  
-              <RNPickerSelect
-                onValueChange={(humidity) => this.setState({ humidity })}
-                placeholder={{
-                  label: 'ค่าความชื้น',
-                  value: '',
-                }}
-                items={itemHM}
-                value={this.state.humidity}
-              />
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(pH_hight) => this.setState({ pH_hight })}
+                  placeholder={{
+                    label: 'ค่า pH สูงสุด',
+                    value: '',
+                  }}
+                  items={itempH}
+                  value={this.state.pH_hight}
+                />
+              </View>
+            </View>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname}>
+                ความชื้น :
+            </Text>
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(humidity_low) => this.setState({ humidity_low })}
+                  placeholder={{
+                    label: 'ค่าความชื้นต่ำสุด',
+                    value: '',
+                  }}
+                  items={itemHM}
+                  value={this.state.humidity_low}
+                />
+              </View>
+              <Text style={styles.txtname}> ถึง </Text>
+              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+                <RNPickerSelect
+                  onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
+                  placeholder={{
+                    label: 'ค่าความชื้นสูงสุด',
+                    value: '',
+                  }}
+                  items={itemHM}
+                  value={this.state.humidity_hight}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column' }}>
+            <View style={styles.buttonContainer}>
+              <Button title="OK" color="#5BB95A" onPress={this.onEdit.bind(this)} />
             </View>
           </View>
         </View>
-        <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column' }}>
-          <View style={styles.buttonContainer}>
-            <Button title="OK" color="#5BB95A" onPress={this.onEdit.bind(this)} />
-          </View>
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }
