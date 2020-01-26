@@ -1,11 +1,90 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import axios from 'axios';
+
+var status = 0;
 
 class DevicedataScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: '',
+      age: '',
+      area: '',
+      humidity: '',
+      name: '',
+      ph: '',
+      soil_type: ''
     };
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  _retrieveData = async () => {
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        var data = JSON.parse(value);
+        this.setState({ token: data.token });
+        if (this.state.token != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/config/device_config', {
+            params: {
+              serialDevice: this.props.navigation.state.params.serialDevice
+            }
+          })
+            .then(response => {
+              const device_config = response.data;
+              //console.log(device_config);
+              this.setState({
+                age: device_config.age,
+                area: device_config.area,
+                humidity: device_config.humidity,
+                name: device_config.name,
+                ph: device_config.pH,
+                soil_type: device_config.soil_type
+              });
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this._retrieveData();
+    });
+  }
+
+  onEditdevice() {
+    this.props.navigation.navigate('Editdevice', {
+      serialDevice: this.props.navigation.state.params.serialDevice
+    })
   }
 
   render() {
@@ -18,44 +97,12 @@ class DevicedataScreen extends Component {
           </View>
           <Text style={styles.header}>เครื่องที่ 1</Text>
           <TouchableOpacity >
-            <Text style={{ fontSize: 17, color: '#00000', margin: 10, marginTop: 21, fontWeight: 'bold' }} onPress={() => {this.props.navigation.navigate('Editdevice')}}>แก้ไข</Text>
+            <Text style={{ fontSize: 17, color: '#00000', margin: 10, marginTop: 21, fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>แก้ไข</Text>
           </TouchableOpacity>
         </View>
 
 
         <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-
-          <View style={{
-            flexDirection: 'column', width: 343, borderRadius: 6, backgroundColor: '#FEE7E7',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'center',
-          }}>
-            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 343, }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
-                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                  <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', margin: 2, }}
-                    source={require('../img/h1.png')}></Image>
-                  <Text style={styles.txtHea}>อุณหภูมิ</Text>
-                </View>
-                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }}
-                    source={require('../img/normal.png')}></Image>
-                </View>
-              </View>
-              <View style={{
-                flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginBottom: 10
-              }}>
-                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 151.5, borderEndWidth: 1, borderEndColor: '#000000', marginEnd: 15 }}>
-                  <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
-                  <Text style={styles.txtData}>25-35 °C</Text>
-                </View>
-                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
-                  <Text style={styles.txtTitle}>ค่าที่ได้</Text>
-                  <Text style={styles.txtData}>30 °C</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
           <View style={{
             flexDirection: 'column', width: 343, borderRadius: 6, backgroundColor: '#FFFBE9',
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
@@ -77,7 +124,7 @@ class DevicedataScreen extends Component {
               }}>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 151.5, borderEndWidth: 1, borderEndColor: '#000000', marginEnd: 15 }}>
                   <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
-                  <Text style={styles.txtData}>5-7</Text>
+                  <Text style={styles.txtData}>{this.state.ph}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
@@ -112,7 +159,7 @@ class DevicedataScreen extends Component {
               }}>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 151.5, borderEndWidth: 1, borderEndColor: '#000000', marginEnd: 15 }}>
                   <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
-                  <Text style={styles.txtData}>5-7</Text>
+                  <Text style={styles.txtData}>{this.state.humidity}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
@@ -137,15 +184,15 @@ class DevicedataScreen extends Component {
                     source={require('../img/h4.png')}></Image>
                   <Text style={styles.txtHea}>่ที่ตั้งอุปกรณ์</Text>
                 </View>
-                
+
               </View>
               <View style={{
                 flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginBottom: 10
               }}>
-               
+
               </View>
             </View>
-            
+
             <View style={{ height: 60 }}>
             </View>
           </View>

@@ -5,7 +5,7 @@ import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, Button } f
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
-
+var serialDevice = undefined;
 class ShowdeviceHome extends Component {
     constructor(props) {
         super(props);
@@ -13,9 +13,16 @@ class ShowdeviceHome extends Component {
         };
     }
 
+    gotopage() {
+        //console.log(this.props.obj.serialDevice);
+        this.props.pop.navigation.navigate('Devicedata', {
+            serialDevice: this.props.obj.serialDevice
+        })
+    }
+
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.pop.navigation.navigate('Devicedata')}>
+            <TouchableOpacity onPress={this.gotopage.bind(this)}>
                 <View style={styles.card}>
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
