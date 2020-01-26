@@ -33,8 +33,7 @@ class ReportScreen extends Component {
   render() {
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column',  }}>
-
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 30 }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
           <Text style={styles.header}>รายงาน</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
@@ -59,6 +58,8 @@ class ReportScreen extends Component {
         </View>
 
         <View style={{ height: 250, backgroundColor: '#FFFFFF' }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <View style={styles.selectmonth}>
               <RNPickerSelect
                   onValueChange={(Month) => this.setState({ Month })}
                   title="เดือน"
@@ -82,6 +83,10 @@ class ReportScreen extends Component {
                   ]}
                   value={this.state.Month}
                 />
+              </View>
+              
+              <View style={styles.selectweek}>
+                
                 <RNPickerSelect
                   onValueChange={(Week) => this.setState({ Week })}
                   title="สัปดาห์"
@@ -96,7 +101,9 @@ class ReportScreen extends Component {
                     { label: '4', value: '4' },
                   ]}
                   value={this.state.Week}
-                />  
+                />
+              </View> 
+          </View> 
         <View>
         <LineChart
           data={{
@@ -202,13 +209,33 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: 10,
-    width: 100,
+    width: 150,
     height: 40,
     borderColor: '#000000',
     borderWidth: 1,
     fontSize: 15,
-
   },
+  selectmonth: {
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    paddingLeft: 10,
+    width: 150,
+    height: 40,
+    fontSize: 15,
+  },
+  selectweek: {
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    paddingLeft: 10,
+    width: 150,
+    height: 40,
+    fontSize: 15,
+  },
+
 });
 
 export default ReportScreen;

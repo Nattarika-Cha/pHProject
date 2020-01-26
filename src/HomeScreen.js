@@ -21,7 +21,6 @@ const CARD_WIDTH = CARD_HEIGHT - 50;
 var status = 0;
 var pop = [];
 class HomeScreen extends React.Component {
-
   componentWillMount() {
     this.index = 0;
     this.animation = new Animated.Value(0);
@@ -89,7 +88,9 @@ class HomeScreen extends React.Component {
         longitudeDelta: 0.040142817690068,
       },
       Device: [],
-      token: ''
+      token: '',
+        fname: '',
+        lname: ''
     };
   }
 
@@ -152,11 +153,66 @@ class HomeScreen extends React.Component {
     }
   };
 
+  getdata = async () => {
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        var data = JSON.parse(value);
+        this.setState({ username: data.username });
+        if (this.state.username != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/user/pro', {
+            params: {
+              username: this.state.username
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              this.setState({
+                fname: response.data.fname,
+                lname: response.data.lname,
+              });
+              // console.log(this.state.Device.length);
+              // console.log(this.state.Device);
+
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      }
+    } catch (error) {
+      Alert.alert(
+        'Error',
+        'ดึงข้อมูลผิดพลาด กรุณาลองใหม่',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+      //console.log(error);
+    }
+  };
+
   componentDidMount() {
     // var device = [];
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
+      this.getdata();
       // if (this.state.token != '') {
       //   status = 0;
       //   axios.get('http://165.22.250.24:3030/device/device_list', {
@@ -262,7 +318,7 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-          <Text style={{ fontSize: 15, color: '#5483EF', padding: 10, margin: 0, alignItems: 'center' }}>Bangkok, Thailand</Text>
+        <Text>{this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>

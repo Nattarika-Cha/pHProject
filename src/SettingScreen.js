@@ -18,8 +18,10 @@ class SettingScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Profile')}}>
             <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
               source={require('../img/back.png')}></Image>
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>

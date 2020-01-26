@@ -124,7 +124,7 @@ class ProfileScreen extends Component {
               <Text style={styles.header3}> ตั้งค่า </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
             <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/help.png')}></Image>

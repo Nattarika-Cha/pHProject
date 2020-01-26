@@ -140,11 +140,11 @@ class LoginScreen extends Component {
               />
             </View>
           </View>
-          <View style={{ flexDirection: "row-reverse", padding: 10, width: 400 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('')}>
+          {/* <View style={{ flexDirection: "row-reverse", padding: 10, width: 400 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Forgotpassl')}>
               <Text style={styles.label}>ลืมรหัสผ่าน?</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.buttonContainer}>
             <Button title="เข้าสู่ระบบ" color="#5BB95A" onPress={this.onButtonLogin.bind(this)} />
           </View>
