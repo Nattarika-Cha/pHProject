@@ -315,4 +315,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default DevicedataScreen;
+export default withNavigation(DevicedataScreen);
