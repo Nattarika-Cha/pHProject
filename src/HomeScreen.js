@@ -111,9 +111,9 @@ class HomeScreen extends React.Component {
           })
             .then(response => {
               const Device = response.data;
-              this.setState({ Device });
+              this.setState({ Device: Device });
               // console.log(this.state.Device.length);
-              // console.log(this.state.Device);
+              // console.log(Device[0]._id);
               for (let i = 0; i < this.state.Device.length; i++) {
                 device[i] = {
                   coordinate: {
@@ -123,6 +123,7 @@ class HomeScreen extends React.Component {
                   Humidity: "35 C",
                   pH: "5.5",
                   image: Images[0],
+                  serialDevice: this.state.Device[i].serialDevice
                 }
               }
               this.setState({ Device: device });
@@ -203,56 +204,8 @@ class HomeScreen extends React.Component {
   }
 
   deviceList() {
-    // for(let i=0;i< this.state.Device.length;i++) {
-    //   return <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}>
-    //     <View style={styles.card}>
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h1.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardtitle}>{this.state.Device[i].Humidity} </Text>
-    //       </View>
-
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h3.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardtitle}>{this.state.Device[i].Humidity}</Text>
-    //       </View>
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h2.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardDescription}>{this.state.Device[i].pH}</Text>
-    //       </View>
-    //     </View>
-    //   </TouchableOpacity>
-    // }
     return this.state.Device.map(function (object, i) {
       return <ShowdeviceHome obj={object} key={i} pop={pop}/>
-    //   return <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}>
-    //     <View style={styles.card}>
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h1.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardtitle}>{object.Humidity} </Text>
-    //       </View>
-
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h3.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardtitle}>{object.Humidity}</Text>
-    //       </View>
-    //       <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-    //         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-    //           source={require('../img/h2.png')}></Image>
-    //         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-    //         <Text numberOfLines={1} style={styles.cardDescription}>{object.pH}</Text>
-    //       </View>
-    //     </View>
-    //   </TouchableOpacity>
     });
   }
 
@@ -311,28 +264,33 @@ class HomeScreen extends React.Component {
             {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}> */}
             {this.deviceList()}
             {/* </TouchableOpacity> */}
-            {/* {this.state.Device.map((marker, index) => (
-              <View style={styles.card} key={index}>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h1.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-                </View>
+            {/* {this.state.Device.map((marker, index, pop) => (
+              <TouchableOpacity
+                onPress={() => pop.navigation.navigate('Devicedata', {
+                  serialDevice: marker.serialDevice
+                })}>
+                <View style={styles.card} key={index}>
+                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                      source={require('../img/h1.png')}></Image>
+                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                  </View>
 
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h3.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                      source={require('../img/h3.png')}></Image>
+                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
+                  </View>
+                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                      source={require('../img/h2.png')}></Image>
+                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                    <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
+                  </View>
                 </View>
-                <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                  <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h2.png')}></Image>
-                  <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                  <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
-                </View>
-              </View>
+              </TouchableOpacity>
             ))} */}
           </Animated.ScrollView>
         </View>
