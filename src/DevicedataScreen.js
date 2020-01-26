@@ -12,9 +12,11 @@ class DevicedataScreen extends Component {
       token: '',
       age: '',
       area: '',
-      humidity: '',
+      humidity_low: '',
+      humidity_hight: '',
       name: '',
-      ph: '',
+      ph_low: '',
+      ph_hight: '',
       soil_type: ''
     };
   }
@@ -43,9 +45,11 @@ class DevicedataScreen extends Component {
               this.setState({
                 age: device_config.age,
                 area: device_config.area,
-                humidity: device_config.humidity,
+                humidity_low: device_config.humidity_low,
+                humidity_hight: device_config.humidity_hight,
                 name: device_config.name,
-                ph: device_config.pH,
+                ph_low: device_config.pH_low,
+                ph_hight: device_config.pH_hight,
                 soil_type: device_config.soil_type
               });
             })
@@ -95,7 +99,7 @@ class DevicedataScreen extends Component {
             <Image style={{ padding: 10, width: 27, height: 27, resizeMode: 'contain', margin: 10, marginTop: 21 }}
               source={require('../img/back.png')}></Image>
           </View>
-          <Text style={styles.header}>เครื่องที่ 1</Text>
+          <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
           <TouchableOpacity >
             <Text style={{ fontSize: 17, color: '#00000', margin: 10, marginTop: 21, fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>แก้ไข</Text>
           </TouchableOpacity>
@@ -124,7 +128,7 @@ class DevicedataScreen extends Component {
               }}>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 151.5, borderEndWidth: 1, borderEndColor: '#000000', marginEnd: 15 }}>
                   <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
-                  <Text style={styles.txtData}>{this.state.ph}</Text>
+                  <Text style={styles.txtData}>{this.state.ph_low} - {this.state.ph_hight}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
@@ -159,7 +163,7 @@ class DevicedataScreen extends Component {
               }}>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 151.5, borderEndWidth: 1, borderEndColor: '#000000', marginEnd: 15 }}>
                   <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
-                  <Text style={styles.txtData}>{this.state.humidity}</Text>
+                  <Text style={styles.txtData}>{this.state.humidity_low} - {this.state.humidity_hight}</Text>
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
@@ -315,4 +319,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default DevicedataScreen;
+export default withNavigation(DevicedataScreen);
