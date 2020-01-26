@@ -24,7 +24,8 @@ class EditdeviceScreen extends Component {
       area: this.state.area,
       soil_type: this.state.soil_type,
       pH: this.state.pH,
-      humidity: this.state.humidity
+      humidity: this.state.humidity,
+      serialDevice: this.props.navigation.state.params.serialDevice
     })
       .then((response) => {
         if (response.data == "Save success") {
@@ -32,7 +33,7 @@ class EditdeviceScreen extends Component {
             'Success',
             'Edit success',
             [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Home') },
+              { text: 'OK', onPress: () => this.props.navigation.navigate('Devicedata') },
             ],
             { cancelable: false }
           )
@@ -73,7 +74,7 @@ class EditdeviceScreen extends Component {
             </View>
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
               <Text style={{ fontSize: 18 }}>Serial Number :</Text>
-              <Text style={{ fontSize: 18 }}>s000000000000</Text>
+              <Text style={{ fontSize: 18 }}> {this.props.navigation.state.params.serialDevice}</Text>
             </View>
           </View>
         </View>
@@ -84,7 +85,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                onValueChange={(name) => this.setState({name})}
+                onValueChange={(name) => this.setState({ name })}
                 placeholder={{
                   label: 'พืช',
                   value: '',
@@ -94,7 +95,7 @@ class EditdeviceScreen extends Component {
                   { label: 'ส้มโอ', value: 'ส้มโอ' },
                   { label: 'ฝรั่ง', value: 'ฝรั่ง' },
                 ]}
-                
+
                 value={this.state.name}
               />
             </View>
@@ -105,7 +106,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(age) => this.setState({age})}
+                onValueChange={(age) => this.setState({ age })}
                 placeholder={{
                   label: 'อายุ',
                   value: '',
@@ -134,7 +135,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(area) => this.setState({area})}
+                onValueChange={(area) => this.setState({ area })}
                 placeholder={{
                   label: 'ขนาดพื้นที่',
                   value: '',
@@ -163,7 +164,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                onValueChange={(soil_type) => this.setState({soil_type})}
+                onValueChange={(soil_type) => this.setState({ soil_type })}
                 placeholder={{
                   label: 'ชนิดดิน',
                   value: '',
@@ -183,7 +184,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(pH) => this.setState({pH})}
+                onValueChange={(pH) => this.setState({ pH })}
                 placeholder={{
                   label: 'ค่า pH ',
                   value: '',
@@ -209,7 +210,7 @@ class EditdeviceScreen extends Component {
             </Text>
             <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
               <RNPickerSelect
-                onValueChange={(humidity) => this.setState({humidity})}
+                onValueChange={(humidity) => this.setState({ humidity })}
                 placeholder={{
                   label: 'ค่าความชื้น',
                   value: '',
