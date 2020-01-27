@@ -1,18 +1,117 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, Switch } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, Switch, AsyncStorage } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import axios from 'axios';
+
+var status = 0;
 
 class SettingScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { switchValue: false };
-
-
+    this.state = { 
+      soundValue: '' ,
+      messegeValue: '',
+      gpsValue: '',
+      token : '',
+    };
   }
-  toggleSwitch = value => {
 
-    this.setState({ switchValue: value });
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
 
+  soundValue = value => {
+    this.setState({ soundValue: value });
+    this.onSubmit();
   };
+
+  messegeValue = value => {
+      this.setState({ messegeValue: value });
+      this.onSubmit();
+  };
+
+  gpsValue = value => {
+    this.setState({ gpsValue: value });
+    this.onSubmit();
+  };
+
+  _retrieveData = async () => {
+    var device = [];
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        this.setState({ token: data.token });
+        if (this.state.token != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/setting/get_setting', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const setting = response.data;
+              console.log(setting);
+              this.setState({ 
+                soundValue: setting.sound ,
+                messegeValue: setting.messege ,
+                gpsValue: setting.gps 
+               });
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  onSubmit() {
+    axios.post('http://165.22.250.24:3030/setting/add_setting', {
+        sound: this.state.soundValue,
+        messege: this.state.messegeValue,
+        gps: this.state.gpsValue,
+        token: this.state.token,
+    })
+      .then((response) => {
+        if (response.data == "Save success" || response.data == "Edit setting success") {
+          console.log("save");
+        } else {
+            console.log("no save");
+        }
+        //console.log(response.data);
+      }, (error) => {
+        console.log(error);
+      });
+  }
+
+  componentDidMount() {
+    // var device = [];
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this._retrieveData();
+    });
+  }
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
@@ -34,8 +133,8 @@ class SettingScreen extends Component {
               <Text style={styles.header3}> เสียงการแจ้งเตือน </Text>
               <View style={styles.container}>
                 <Switch
-                  onValueChange={this.toggleSwitch}
-                  value={this.state.switchValue}
+                  onValueChange={this.soundValue}
+                  value={this.state.soundValue}
                 />
               </View>
             </View>
@@ -45,8 +144,8 @@ class SettingScreen extends Component {
               <Text style={styles.header3}> ข้อความการแจ้งเตือน </Text>
               <View style={styles.container}>
                 <Switch
-                  onValueChange={this.toggleSwitch}
-                  value={this.state.switchValue}
+                  onValueChange={this.messegeValue}
+                  value={this.state.messegeValue}
                 />
               </View>
             </View>
@@ -56,8 +155,8 @@ class SettingScreen extends Component {
               <Text style={styles.header3}> GPS </Text>
               <View style={styles.container}>
                 <Switch
-                  onValueChange={this.toggleSwitch}
-                  value={this.state.switchValue}
+                  onValueChange={this.gpsValue}
+                  value={this.state.gpsValue}
                 />
               </View>
             </View>
@@ -138,4 +237,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SettingScreen;
+export default withNavigation(SettingScreen);

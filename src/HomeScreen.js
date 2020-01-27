@@ -155,7 +155,7 @@ class HomeScreen extends React.Component {
   };
 
   getdata = async () => {
-    status += 1;
+    st.s += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
