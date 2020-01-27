@@ -11,7 +11,8 @@ class ProfileScreen extends Component {
       username: '',
       password: '',
       fname: '',
-      lname: ''
+      lname: '',
+      gender: ''
     };
   }
 
@@ -102,13 +103,23 @@ class ProfileScreen extends Component {
     });
   }
 
+  imageprofile(){
+    console.log(this.state.gender)
+    if (this.state.gender == "Male"){
+      return <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
+        source={require('../img/on.png')} ></Image>
+    } else {
+      return <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
+        source={require('../img/tm.png')} ></Image>
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
           <View style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, }}
-              source={require('../img/user.png')}></Image>
+            {this.imageprofile()}
           </View>
           <Text style={styles.header2}>{this.state.fname} {this.state.lname}</Text>
           <View style={styles.button}>

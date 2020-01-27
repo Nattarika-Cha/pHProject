@@ -89,8 +89,8 @@ class HomeScreen extends React.Component {
       },
       Device: [],
       token: '',
-        fname: '',
-        lname: ''
+      fname: '',
+      lname: ''
     };
   }
 
@@ -112,7 +112,9 @@ class HomeScreen extends React.Component {
           })
             .then(response => {
               const Device = response.data;
-              this.setState({ Device: Device });
+              this.setState({ 
+                Device: Device,
+              });
               // console.log(this.state.Device.length);
               // console.log(Device[0]._id);
               for (let i = 0; i < this.state.Device.length; i++) {
@@ -155,7 +157,7 @@ class HomeScreen extends React.Component {
   };
 
   getdata = async () => {
-    st.s += 1;
+    sts += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
@@ -175,11 +177,11 @@ class HomeScreen extends React.Component {
                 lname: response.data.lname,
               });
               // console.log(this.state.Device.length);
-              // console.log(this.state.Device);
+              //console.log(this.state.fname);
 
             })
             .catch(function (error) {
-              // console.log(error);
+              console.log(error);
             })
         } else {
           if (status == 2) {
@@ -271,18 +273,18 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-        <Text>{this.state.fname} {this.state.lname}</Text>
+        <Text style={{fontSize: 20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-
+      <View style={{marginTop: 15, marginLeft: 15, marginRight: 15,marginBottom: 150, height:400}}>
         <MapView
           ref={map => this.map = map}
           initialRegion={this.state.region}
-          style={styles.container}
+          style={styles.maphight}
         >
           {this.state.markers.map((marker, index) => {
             return (
@@ -295,7 +297,8 @@ class HomeScreen extends React.Component {
             );
           })}
         </MapView>
-
+      </View>
+      {/* <View style={{backgroundColor: "#FFFFFF",marginTop:60}}> */}
         <View >
           <Animated.ScrollView
             horizontal
@@ -350,6 +353,7 @@ class HomeScreen extends React.Component {
             ))} */}
           </Animated.ScrollView>
         </View>
+        {/* </View> */}
       </View>
     );
   }
@@ -425,8 +429,6 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
     backgroundColor: '#ffffff',
-
-
   },
   map: {
     justifyContent: 'flex-end',
@@ -496,7 +498,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
-
+  maphight:{
+    // width: 300,
+    height: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 export default withNavigation(HomeScreen);

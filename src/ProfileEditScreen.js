@@ -115,6 +115,8 @@ class ProfileEditScreen extends Component {
     });
   }
 
+  
+
   render() {
     return (
       <ScrollView style={{backgroundColor:'#FAFAFA'}}> 
@@ -131,18 +133,16 @@ class ProfileEditScreen extends Component {
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
             <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
-              <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
-                source={require('../img/user.png')}></Image>
-
+              
               <View style={{
                 position: 'absolute', width: 40, height: 40, borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 60,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
-                <TouchableOpacity onPress={() => navigation.navigate('')}>
+                 <TouchableOpacity>
                   <Image style={{ padding: 5, width: 30, height: 30, resizeMode: 'contain', margin: 5, }}
                     source={require('../img/add.png')}></Image>
-                </TouchableOpacity>
+                </TouchableOpacity> 
               </View>
             </View>
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>

@@ -4,30 +4,6 @@ import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 
 var itempH = [
-  { label: '1.0', value: '1.0' },
-  { label: '1.1', value: '1.1' },
-  { label: '1.2', value: '1.2' },
-  { label: '1.3', value: '1.3' },
-  { label: '1.4', value: '1.4' },
-  { label: '1.5', value: '1.5' },
-  { label: '1.6', value: '1.6' },
-  { label: '1.7', value: '1.7' },
-  { label: '1.8', value: '1.8' },
-  { label: '1.9', value: '1.9' },
-  { label: '2.0', value: '2.0' },
-  { label: '2.1', value: '2.1' },
-  { label: '2.2', value: '2.2' },
-  { label: '2.3', value: '2.3' },
-  { label: '2.4', value: '2.4' },
-  { label: '2.5', value: '2.5' },
-  { label: '2.6', value: '2.6' },
-  { label: '2.7', value: '2.7' },
-  { label: '2.8', value: '2.8' },
-  { label: '2.9', value: '2.9' },
-  { label: '3.1', value: '3.1' },
-  { label: '3.2', value: '3.2' },
-  { label: '3.3', value: '3.3' },
-  { label: '3.4', value: '3.4' },
   { label: '3.5', value: '3.5' },
   { label: '3.6', value: '3.6' },
   { label: '3.7', value: '3.7' },
@@ -254,8 +230,10 @@ class EditdeviceScreen extends Component {
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', alignItems: 'stretch', flexDirection: 'column' }}>
           <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '', }}>
-              <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-                source={require('../img/back.png')}></Image>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Devicedata')}>
+                <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                  source={require('../img/back.png')}></Image>
+              </TouchableOpacity>
             </View>
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
               <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '', alignItems: 'center', }}>
@@ -340,7 +318,10 @@ class EditdeviceScreen extends Component {
                     value: '',
                   }}
                   items={[
-                    { label: 'ตารางวา', value: 'V' },
+                    { label: 'ตารางวา', value: 'TrV' },
+                    { label: 'วา', value: 'V' },
+                    { label: 'ตารางงาน', value: 'TrK' },
+                    { label: 'งาน', value: 'K' },
                     { label: 'ตารางเมตร', value: 'M' },
                     { label: 'ไร่', value: 'R' },
                   ]}
@@ -361,7 +342,9 @@ class EditdeviceScreen extends Component {
                   }}
                   items={[
                     { label: 'ดินร่วน', value: 'ดินร่วน' },
+                    { label: 'ดินร่วนปนทราย', value: 'ดินร่วนปนทราย' },
                     { label: 'ดินทราย', value: 'ดินทราย' },
+                    { label: 'ดินร่วนเหนียว', value: 'ดินร่วนเหนียว' },
                     { label: 'ดินเหนียว', value: 'ดินเหนียว' },
                   ]}
                   value={this.state.soil_type}

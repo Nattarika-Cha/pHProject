@@ -96,8 +96,10 @@ class DevicedataScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
             <Image style={{ padding: 10, width: 27, height: 27, resizeMode: 'contain', margin: 10, marginTop: 21 }}
               source={require('../img/back.png')}></Image>
+            </TouchableOpacity>
           </View>
           <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
           <TouchableOpacity >

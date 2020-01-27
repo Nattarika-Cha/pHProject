@@ -118,7 +118,7 @@ class LoginScreen extends Component {
             }}>
               <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/email-icon.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
+                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 , width: 350}}
                 placeholder="ชื่อผู้ใช้"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -128,11 +128,11 @@ class LoginScreen extends Component {
               faex: 1, flexDirection: 'row',
               justifyContent: 'flex-start',
               alignContent: 'center',
-              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: 380
+              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: 380, height: 40,
             }}>
               <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/pass.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", padding: 10, height: 40, fontSize: 15 }}
+                style={{ backgroundColor: "#FFFFFF", padding: 10, height: 40, fontSize: 15, width: 350 }}
                 placeholder="รหัสผ่าน"
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
