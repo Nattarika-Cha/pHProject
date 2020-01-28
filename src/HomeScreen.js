@@ -6,6 +6,7 @@ import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
 import ShowdeviceHome from './ShowdeviceHome';
+import ShowmapHome from './ShowmapHome';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -112,24 +113,7 @@ class HomeScreen extends React.Component {
           })
             .then(response => {
               const Device = response.data;
-              this.setState({ 
-                Device: Device,
-              });
-              // console.log(this.state.Device.length);
-              // console.log(Device[0]._id);
-              for (let i = 0; i < this.state.Device.length; i++) {
-                device[i] = {
-                  coordinate: {
-                    latitude: 45.524548,
-                    longitude: -122.6749817,
-                  },
-                  Humidity: "35 C",
-                  pH: "5.5",
-                  image: Images[0],
-                  serialDevice: this.state.Device[i].serialDevice
-                }
-              }
-              this.setState({ Device: device });
+              this.setState({ Device: Device });
             })
             .catch(function (error) {
               // console.log(error);
@@ -157,7 +141,7 @@ class HomeScreen extends React.Component {
   };
 
   getdata = async () => {
-    sts += 1;
+    status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
@@ -263,7 +247,13 @@ class HomeScreen extends React.Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      return <ShowdeviceHome obj={object} key={i} pop={pop}/>
+      return <ShowdeviceHome obj={object} key={i} pop={pop} />
+    });
+  }
+
+  mapList() {
+    return this.state.Device.map(function (object, i) {
+      return <ShowmapHome obj={object} key={i} pop={pop} />
     });
   }
 
@@ -273,32 +263,23 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-        <Text style={{fontSize: 20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
+          <Text style={{ fontSize: 20 }}>สวัสดี {this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-      <View style={{marginTop: 15, marginLeft: 15, marginRight: 15,marginBottom: 150, height:400}}>
-        <MapView
-          ref={map => this.map = map}
-          initialRegion={this.state.region}
-          style={styles.maphight}
-        >
-          {this.state.markers.map((marker, index) => {
-            return (
-              <MapView.Marker key={index} coordinate={marker.coordinate}>
-                <Animated.View style={[styles.markerWrap]}>
-                  <Animated.View style={[styles.ring]} />
-                  <View style={styles.marker} />
-                </Animated.View>
-              </MapView.Marker>
-            );
-          })}
-        </MapView>
-      </View>
-      {/* <View style={{backgroundColor: "#FFFFFF",marginTop:60}}> */}
+        <View style={{ marginTop: 15, marginLeft: 15, marginRight: 15, marginBottom: 150, height: 400 }}>
+          <MapView
+            ref={map => this.map = map}
+            initialRegion={this.state.region}
+            style={styles.maphight}
+          >
+            {/* {this.mapList()} */}
+          </MapView>
+        </View>
+        {/* <View style={{backgroundColor: "#FFFFFF",marginTop:60}}> */}
         <View >
           <Animated.ScrollView
             horizontal
@@ -498,7 +479,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
-  maphight:{
+  maphight: {
     // width: 300,
     height: 300,
     alignItems: 'center',

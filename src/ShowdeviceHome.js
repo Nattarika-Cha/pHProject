@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, Button } from 'react-native';
+import axios from 'axios';
 // import { navigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window");
@@ -10,7 +11,34 @@ class ShowdeviceHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            latitude: '',
+            longitude: '',
+            Humidity: '',
+            pH: '',
+            serialDevice: '',
+            date: ''
         };
+    }
+
+    componentDidMount() {
+        axios.get('http://165.22.250.24:3030/senser/data_senser', {
+            params: {
+                serialDevice: this.props.obj.serialDevice
+            }
+        })
+            .then(data_senser => {
+                console.log(data_senser.data)
+                this.setState({ 
+                    // latitude: data_senser.data.latitude,
+                    // longitude: data_senser.data.longitude,
+                    Humidity: data_senser.data.moisture,
+                    pH: data_senser.data.pH,
+                    serialDevice: serialDevice,
+                    date: data_senser.data.date });
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     gotopage() {
@@ -24,24 +52,24 @@ class ShowdeviceHome extends Component {
         return (
             <TouchableOpacity onPress={this.gotopage.bind(this)}>
                 <View style={styles.card}>
-                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                    {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
                             source={require('../img/h1.png')}></Image>
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
-                    </View>
+                    </View> */}
 
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
                             source={require('../img/h3.png')}></Image>
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                        <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity}</Text>
+                        <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
                     </View>
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                         <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
                             source={require('../img/h2.png')}></Image>
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                        <Text numberOfLines={1} style={styles.cardDescription}>{this.props.obj.pH}</Text>
+                        <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
