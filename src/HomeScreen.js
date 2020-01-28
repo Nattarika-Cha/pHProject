@@ -91,19 +91,22 @@ class HomeScreen extends React.Component {
       Device: [],
       token: '',
       fname: '',
-      lname: ''
+      lname: '',
     };
   }
 
   _retrieveData = async () => {
-    var device = [];
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
         // We have data!!
         var data = JSON.parse(value);
-        this.setState({ token: data.token });
+        this.setState({ 
+          token: data.token,
+          fname: data.fname,
+          lname: data.lname
+        });
         if (this.state.token != '') {
           status = 0;
           axios.get('http://165.22.250.24:3030/device/device_list', {
@@ -140,108 +143,10 @@ class HomeScreen extends React.Component {
     }
   };
 
-  getdata = async () => {
-    status += 1;
-    try {
-      const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
-        var data = JSON.parse(value);
-        this.setState({ username: data.username });
-        if (this.state.username != '') {
-          status = 0;
-          axios.get('http://165.22.250.24:3030/user/pro', {
-            params: {
-              username: this.state.username
-            }
-          })
-            .then(response => {
-              console.log(response.data);
-              this.setState({
-                fname: response.data.fname,
-                lname: response.data.lname,
-              });
-              // console.log(this.state.Device.length);
-              //console.log(this.state.fname);
-
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
-        } else {
-          if (status == 2) {
-            status = 0;
-            Alert.alert(
-              'Error',
-              'หมดอายุเข้าใช้งาน',
-              [
-                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-              ],
-              { cancelable: false }
-            )
-          }
-        }
-      }
-    } catch (error) {
-      Alert.alert(
-        'Error',
-        'ดึงข้อมูลผิดพลาด กรุณาลองใหม่',
-        [
-          { text: 'OK' },
-        ],
-        { cancelable: false }
-      )
-      //console.log(error);
-    }
-  };
-
   componentDidMount() {
-    // var device = [];
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
-      this.getdata();
-      // if (this.state.token != '') {
-      //   status = 0;
-      //   axios.get('http://165.22.250.24:3030/device/device_list', {
-      //     params: {
-      //       token: this.state.token
-      //     }
-      //   })
-      //     .then(response => {
-      //       const Device = response.data;
-      //       this.setState({ Device });
-      //       // console.log(this.state.Device.length);
-      //       // console.log(this.state.Device);
-      //       for (let i = 0; i < this.state.Device.length; i++) {
-      //         // console.log(i);
-      //         device[i] = {
-      //           coordinate: {
-      //             latitude: 45.524548,
-      //             longitude: -122.6749817,
-      //           },
-      //           Humidity: "35 C",
-      //           pH: "5.5",
-      //           image: Images[0],
-      //         }
-      //       }
-      //       this.setState({ Device: device });
-      //     })
-      //     .catch(function (error) {
-      //       // console.log(error);
-      //     })
-      // } else {
-      //   if (status == 2) {
-      //     status = 0;
-      //     Alert.alert(
-      //       'Error',
-      //       'หมดอายุเข้าใช้งาน',
-      //       [
-      //         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-      //       ],
-      //       { cancelable: false }
-      //     )
-      //   }
-      // }
     });
   }
 
@@ -258,12 +163,11 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-          <Text style={{ fontSize: 20 }}>สวัสดี {this.state.fname} {this.state.lname}</Text>
+        <Text style={{fontSize: 20, marginTop: 13}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
@@ -279,7 +183,6 @@ class HomeScreen extends React.Component {
             {/* {this.mapList()} */}
           </MapView>
         </View>
-        {/* <View style={{backgroundColor: "#FFFFFF",marginTop:60}}> */}
         <View >
           <Animated.ScrollView
             horizontal
@@ -301,37 +204,7 @@ class HomeScreen extends React.Component {
             style={styles.scrollView}
             contentContainerStyle={styles.endPadding}
           >
-            {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}> */}
             {this.deviceList()}
-            {/* </TouchableOpacity> */}
-            {/* {this.state.Device.map((marker, index, pop) => (
-              <TouchableOpacity
-                onPress={() => pop.navigation.navigate('Devicedata', {
-                  serialDevice: marker.serialDevice
-                })}>
-                <View style={styles.card} key={index}>
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h1.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-                  </View>
-
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h3.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-                  </View>
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h2.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))} */}
           </Animated.ScrollView>
         </View>
         {/* </View> */}
