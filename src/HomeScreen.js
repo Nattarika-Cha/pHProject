@@ -6,6 +6,7 @@ import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
 import ShowdeviceHome from './ShowdeviceHome';
+import ShowmapHome from './ShowmapHome';
 
 const Images = [
   { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -99,25 +100,23 @@ class HomeScreen extends React.Component {
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
+        // We have data!!
         var data = JSON.parse(value);
-        this.setState({ username: data.username });
-        if (this.state.username != '') {
+        this.setState({ 
+          token: data.token,
+          fname: data.fname,
+          lname: data.lname
+        });
+        if (this.state.token != '') {
           status = 0;
-          axios.get('http://165.22.250.24:3030/user/pro', {
+          axios.get('http://165.22.250.24:3030/device/device_list', {
             params: {
-              username: this.state.username
+              token: this.state.token
             }
           })
             .then(response => {
-              console.log(response.data);
-              this.setState({
-                fname: response.data.fname,
-                lname: response.data.lname,
-                gender: response.data.gender,
-              });
-              // console.log(this.state.Device.length);
-              // console.log(this.state.Device);
-
+              const Device = response.data;
+              this.setState({ Device: Device });
             })
             .catch(function (error) {
               // console.log(error);
@@ -135,78 +134,35 @@ class HomeScreen extends React.Component {
             )
           }
         }
+      } else {
+        console.log("test3");
       }
     } catch (error) {
-      Alert.alert(
-        'Error',
-        'ดึงข้อมูลผิดพลาด กรุณาลองใหม่',
-        [
-          { text: 'OK' },
-        ],
-        { cancelable: false }
-      )
-      //console.log(error);
+      // Error retrieving data
+      console.log(error);
     }
   };
 
   componentDidMount() {
-    // var device = [];
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
-      // if (this.state.token != '') {
-      //   status = 0;
-      //   axios.get('http://165.22.250.24:3030/device/device_list', {
-      //     params: {
-      //       token: this.state.token
-      //     }
-      //   })
-      //     .then(response => {
-      //       const Device = response.data;
-      //       this.setState({ Device });
-      //       // console.log(this.state.Device.length);
-      //       // console.log(this.state.Device);
-      //       for (let i = 0; i < this.state.Device.length; i++) {
-      //         // console.log(i);
-      //         device[i] = {
-      //           coordinate: {
-      //             latitude: 45.524548,
-      //             longitude: -122.6749817,
-      //           },
-      //           Humidity: "35 C",
-      //           pH: "5.5",
-      //           image: Images[0],
-      //         }
-      //       }
-      //       this.setState({ Device: device });
-      //     })
-      //     .catch(function (error) {
-      //       // console.log(error);
-      //     })
-      // } else {
-      //   if (status == 2) {
-      //     status = 0;
-      //     Alert.alert(
-      //       'Error',
-      //       'หมดอายุเข้าใช้งาน',
-      //       [
-      //         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-      //       ],
-      //       { cancelable: false }
-      //     )
-      //   }
-      // }
     });
   }
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      return <ShowdeviceHome obj={object} key={i} pop={pop}/>
+      return <ShowdeviceHome obj={object} key={i} pop={pop} />
+    });
+  }
+
+  mapList() {
+    return this.state.Device.map(function (object, i) {
+      return <ShowmapHome obj={object} key={i} pop={pop} />
     });
   }
 
   render() {
-    // console.log(this.props);
     return (
       <View style={styles.container}>
 
@@ -218,25 +174,15 @@ class HomeScreen extends React.Component {
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View>
-      <View style={{marginTop: 15, marginLeft: 15, marginRight: 15,marginBottom: 150, height:400}}>
-        <MapView
-          ref={map => this.map = map}
-          initialRegion={this.state.region}
-          style={styles.maphight}
-        >
-          {this.state.markers.map((marker, index) => {
-            return (
-              <MapView.Marker key={index} coordinate={marker.coordinate}>
-                <Animated.View style={[styles.markerWrap]}>
-                  <Animated.View style={[styles.ring]} />
-                  <View style={styles.marker} />
-                </Animated.View>
-              </MapView.Marker>
-            );
-          })}
-        </MapView>
-      </View>
-      {/* <View style={{backgroundColor: "#FFFFFF",marginTop:60}}> */}
+        <View style={{ marginTop: 15, marginLeft: 15, marginRight: 15, marginBottom: 150, height: 400 }}>
+          <MapView
+            ref={map => this.map = map}
+            initialRegion={this.state.region}
+            style={styles.maphight}
+          >
+            {/* {this.mapList()} */}
+          </MapView>
+        </View>
         <View >
           <Animated.ScrollView
             horizontal
@@ -258,37 +204,7 @@ class HomeScreen extends React.Component {
             style={styles.scrollView}
             contentContainerStyle={styles.endPadding}
           >
-            {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Editdevice')}> */}
             {this.deviceList()}
-            {/* </TouchableOpacity> */}
-            {/* {this.state.Device.map((marker, index, pop) => (
-              <TouchableOpacity
-                onPress={() => pop.navigation.navigate('Devicedata', {
-                  serialDevice: marker.serialDevice
-                })}>
-                <View style={styles.card} key={index}>
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h1.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-                  </View>
-
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h3.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-                  </View>
-                  <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                      source={require('../img/h2.png')}></Image>
-                    <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                    <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))} */}
           </Animated.ScrollView>
         </View>
         {/* </View> */}
@@ -436,7 +352,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)",
   },
-  maphight:{
+  maphight: {
     // width: 300,
     height: 300,
     alignItems: 'center',
