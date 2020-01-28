@@ -8,12 +8,6 @@ import axios from 'axios';
 import ShowdeviceHome from './ShowdeviceHome';
 import ShowmapHome from './ShowmapHome';
 
-const Images = [
-  { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-  { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-  { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-  { uri: "https://i.imgur.com/Ka8kNST.jpg" }
-]
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
@@ -35,53 +29,53 @@ class HomeScreen extends React.Component {
     super(props);
     pop = this.props;
     this.state = {
-      markers: [
-        {
-          coordinate: {
-            latitude: 45.524548,
-            longitude: -122.6749817,
-          },
-          Humidity: "35 C",
-          pH: "5.5",
-          image: Images[0],
-        },
-        {
-          coordinate: {
-            latitude: 45.524698,
-            longitude: -122.6655507,
-          },
-          Humidity: "35 C",
-          pH: "5.5",
-          image: Images[1],
-        },
-        {
-          coordinate: {
-            latitude: 45.5230786,
-            longitude: -122.6701034,
-          },
-          Humidity: " 35 C",
-          pH: "6.0",
-          image: Images[2],
-        },
-        {
-          coordinate: {
-            latitude: 45.521016,
-            longitude: -122.6561917,
-          },
-          Humidity: " 35 C",
-          pH: "6.0",
-          image: Images[3],
-        },
-        {
-          coordinate: {
-            latitude: 45.521016,
-            longitude: -122.6561917,
-          },
-          Humidity: " 35 C",
-          pH: "6.0",
-          image: Images[3],
-        },
-      ],
+      // markers: [
+      //   {
+      //     coordinate: {
+      //       latitude: 45.524548,
+      //       longitude: -122.6749817,
+      //     },
+      //     Humidity: "35 C",
+      //     pH: "5.5",
+      //     image: Images[0],
+      //   },
+      //   {
+      //     coordinate: {
+      //       latitude: 45.524698,
+      //       longitude: -122.6655507,
+      //     },
+      //     Humidity: "35 C",
+      //     pH: "5.5",
+      //     image: Images[1],
+      //   },
+      //   {
+      //     coordinate: {
+      //       latitude: 45.5230786,
+      //       longitude: -122.6701034,
+      //     },
+      //     Humidity: " 35 C",
+      //     pH: "6.0",
+      //     image: Images[2],
+      //   },
+      //   {
+      //     coordinate: {
+      //       latitude: 45.521016,
+      //       longitude: -122.6561917,
+      //     },
+      //     Humidity: " 35 C",
+      //     pH: "6.0",
+      //     image: Images[3],
+      //   },
+      //   {
+      //     coordinate: {
+      //       latitude: 45.521016,
+      //       longitude: -122.6561917,
+      //     },
+      //     Humidity: " 35 C",
+      //     pH: "6.0",
+      //     image: Images[3],
+      //   },
+      // ],
       region: {
         latitude: 45.52220671242907,
         longitude: -122.6653281029795,
@@ -207,7 +201,6 @@ class HomeScreen extends React.Component {
             {this.deviceList()}
           </Animated.ScrollView>
         </View>
-        {/* </View> */}
       </View>
     );
   }

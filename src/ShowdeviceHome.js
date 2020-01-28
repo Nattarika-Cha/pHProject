@@ -27,7 +27,6 @@ class ShowdeviceHome extends Component {
             }
         })
             .then(data_senser => {
-                console.log(data_senser.data)
                 this.setState({ 
                     // latitude: data_senser.data.latitude,
                     // longitude: data_senser.data.longitude,

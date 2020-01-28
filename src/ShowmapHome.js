@@ -20,33 +20,37 @@ class ShowmapHome extends Component {
         };
     }
 
-    componentDidMount() {
-        axios.get('http://165.22.250.24:3030/senser/data_senser', {
-            params: {
-                serialDevice: this.props.obj.serialDevice
-            }
-        })
-            .then(data_senser => {
-                console.log(data_senser.data)
-                this.setState({
-                    coordinate: {
-                        latitude: data_senser.data.latitude,
-                        longitude: data_senser.data.longitude
-                    },
-                    // Humidity: data_senser.data.moisture,
-                    // pH: data_senser.data.pH,
-                    serialDevice: serialDevice,
-                    date: data_senser.data.date
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
+    // componentDidMount() {
+    //     axios.get('http://165.22.250.24:3030/senser/data_senser', {
+    //         params: {
+    //             serialDevice: this.props.obj.serialDevice
+    //         }
+    //     })
+    //         .then(data_senser => {
+    //             this.setState({
+    //                 coordinate: 
+    //                     // latitude: data_senser.data.latitude,
+    //                     // longitude: data_senser.data.longitude
+    //                     {
+    //                         latitude: -33.4727879,
+    //                         longitude: -70.6298313
+    //                       }
+    //                 ,
+    //                 // Humidity: data_senser.data.moisture,
+    //                 // pH: data_senser.data.pH,
+    //                 serialDevice: serialDevice,
+    //                 date: data_senser.data.date
+    //             });
+    //             console.log(this.state.coordinate);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // }
 
     render() {
         return (
-            <MapView.Marker coordinate={this.state.coordinate}>
+            <MapView.Marker key={this.props.key} coordinate={this.state.coordinate}>
                 <Animated.View style={[styles.markerWrap]}>
                     <Animated.View style={[styles.ring]} />
                     <View style={styles.marker} />
