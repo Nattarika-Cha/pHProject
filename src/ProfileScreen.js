@@ -107,10 +107,10 @@ class ProfileScreen extends Component {
     console.log(this.state.gender)
     if (this.state.gender == "Male"){
       return <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
-        source={require('../img/on.png')} ></Image>
+        source={require('../img/us.png')} ></Image>
     } else {
       return <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
-        source={require('../img/tm.png')} ></Image>
+        source={require('../img/usw.png')} ></Image>
     }
   }
 

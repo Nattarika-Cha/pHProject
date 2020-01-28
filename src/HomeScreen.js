@@ -90,74 +90,12 @@ class HomeScreen extends React.Component {
       Device: [],
       token: '',
       fname: '',
-      lname: ''
+      lname: '',
     };
   }
 
   _retrieveData = async () => {
-    var device = [];
     status += 1;
-    try {
-      const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
-        // We have data!!
-        var data = JSON.parse(value);
-        this.setState({ token: data.token });
-        if (this.state.token != '') {
-          status = 0;
-          axios.get('http://165.22.250.24:3030/device/device_list', {
-            params: {
-              token: this.state.token
-            }
-          })
-            .then(response => {
-              const Device = response.data;
-              this.setState({ 
-                Device: Device,
-              });
-              // console.log(this.state.Device.length);
-              // console.log(Device[0]._id);
-              for (let i = 0; i < this.state.Device.length; i++) {
-                device[i] = {
-                  coordinate: {
-                    latitude: 45.524548,
-                    longitude: -122.6749817,
-                  },
-                  Humidity: "35 C",
-                  pH: "5.5",
-                  image: Images[0],
-                  serialDevice: this.state.Device[i].serialDevice
-                }
-              }
-              this.setState({ Device: device });
-            })
-            .catch(function (error) {
-              // console.log(error);
-            })
-        } else {
-          if (status == 2) {
-            status = 0;
-            Alert.alert(
-              'Error',
-              'หมดอายุเข้าใช้งาน',
-              [
-                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-              ],
-              { cancelable: false }
-            )
-          }
-        }
-      } else {
-        console.log("test3");
-      }
-    } catch (error) {
-      // Error retrieving data
-      console.log(error);
-    }
-  };
-
-  getdata = async () => {
-    sts += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value !== null) {
@@ -175,13 +113,14 @@ class HomeScreen extends React.Component {
               this.setState({
                 fname: response.data.fname,
                 lname: response.data.lname,
+                gender: response.data.gender,
               });
               // console.log(this.state.Device.length);
-              //console.log(this.state.fname);
+              // console.log(this.state.Device);
 
             })
             .catch(function (error) {
-              console.log(error);
+              // console.log(error);
             })
         } else {
           if (status == 2) {
@@ -215,7 +154,6 @@ class HomeScreen extends React.Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
-      this.getdata();
       // if (this.state.token != '') {
       //   status = 0;
       //   axios.get('http://165.22.250.24:3030/device/device_list', {
@@ -273,7 +211,7 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-        <Text style={{fontSize: 20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
+        <Text style={{fontSize: 20, marginTop: 13}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>

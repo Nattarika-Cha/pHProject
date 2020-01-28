@@ -279,12 +279,12 @@ class EditdeviceScreen extends Component {
                 อายุ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
+                style={{ backgroundColor: "#FFFFFF", height: 50, fontSize: 15 , width:150,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
                 placeholder="อายุ"
                 onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
               />
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 60, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(age_type) => this.setState({ age_type })}
                   placeholder={{
@@ -305,12 +305,12 @@ class EditdeviceScreen extends Component {
                 พื้นที่ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
+                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 ,width:150,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
                 placeholder="พื้นที่"
                 onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
               />
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 55, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(area_type) => this.setState({ area_type })}
                   placeholder={{
@@ -352,10 +352,10 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-              <Text style={styles.txtname}>
+              <Text style={styles.txtname1}>
                 ค่า pH :
             </Text>
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_low) => this.setState({ pH_low })}
                   placeholder={{
@@ -367,7 +367,7 @@ class EditdeviceScreen extends Component {
                 />
               </View>
               <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_hight) => this.setState({ pH_hight })}
                   placeholder={{
@@ -383,7 +383,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname}>
                 ความชื้น :
             </Text>
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(humidity_low) => this.setState({ humidity_low })}
                   placeholder={{
@@ -395,7 +395,7 @@ class EditdeviceScreen extends Component {
                 />
               </View>
               <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 100, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
                   placeholder={{
@@ -447,6 +447,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 15,
     marginLeft: 15,
+  },
+  txtname1: {
+    fontSize: 18,
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: 33,
+    marginLeft: 15,
+
 
 
   },
@@ -456,7 +464,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: 10,
-    width: 180,
+    width: 200,
     height: 45,
     borderColor: '#000000',
     borderWidth: 1,
