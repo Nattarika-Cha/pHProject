@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
+import MapView from "react-native-maps";
 
 var status = 0;
 
@@ -17,7 +18,13 @@ class DevicedataScreen extends Component {
       name: '',
       ph_low: '',
       ph_hight: '',
-      soil_type: ''
+      soil_type: '',
+      region: {
+        latitude: 45.52220671242907,
+        longitude: -122.6653281029795,
+        latitudeDelta: 0.04864195044303443,
+        longitudeDelta: 0.040142817690068,
+      },
     };
   }
 
@@ -189,18 +196,21 @@ class DevicedataScreen extends Component {
                   <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', margin: 2, }}
                     source={require('../img/h4.png')}></Image>
                   <Text style={styles.txtHea}>่ที่ตั้งอุปกรณ์</Text>
+                  
                 </View>
-
               </View>
-              <View style={{
-                flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginBottom: 10
-              }}>
-
+              <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginTop: 10}}>
+                  <MapView
+                    ref={map => this.map = map}
+                    initialRegion={this.state.region}
+                    style={styles.maphight}>
+                  </MapView>
               </View>
             </View>
-
+                
             <View style={{ height: 60 }}>
             </View>
+
           </View>
         </View>
       </ScrollView>
@@ -238,7 +248,12 @@ const styles = StyleSheet.create({
   txtTitle: {
     fontSize: 15,
     color: '#000000',
-
+  },
+  maphight: {
+    width: 300,
+    height: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   txtHea: {
     fontSize: 16,
