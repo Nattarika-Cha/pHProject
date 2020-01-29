@@ -120,11 +120,40 @@ class DevicedataScreen extends Component {
     })
   }
 
+  img_pH(){
+    console.log(parseFloat(this.state.pH))
+    console.log(parseFloat(this.state.ph_low))
+    console.log(parseFloat(this.state.ph_hight))
+    if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
+      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
+    }
+    else {
+      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
+    }
+  }
+
+  img_Humidity(){
+    if( (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))){
+      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
+    } else {
+      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
+    }
+  }
+  
+
   pH_analyze(){
-    if( 6 >= this.state.ph_low || 6 >= this.state.ph_hight){
+    if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
       return <Text>ค่าปรกติ</Text>
     } else {
       return <Text>ค่าผิดปรกติ</Text>
+    }
+  }
+
+  Humidity_analyze(){
+    if( (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))){
+      return <Text>ความชื้นปรกติ</Text>
+    } else {
+      return <Text>ความชื้นผิดปรกติ</Text>
     }
   }
 
@@ -158,8 +187,7 @@ class DevicedataScreen extends Component {
                   <Text style={styles.txtHea}> pH</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }}
-                    source={require('../img/normal.png')}></Image>
+                  {this.img_pH()}
                 </View>
               </View>
               <View style={{
@@ -194,8 +222,7 @@ class DevicedataScreen extends Component {
                   <Text style={styles.txtHea}> ความชื้น</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }}
-                    source={require('../img/normal.png')}></Image>
+                  {this.img_Humidity()}
                 </View>
               </View>
               <View style={{
@@ -215,6 +242,7 @@ class DevicedataScreen extends Component {
               การวิเคราะห์
                 </Text>
             <View style={{ height: 60 }}>
+            {this.Humidity_analyze()}
             </View>
           </View>
           <View style={{
@@ -255,9 +283,7 @@ class DevicedataScreen extends Component {
       </ScrollView>
     );
   }
-
 }
-
 const styles = StyleSheet.create({
   header: {
     fontSize: 25,
