@@ -162,7 +162,7 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-        <Text style={{fontSize: 20, marginTop: 13}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
+        <Text style={{fontSize: 20, marginTop: 15, marginBottom:15,marginLeft:20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
             {/* <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>

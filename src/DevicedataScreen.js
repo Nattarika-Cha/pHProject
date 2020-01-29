@@ -121,9 +121,6 @@ class DevicedataScreen extends Component {
   }
 
   img_pH(){
-    console.log(parseFloat(this.state.pH))
-    console.log(parseFloat(this.state.ph_low))
-    console.log(parseFloat(this.state.ph_hight))
     if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
       return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
     }
@@ -140,7 +137,6 @@ class DevicedataScreen extends Component {
     }
   }
   
-
   pH_analyze(){
     if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
       return <Text>ค่าปรกติ</Text>
@@ -205,7 +201,7 @@ class DevicedataScreen extends Component {
             </View>
             <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
             
-            <View style={{ height: 60 }}>
+            <View style={{ height: 60,marginLeft: 30 }}>
               {this.pH_analyze()}
             </View>
 
@@ -241,7 +237,7 @@ class DevicedataScreen extends Component {
             <Text style={styles.txtHea2}>
               การวิเคราะห์
                 </Text>
-            <View style={{ height: 60 }}>
+            <View style={{ height: 60 ,marginLeft: 25}}>
             {this.Humidity_analyze()}
             </View>
           </View>

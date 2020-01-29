@@ -125,7 +125,7 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ height: 250, backgroundColor: '#FFFFFF', alignItems: 'center' }}>
+        <View style={{ height: 250, alignItems: 'center' }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
           <Text style={styles.txtname}>
               เลือกเดือน :

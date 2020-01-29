@@ -129,21 +129,21 @@ class ProfileScreen extends Component {
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/setting.png')}></Image>
               <Text style={styles.header3}> ตั้งค่า </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/help.png')}></Image>
               <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.clearAsyncStorage.bind(this)}>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/log-out.png')}></Image>
               <Text style={styles.header3}> ออกจากระบบ </Text>

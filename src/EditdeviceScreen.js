@@ -5,60 +5,16 @@ import axios from 'axios';
 
 var itempH = [
   { label: '3.5', value: '3.5' },
-  { label: '3.6', value: '3.6' },
-  { label: '3.7', value: '3.7' },
-  { label: '3.8', value: '3.8' },
-  { label: '3.9', value: '3.9' },
   { label: '4.0', value: '4.0' },
-  { label: '4.1', value: '4.1' },
-  { label: '4.2', value: '4.2' },
-  { label: '4.3', value: '4.3' },
-  { label: '4.4', value: '4.4' },
   { label: '4.5', value: '4.5' },
-  { label: '4.6', value: '4.6' },
-  { label: '4.7', value: '4.7' },
-  { label: '4.8', value: '4.8' },
-  { label: '4.9', value: '4.9' },
   { label: '5.0', value: '5.0' },
-  { label: '5.1', value: '5.1' },
-  { label: '5.2', value: '5.2' },
-  { label: '5.3', value: '5.3' },
-  { label: '5.4', value: '5.4' },
   { label: '5.5', value: '5.5' },
-  { label: '5.6', value: '5.6' },
-  { label: '5.7', value: '5.7' },
-  { label: '5.8', value: '5.8' },
-  { label: '5.9', value: '5.9' },
   { label: '6.0', value: '6.0' },
-  { label: '6.1', value: '6.1' },
-  { label: '6.2', value: '6.2' },
-  { label: '6.3', value: '6.3' },
-  { label: '6.4', value: '6.4' },
   { label: '6.5', value: '6.5' },
-  { label: '6.6', value: '6.6' },
-  { label: '6.7', value: '6.7' },
-  { label: '6.8', value: '6.8' },
-  { label: '6.9', value: '6.9' },
   { label: '7.0', value: '7.0' },
-  { label: '7.1', value: '7.1' },
-  { label: '7.2', value: '7.2' },
-  { label: '7.3', value: '7.3' },
-  { label: '7.4', value: '7.4' },
   { label: '7.5', value: '7.5' },
-  { label: '7.6', value: '7.6' },
-  { label: '7.7', value: '7.7' },
-  { label: '7.8', value: '7.8' },
-  { label: '7.9', value: '7.9' },
   { label: '8.0', value: '8.0' },
-  { label: '8.1', value: '8.1' },
-  { label: '8.2', value: '8.2' },
-  { label: '8.3', value: '8.3' },
-  { label: '8.4', value: '8.4' },
   { label: '8.5', value: '8.5' },
-  { label: '8.6', value: '8.6' },
-  { label: '8.7', value: '8.7' },
-  { label: '8.8', value: '8.8' },
-  { label: '8.9', value: '8.9' },
   { label: '9.0', value: '9.0' },
 ];
 
@@ -184,6 +140,57 @@ class EditdeviceScreen extends Component {
     };
   }
 
+  _retrieveData = async () => { 
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        this.setState({ username: data.username });
+        if (this.state.username != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/setting/get_setting', {
+            params: {
+              username: this.state.username
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              this.setState({ 
+                fname: response.data.fname,
+                lname: response.data.lname,
+                gender: response.data.gender,
+                });
+              // console.log(this.state.Device.length);
+              // console.log(this.state.Device);
+              
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
   onEdit() {
     axios.post('http://165.22.250.24:3030/config/add', {
       name: this.state.name,
@@ -242,7 +249,7 @@ class EditdeviceScreen extends Component {
 
               <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', }} >
                 <TouchableOpacity onPress={() => navigation.navigate('')}>
-                  <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5, borderWidth: 1, borderColor: '#5BB95A', }}
+                  <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,  }}
                     source={require('../img/device.png')}></Image>
                 </TouchableOpacity>
               </View>
@@ -252,7 +259,7 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
           </View>
-          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 30, padding: 10, }}>
+          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 20, padding: 10, }}>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
               <Text style={styles.txtname}>
                 ชนิดพืช :
@@ -279,7 +286,7 @@ class EditdeviceScreen extends Component {
                 อายุ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, fontSize: 15 , width:150,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
+                style={{ backgroundColor: "#FFFFFF", height: 50, fontSize: 15 , width:135,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
                 placeholder="อายุ"
                 onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
@@ -305,7 +312,7 @@ class EditdeviceScreen extends Component {
                 พื้นที่ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 ,width:150,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
+                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 ,width:128,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
                 placeholder="พื้นที่"
                 onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
@@ -355,7 +362,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname1}>
                 ค่า pH :
             </Text>
-              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width:58 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_low) => this.setState({ pH_low })}
                   placeholder={{
@@ -367,7 +374,7 @@ class EditdeviceScreen extends Component {
                 />
               </View>
               <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_hight) => this.setState({ pH_hight })}
                   placeholder={{
@@ -383,7 +390,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname}>
                 ความชื้น :
             </Text>
-              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(humidity_low) => this.setState({ humidity_low })}
                   placeholder={{
@@ -395,7 +402,7 @@ class EditdeviceScreen extends Component {
                 />
               </View>
               <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 65, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
                   placeholder={{
@@ -464,7 +471,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: 10,
-    width: 200,
+    width: 180,
     height: 45,
     borderColor: '#000000',
     borderWidth: 1,

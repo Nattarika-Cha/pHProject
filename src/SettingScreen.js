@@ -127,7 +127,7 @@ class SettingScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ตั้งค่า</Text>
             </View>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/sound.png')}></Image>
               <Text style={styles.header3}> เสียงการแจ้งเตือน </Text>
@@ -138,7 +138,7 @@ class SettingScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/noti.png')}></Image>
               <Text style={styles.header3}> ข้อความการแจ้งเตือน </Text>
@@ -149,7 +149,7 @@ class SettingScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ flexDirection: 'row', width: 343, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/gps.png')}></Image>
               <Text style={styles.header3}> GPS </Text>

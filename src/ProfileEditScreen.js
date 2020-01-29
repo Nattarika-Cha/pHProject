@@ -132,7 +132,7 @@ class ProfileEditScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
-            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+            {/* <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
               
               <View style={{
                 position: 'absolute', width: 40, height: 40, borderRadius: 20
@@ -144,7 +144,7 @@ class ProfileEditScreen extends Component {
                     source={require('../img/add.png')}></Image>
                 </TouchableOpacity> 
               </View>
-            </View>
+            </View> */}
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
                 <TextInput

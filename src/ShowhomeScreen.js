@@ -65,23 +65,18 @@ class ShowhomeScreen extends Component {
     render() {
         return (
             <View style={styles.card} key={index}>
-            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-              <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                    source={require('../img/h1.png')}></Image>
-              <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-              <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
-            </View>
+    
 
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                  source={require('../img/h3.png')}></Image>
-                <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text> 
+                <Image style={{ width: 25, height: 25, resizeMode: 'contain', }}
+                  source={require('../img/ph.png')}></Image>
+                <Text style={{ fontSize: 17, color: '#000000', paddingLeft: 5 }}>:</Text> 
               <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
+                <Image style={{ width: 25, height: 25, resizeMode: 'contain', }}
                   source={require('../img/h2.png')}></Image>
-                <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
+                <Text style={{ fontSize: 17, color: '#000000', paddingLeft: 5 }}>:</Text>
               <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
             </View>
           </View>
@@ -202,12 +197,12 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     cardtitle: {
-      fontSize: 12,
+      fontSize: 15,
       marginTop: 5,
       fontWeight: "bold",
     },
     cardDescription: {
-      fontSize: 12,
+      fontSize: 15,
       color: "#444",
     },
     markerWrap: {

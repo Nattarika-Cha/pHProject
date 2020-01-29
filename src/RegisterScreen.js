@@ -59,15 +59,19 @@ class RegisterScreen extends Component {
     return (
       <ScrollView style={{backgroundColor:'#fafafa'}}>
         <View style={{ flex: 1, backgroundColor: '#FAFaFa', flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
-            <Button title="Back" color="#5BB95A" onPress={() => this.props.navigation.navigate('Login')} />
-          </View>
+          
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '', }}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                  source={require('../img/back.png')}></Image>
+              </TouchableOpacity>
+            </View>
 
           <View style={{ flex: 1, backgroundColor: '#fafafa', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <View style={{ faex: 1, justifyContent: 'center',  alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
-            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+            {/* <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
               <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
                 source={require('../img/user.png')}></Image>
 
@@ -81,7 +85,7 @@ class RegisterScreen extends Component {
                     source={require('../img/add.png')}></Image>
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
             
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start',  alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
@@ -113,6 +117,10 @@ class RegisterScreen extends Component {
               }}>
                 <RNPickerSelect
                   onValueChange={(gender) => this.setState({ gender })}
+                  placeholder={{
+                    label: 'เพศ',
+                    value: '',
+                  }}
                   items={[
                     { label: 'ชาย', value: 'Male' },
                     { label: 'หญิง', value: 'Female' },

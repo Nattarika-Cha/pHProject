@@ -97,8 +97,8 @@ class LoginScreen extends Component {
   render() {
     return (
       <ImageBackground style={styles.container2} source={require('../img/bg_login.jpg')}>
-        <ScrollView>
-          <View style={{ height: 200 }}></View>
+        <ScrollView styl={{faex:1, justifyContent: 'flex-start', alignContent: 'center', alignItems:'canter' }}>
+          <View style={{ height: 180 }}></View>
           <View style={{
             faex: 1, flexDirection: 'column',
             padding: 40,
@@ -114,11 +114,11 @@ class LoginScreen extends Component {
               alignContent: 'center',
               backgroundColor: "#FFFFFF", borderRadius: 5,
               margin: 5,
-              width: 380
+              width: 300
             }}>
               <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/email-icon.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 , width: 350}}
+                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 , width: 250}}
                 placeholder="ชื่อผู้ใช้"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -128,11 +128,11 @@ class LoginScreen extends Component {
               faex: 1, flexDirection: 'row',
               justifyContent: 'flex-start',
               alignContent: 'center',
-              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: 380, height: 40,
+              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: 300, height: 50,
             }}>
               <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/pass.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", padding: 10, height: 40, fontSize: 15, width: 350 }}
+                style={{ backgroundColor: "#FFFFFF", padding: 10, height: 50, fontSize: 15, width: 250 }}
                 placeholder="รหัสผ่าน"
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     fontSize: 15,
-    width: 380,
+    width: 300,
     marginLeft: 27,
     fontWeight: 'bold'
 

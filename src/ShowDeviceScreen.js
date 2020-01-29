@@ -20,10 +20,10 @@ class ShowdeviceScreen extends Component {
         return (
             <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
                 <View style={{
-                    flexDirection: 'column', width: 400, borderRadius: 6, backgroundColor: '#FFFFFF',
+                    flexDirection: 'column', width: 320, borderRadius: 6, backgroundColor: '#FFFFFF',
                     margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
                 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 400, }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 320, }}>
                         <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
                                 source={require('../img/device.png')}></Image>
@@ -33,11 +33,11 @@ class ShowdeviceScreen extends Component {
                         source={require('../img/on.png')}></Image> */}
                                 {this.deviceList()}
                                 {/* <Text>{this.props.obj.status}</Text> */}
-                                <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5, marginTop: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                {/* <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5, marginTop: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
                                         source={require('../img/can.png')}></Image>
                                     <Text style={styles.txtcanON}>ลดน้ำเมื่อ 3ชม. 5นาที</Text>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                     </View>
