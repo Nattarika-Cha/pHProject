@@ -98,6 +98,14 @@ class DevicedataScreen extends Component {
     })
   }
 
+  pH_analyze(){
+    if( 6 >= this.state.ph_low || 6 >= this.state.ph_hight){
+      return <Text>ค่าปรกติ</Text>
+    } else {
+      return <Text>ค่าผิดปรกติ</Text>
+    }
+  }
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
@@ -145,9 +153,10 @@ class DevicedataScreen extends Component {
                 </View>
               </View>
             </View>
-            <Text style={styles.txtHea2}>
-              การวิเคราะห์  </Text>
+            <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
+            
             <View style={{ height: 60 }}>
+              {this.pH_analyze()}
             </View>
 
           </View>
