@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 //import ChartScreenfrom from './ChartScreen';
 import {LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import { withNavigation } from 'react-navigation';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -17,12 +18,81 @@ const chartConfig = {
   strokeWidth: 2, // optional, default 3
   barPercentage: 0.5
 };
+
+var device_senser = [];
+var status;
 class ReportScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Report: []
+      Report: [],
+      Device: [],
+      device_select: '',
+      Month: ''
     };
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  _retrieveData = async () => {
+    status += 1;
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if (value !== null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        this.setState({ 
+          token: data.token,
+          fname: data.fname,
+          lname: data.lname
+        });
+        if (this.state.token != '') {
+          status = 0;
+          axios.get('http://165.22.250.24:3030/device/device_list', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const Device = response.data;
+              this.setState({ Device: Device });
+              for(let i=0;i<this.state.Device.length;i++) {
+                device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
+              }
+              console.log(device_senser);
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
+      } else {
+        console.log("test3");
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this._retrieveData();
+    });
   }
 
   reportList() {
@@ -30,6 +100,7 @@ class ReportScreen extends Component {
       return <ShowreportScreen obj={object} key={i} />
     });
   }
+
   render() {
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column',  }}>
@@ -41,25 +112,25 @@ class ReportScreen extends Component {
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                  onValueChange={(device) => this.setState({ device })}
+                  onValueChange={(device_select) => this.setState({ device_select })}
                   title="อุปกรณ์"
                   placeholder={{
                     label: 'อุปกรณ์',
                     value: '',
                   }}
-                  items={[
-                    { label: 'อุปกรณ์1', value: 'อุปกรณ์1' },
-                    { label: 'อุปกรณ์2', value: 'อุปกรณ์2' },
-                  ]}
-                  value={this.state.device}
+                  items={device_senser}
+                  value={this.state.device_select}
                 />
             </View>
           </View>
         </View>
 
-        <View style={{ height: 250, backgroundColor: '#FFFFFF' }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <View style={styles.selectmonth}>
+        <View style={{ height: 250, backgroundColor: '#FFFFFF', alignItems: 'center' }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <Text style={styles.txtname}>
+              เลือกเดือน :
+            </Text>
+          <View style={styles.select}>
               <RNPickerSelect
                   onValueChange={(Month) => this.setState({ Month })}
                   title="เดือน"
@@ -68,24 +139,24 @@ class ReportScreen extends Component {
                     value: '',
                   }}
                   items={[
-                    { label: 'มกราคม', value: 'January' },
-                    { label: 'กุมภาพันธ์', value: 'Febryary' },
-                    { label: 'มีนาคม', value: 'March' },
-                    { label: 'เมษายน', value: 'April' },
-                    { label: 'พฤษภาคม', value: 'May' },
-                    { label: 'มิถุนายน', value: 'June' },
-                    { label: 'กรกฎาคม', value: 'July' },
-                    { label: 'สิงหาคม', value: 'August' },
-                    { label: 'กันยายน', value: 'September' },
-                    { label: 'ตุาคม', value: 'October' },
-                    { label: 'พฤศจิกายน', value: 'November' },
-                    { label: 'ธันวาคม', value: 'December' },
+                    { label: 'มกราคม', value: '1' },
+                    { label: 'กุมภาพันธ์', value: '2' },
+                    { label: 'มีนาคม', value: '3' },
+                    { label: 'เมษายน', value: '4' },
+                    { label: 'พฤษภาคม', value: '5' },
+                    { label: 'มิถุนายน', value: '6' },
+                    { label: 'กรกฎาคม', value: '7' },
+                    { label: 'สิงหาคม', value: '8' },
+                    { label: 'กันยายน', value: '9' },
+                    { label: 'ตุาคม', value: '10' },
+                    { label: 'พฤศจิกายน', value: '11' },
+                    { label: 'ธันวาคม', value: '12' },
                   ]}
                   value={this.state.Month}
                 />
               </View>
               
-              <View style={styles.selectweek}>
+              {/* <View style={styles.selectweek}>
                 
                 <RNPickerSelect
                   onValueChange={(Week) => this.setState({ Week })}
@@ -102,7 +173,7 @@ class ReportScreen extends Component {
                   ]}
                   value={this.state.Week}
                 />
-              </View> 
+              </View>  */}
           </View> 
         <View>
         <LineChart
@@ -238,4 +309,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ReportScreen;
+export default withNavigation(ReportScreen);
