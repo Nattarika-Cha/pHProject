@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage, Animated } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import MapView from "react-native-maps";
@@ -25,6 +25,11 @@ class DevicedataScreen extends Component {
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
+      latitude: '',
+      longitude: '',
+      Humidity: '',
+      pH: '',
+      date: ''
     };
   }
 
@@ -63,6 +68,23 @@ class DevicedataScreen extends Component {
             .catch(function (error) {
               // console.log(error);
             })
+          axios.get('http://165.22.250.24:3030/senser/data_senser', {
+            params: {
+              serialDevice: this.props.navigation.state.params.serialDevice
+            }
+          })
+            .then(data_senser => {
+              this.setState({
+                latitude: data_senser.data.latitude,
+                longitude: data_senser.data.longitude,
+                Humidity: data_senser.data.moisture,
+                pH: data_senser.data.pH,
+                date: data_senser.data.date
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
         } else {
           if (status == 2) {
             status = 0;
@@ -98,14 +120,18 @@ class DevicedataScreen extends Component {
     })
   }
 
+  onMapLayout = () => {
+    this.setState({ isMapReady: true });
+  }
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-            <Image style={{ padding: 10, width: 27, height: 27, resizeMode: 'contain', margin: 10, marginTop: 21 }}
-              source={require('../img/back.png')}></Image>
+              <Image style={{ padding: 10, width: 27, height: 27, resizeMode: 'contain', margin: 10, marginTop: 21 }}
+                source={require('../img/back.png')}></Image>
             </TouchableOpacity>
           </View>
           <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
@@ -141,7 +167,7 @@ class DevicedataScreen extends Component {
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
-                  <Text style={styles.txtData}>6</Text>
+                  <Text style={styles.txtData}>{this.state.pH}</Text>
                 </View>
               </View>
             </View>
@@ -176,7 +202,7 @@ class DevicedataScreen extends Component {
                 </View>
                 <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 171.5, marginBottom: 10 }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
-                  <Text style={styles.txtData}>6</Text>
+                  <Text style={styles.txtData}>{this.state.Humidity}</Text>
                 </View>
               </View>
             </View>
@@ -196,18 +222,26 @@ class DevicedataScreen extends Component {
                   <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', margin: 2, }}
                     source={require('../img/h4.png')}></Image>
                   <Text style={styles.txtHea}>่ที่ตั้งอุปกรณ์</Text>
-                  
+
                 </View>
               </View>
-              <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginTop: 10}}>
-                  <MapView
-                    ref={map => this.map = map}
-                    initialRegion={this.state.region}
-                    style={styles.maphight}>
-                  </MapView>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 343, marginLeft: 25, marginTop: 10 }}>
+                <MapView
+                  ref={map => this.map = map}
+                  initialRegion={this.state.region}
+                  style={styles.maphight}>
+                    {console.log(+this.state.latitude)}
+                    {console.log(+this.state.longitude)}
+                  <MapView.Marker coordinate={{latitude: +this.state.latitude,longitude: +this.state.longitude}}>
+                    <Animated.View style={[styles.markerWrap]}>
+                      <Animated.View style={[styles.ring]} />
+                      <View style={styles.marker} />
+                    </Animated.View>
+                  </MapView.Marker>
+                </MapView>
               </View>
             </View>
-                
+
             <View style={{ height: 60 }}>
             </View>
 
@@ -332,6 +366,27 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderRadius: 10,
     backgroundColor: '#ffffff'
+  },
+  marker: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "rgba(130,4,150, 0.9)",
+  },
+  ring: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "rgba(130,4,150, 0.3)",
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "rgba(130,4,150, 0.5)",
+  },
+  maphight: {
+    width: 300,
+    height: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
 
