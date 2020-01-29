@@ -52,7 +52,7 @@ class ProfileScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({
                 fname: response.data.fname,
                 lname: response.data.lname,
@@ -104,7 +104,7 @@ class ProfileScreen extends Component {
   }
 
   imageprofile(){
-    console.log(this.state.gender)
+    //console.log(this.state.gender)
     if (this.state.gender == "Male"){
       return <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
         source={require('../img/us.png')} ></Image>
