@@ -433,7 +433,7 @@ class EditdeviceScreen extends Component {
             </Text>
               <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
                 <RNPickerSelect
-                   onValueChange={(humidity_low) => this.setState({ humidity_low })}
+                   onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
                    placeholder={{
                      label: 'ค่าความชื้นสูงสุด',
                      value: '',

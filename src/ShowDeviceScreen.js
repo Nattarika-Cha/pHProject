@@ -28,7 +28,7 @@ class ShowdeviceScreen extends Component {
                             <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
                                 source={require('../img/device.png')}></Image>
                             <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
-                                <Text style={styles.headerDevice}>เครื่องที่ 2</Text>
+                                <Text style={styles.headerDevice}>{this.props.obj.serialDevice}</Text>
                                 {/* <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
                         source={require('../img/on.png')}></Image> */}
                                 {this.deviceList()}

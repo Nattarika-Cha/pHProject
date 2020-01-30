@@ -4,6 +4,7 @@ import axios from 'axios';
 // import { navigation } from 'react-navigation';
 import { RNNotificationBanner } from 'react-native-notification-banner';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { withNavigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 130;
@@ -22,7 +23,13 @@ class ShowdeviceHome extends Component {
         };
     }
 
+    componentWillUnmount() {
+        this.focusListener.remove();
+      }
+
     componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
         axios.get('http://165.22.250.24:3030/senser/data_senser', {
             params: {
                 serialDevice: this.props.obj.serialDevice
@@ -40,6 +47,7 @@ class ShowdeviceHome extends Component {
             .catch(function (error) {
                 console.log(error);
             })
+        });
     }
 
     gotopage() {
@@ -124,4 +132,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ShowdeviceHome;
+export default withNavigation(ShowdeviceHome);
