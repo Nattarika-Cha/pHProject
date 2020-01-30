@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+
+var status = 0;
 
 var itempH = [
   { label: '3.5', value: '3.5' },
@@ -136,7 +138,8 @@ class EditdeviceScreen extends Component {
       pH_low: '',
       pH_hight: '',
       humidity_low: '',
-      humidity_hight: ''
+      humidity_hight: '',
+      token: ''
     };
   }
 
@@ -147,20 +150,27 @@ class EditdeviceScreen extends Component {
       if (value !== null) {
         // We have data!!
         var data = JSON.parse(value);
-        this.setState({ username: data.username });
-        if (this.state.username != '') {
+        this.setState({ token: data.token });
+        if (this.state.token != '') {
           status = 0;
-          axios.get('http://165.22.250.24:3030/setting/get_setting', {
+          axios.get('http://165.22.250.24:3030/config/device_config', {
             params: {
-              username: this.state.username
+              serialDevice: this.props.navigation.state.params.serialDevice
             }
           })
             .then(response => {
               console.log(response.data);
               this.setState({ 
-                fname: response.data.fname,
-                lname: response.data.lname,
-                gender: response.data.gender,
+                name: response.data.name,
+                age: response.data.age,
+                age_type: response.data.age_type,
+                area: response.data.area,
+                area_type: response.data.area_type,
+                soil_type: response.data.soil_type,
+                pH_low: response.data.pH_low,
+                pH_hight: response.data.pH_hight,
+                humidity_low: response.data.humidity_low,
+                humidity_hight: response.data.humidity_hight
                 });
               // console.log(this.state.Device.length);
               // console.log(this.state.Device);
@@ -231,6 +241,13 @@ class EditdeviceScreen extends Component {
       });
   }
 
+  componentDidMount(){ //
+    const { navigation} = this.props;
+    this.focusListener = navigation.addListener('didFocus' , () => {
+      this._retrieveData();
+    });
+  }
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
@@ -259,7 +276,7 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
           </View>
-          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 20, padding: 10, }}>
+          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 5, padding: 10, }}>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
               <Text style={styles.txtname}>
                 ชนิดพืช :
@@ -281,17 +298,17 @@ class EditdeviceScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',  }}>
               <Text style={styles.txtname}>
                 อายุ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, fontSize: 15 , width:135,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
+                style={{ backgroundColor: "#FFFFFF", height: 44, fontSize: 15 , width:100,  borderRadius: 10 ,marginRight:10,paddingLeft: 10,borderColor: '#000000',borderWidth: 1,}}
                 placeholder="อายุ"
                 onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
               />
-              <View style={{ width: 60, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 125, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(age_type) => this.setState({ age_type })}
                   placeholder={{
@@ -307,17 +324,17 @@ class EditdeviceScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', }}>
               <Text style={styles.txtname}>
                 พื้นที่ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 ,width:128,  borderRadius: 10 ,margin:10,paddingLeft: 10}}
+                style={{ backgroundColor: "#FFFFFF", height: 44, padding: 10, fontSize: 15 ,width:70,  borderRadius: 10 ,margin:10,paddingLeft: 10,borderWidth: 1,}}
                 placeholder="พื้นที่"
                 onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
               />
-              <View style={{ width: 55, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width: 135, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(area_type) => this.setState({ area_type })}
                   placeholder={{
@@ -326,8 +343,8 @@ class EditdeviceScreen extends Component {
                   }}
                   items={[
                     { label: 'ตารางวา', value: 'TrV' },
-                    { label: 'วา', value: 'V' },
-                    { label: 'ตารางงาน', value: 'TrK' },
+                    // { label: 'วา', value: 'V' },
+                    // { label: 'ตารางงาน', value: 'TrK' },
                     { label: 'งาน', value: 'K' },
                     { label: 'ตารางเมตร', value: 'M' },
                     { label: 'ไร่', value: 'R' },
@@ -348,11 +365,10 @@ class EditdeviceScreen extends Component {
                     value: '',
                   }}
                   items={[
-                    { label: 'ดินร่วน', value: 'ดินร่วน' },
-                    { label: 'ดินร่วนปนทราย', value: 'ดินร่วนปนทราย' },
-                    { label: 'ดินทราย', value: 'ดินทราย' },
-                    { label: 'ดินร่วนเหนียว', value: 'ดินร่วนเหนียว' },
-                    { label: 'ดินเหนียว', value: 'ดินเหนียว' },
+                    { label: 'ดินร่วน', value: 'loam' },
+                    { label: 'ดินร่วนปนทราย', value: 'loam_soil' },
+                    { label: 'ดินทราย', value: 'sandy' },
+                    { label: 'ดินเหนียว', value: 'clay' },
                   ]}
                   value={this.state.soil_type}
                 />
@@ -362,7 +378,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname1}>
                 ค่า pH :
             </Text>
-              <View style={{ width:58 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_low) => this.setState({ pH_low })}
                   placeholder={{
@@ -373,8 +389,14 @@ class EditdeviceScreen extends Component {
                   value={this.state.pH_low}
                 />
               </View>
-              <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+             
+            </View>
+            
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname2}>
+                ถึง
+            </Text>
+              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
                 <RNPickerSelect
                   onValueChange={(pH_hight) => this.setState({ pH_hight })}
                   placeholder={{
@@ -385,35 +407,44 @@ class EditdeviceScreen extends Component {
                   value={this.state.pH_hight}
                 />
               </View>
+             
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-              <Text style={styles.txtname}>
-                ความชื้น :
+              <Text style={styles.txtname3}>
+              ความชื้น :
             </Text>
-              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
-                  onValueChange={(humidity_low) => this.setState({ humidity_low })}
-                  placeholder={{
-                    label: 'ค่าความชื้นต่ำสุด',
-                    value: '',
-                  }}
-                  items={itemHM}
-                  value={this.state.humidity_low}
+                   onValueChange={(humidity_low) => this.setState({ humidity_low })}
+                   placeholder={{
+                     label: 'ค่าความชื้นต่ำสุด',
+                     value: '',
+                   }}
+                   items={itemHM}
+                   value={this.state.humidity_low}
                 />
               </View>
-              <Text style={styles.txtname}> ถึง </Text>
-              <View style={{ width: 58, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
-                <RNPickerSelect
-                  onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
-                  placeholder={{
-                    label: 'ค่าความชื้นสูงสุด',
-                    value: '',
-                  }}
-                  items={itemHM}
-                  value={this.state.humidity_hight}
-                />
-              </View>
+             
             </View>
+            
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+              <Text style={styles.txtname2}>
+                ถึง
+            </Text>
+              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
+                <RNPickerSelect
+                   onValueChange={(humidity_low) => this.setState({ humidity_low })}
+                   placeholder={{
+                     label: 'ค่าความชื้นสูงสุด',
+                     value: '',
+                   }}
+                   items={itemHM}
+                   value={this.state.humidity_hight}
+                />
+              </View>
+             
+            </View>
+            
           </View>
           <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column' }}>
             <View style={styles.buttonContainer}>
@@ -461,9 +492,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 33,
     marginLeft: 15,
-
-
-
+  },
+  txtname2: {
+    fontSize: 18,
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: 5,
+    marginLeft: 70,
+  },
+  txtname3: {
+    fontSize: 18,
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: 10,
+    marginLeft: 15,
   },
   select: {
     justifyContent: 'flex-end',
@@ -471,7 +513,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: 10,
-    width: 180,
+    width: 200,
     height: 45,
     borderColor: '#000000',
     borderWidth: 1,

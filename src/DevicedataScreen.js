@@ -5,6 +5,7 @@ import axios from 'axios';
 import MapView from "react-native-maps";
 
 var status = 0;
+var num = 0;
 
 class DevicedataScreen extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class DevicedataScreen extends Component {
       token: '',
       age: '',
       area: '',
+      area_type: '',
       humidity_low: '',
       humidity_hight: '',
       name: '',
@@ -29,7 +31,14 @@ class DevicedataScreen extends Component {
       longitude: '',
       Humidity: '',
       pH: '',
-      date: ''
+      date: '',
+      area_analyze: '',
+      pH_getdata: '',
+      text_analyze_ph: '',
+      text_analyze_ph1: '',
+      text_analyze_ph2: '',
+      text_analyze_ph3: '',
+      text_analyze_ph4: ''
     };
   }
 
@@ -57,6 +66,7 @@ class DevicedataScreen extends Component {
               this.setState({
                 age: device_config.age,
                 area: device_config.area,
+                area_type: device_config.area_type,
                 humidity_low: device_config.humidity_low,
                 humidity_hight: device_config.humidity_hight,
                 name: device_config.name,
@@ -111,6 +121,7 @@ class DevicedataScreen extends Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
+      num = 0;
     });
   }
 
@@ -120,8 +131,8 @@ class DevicedataScreen extends Component {
     })
   }
 
-  img_pH(){
-    if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
+  img_pH() {
+    if ((parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))) {
       return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
     }
     else {
@@ -129,27 +140,101 @@ class DevicedataScreen extends Component {
     }
   }
 
-  img_Humidity(){
-    if( (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))){
+  img_Humidity() {
+    if ((parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))) {
       return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
     } else {
       return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
     }
   }
-  
-  pH_analyze(){
-    if( (parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))){
-      return <Text>ค่าปรกติ</Text>
+
+  pH_analyze() {
+
+    if ((parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))) {
+      var text = "ค่าปกติ";
+      this.setState({ text_analyze_ph: text });
     } else {
-      return <Text>ค่าผิดปรกติ</Text>
+      var pH_getdata = -1;
+      var area_analyze = 0;
+      if((parseFloat(this.state.pH) < 3.5)) {
+        pH_getdata = 3;
+      } else if ((parseFloat(this.state.pH) >= 3.5) && (parseFloat(this.state.pH) < 4)) {
+        pH_getdata = 3.5;
+      } else if ((parseFloat(this.state.pH) >= 4) && (parseFloat(this.state.pH) < 4.5)) {
+        pH_getdata = 4;
+      } else if ((parseFloat(this.state.pH) >= 4.5) && (parseFloat(this.state.pH) < 5)) {
+        pH_getdata = 4.5;
+      } else if ((parseFloat(this.state.pH) >= 5) && (parseFloat(this.state.pH) < 6)) {
+        pH_getdata = 5;
+      } else if ((parseFloat(this.state.pH) >= 6) && (parseFloat(this.state.pH) < 6.5)) {
+        pH_getdata = 6;
+      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 7.9)) {
+        pH_getdata = 7;
+      } else if ((parseFloat(this.state.pH) >= 8)) {
+        pH_getdata = 8;
+      }
+
+      if ((pH_getdata == 3.5) || (pH_getdata == 4) || (pH_getdata == 4.5) || (pH_getdata == 5)) {
+        axios.get('http://165.22.250.24:3030/analyze/analyze', {
+          params: {
+            pH: pH_getdata,
+            soil_type: this.state.soil_type
+          }
+        })
+          .then(analyze_data => {
+            const analyze = analyze_data.data;
+            if (this.state.area_type == "R") {
+              area_analyze = this.state.area * analyze.limestone;
+            } else if (this.state.area_type == "TrV") {
+              area_analyze = (this.state.area / 400) * analyze.limestone;
+            } else if (this.state.area_type == "K") {
+              area_analyze = (this.state.area / 4) * analyze.limestone;
+            } else if (this.state.area_type == "M") {
+              area_analyze = (this.state.area / 1600) * analyze.limestone;
+            }
+            var text = "ดินเป็นกรด สามารถเลือกปรับค่าดืนได้ ดังนี้";
+            var text1 = "1. ควรเติมหินปูนบดละเอียด " + area_analyze + " กก.";
+            var text2 = "2. เติมหินปูนขาว " + (area_analyze * 0.74) + " กก.";
+            var text3 = "3. เติมหินปูนโดโลไมต์ " + (area_analyze * 0.92) + " กก.";
+            var text4 = "4. เติมหินปูนมร์ล " + (area_analyze * 1.25) + " กก.";
+            this.setState({
+              text_analyze_ph: text,
+              text_analyze_ph1: text1,
+              text_analyze_ph2: text2,
+              text_analyze_ph3: text3,
+              text_analyze_ph4: text4
+            });
+          })
+          .catch(function (error) {
+            // console.log(error);
+          })
+      } else if ((pH_getdata == 6) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณเป็นกรด ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นด่าง";
+        this.setState({ text_analyze_ph: text });
+        num++;
+      } else if ((pH_getdata == 7) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณมีความผิดปรกติจากค่าที่ตั้งไว้ แต่มีความอุดมสมบูรณ์ดี";
+        this.setState({ text_analyze_ph: text });
+        num++;
+      } else if ((pH_getdata == 8) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณเป็นด่าง ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นกรด";
+        this.setState({ text_analyze_ph: text });
+        num++;
+      } else {
+        if ((num == 0) && (pH_getdata != -1)) {
+          var text = "ดินของคุณเป็นกรดมาก ไม่ควรปลูกพืช";
+          this.setState({ text_analyze_ph: text });
+          num++;
+        }
+      }
     }
   }
 
-  Humidity_analyze(){
-    if( (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))){
+  Humidity_analyze() {
+    if ((parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_hight))) {
       return <Text>ความชื้นปรกติ</Text>
     } else {
-      return <Text>ความชื้นผิดปรกติ</Text>
+      return <Text>ความชื้นผิดปรกติ </Text>
     }
   }
 
@@ -200,10 +285,19 @@ class DevicedataScreen extends Component {
               </View>
             </View>
             <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
-            
-            <View style={{ height: 60,marginLeft: 30 }}>
-              {this.pH_analyze()}
-            </View>
+
+            <ScrollView>
+              <View style={{ height: 60, marginLeft: 30 }}>
+                {this.pH_analyze()}
+
+                <Text>{this.state.text_analyze_ph}</Text>
+                <Text>{this.state.text_analyze_ph1}</Text>
+                <Text>{this.state.text_analyze_ph2}</Text>
+                <Text>{this.state.text_analyze_ph3}</Text>
+                <Text>{this.state.text_analyze_ph4}</Text>
+
+              </View>
+            </ScrollView>
 
           </View>
           <View style={{
@@ -237,8 +331,8 @@ class DevicedataScreen extends Component {
             <Text style={styles.txtHea2}>
               การวิเคราะห์
                 </Text>
-            <View style={{ height: 60 ,marginLeft: 25}}>
-            {this.Humidity_analyze()}
+            <View style={{ height: 60, marginLeft: 25 }}>
+              {this.Humidity_analyze()}
             </View>
           </View>
           <View style={{
@@ -259,9 +353,7 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-                    {console.log(+this.state.latitude)}
-                    {console.log(+this.state.longitude)}
-                  <MapView.Marker coordinate={{latitude: +this.state.latitude,longitude: +this.state.longitude}}>
+                  <MapView.Marker coordinate={{ latitude: +this.state.latitude, longitude: +this.state.longitude }}>
                     <Animated.View style={[styles.markerWrap]}>
                       <Animated.View style={[styles.ring]} />
                       <View style={styles.marker} />
