@@ -77,8 +77,8 @@ class HomeScreen extends React.Component {
       //   },
       // ],
       region: {
-        latitude: 45.52220671242907,
-        longitude: -122.6653281029795,
+        latitude: 13.8194926,
+        longitude: 100.5137078,
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
@@ -163,7 +163,7 @@ class HomeScreen extends React.Component {
 
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
         <Text style={{fontSize: 20, marginTop: 15, marginBottom:15,marginLeft:20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 , backgroundColor: '#FAFAFA'}}>
             {/* <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text> */}
@@ -175,7 +175,18 @@ class HomeScreen extends React.Component {
             initialRegion={this.state.region}
             style={styles.maphight}
           >
-            {/* {this.mapList()} */}
+            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
+              <Animated.View style={[styles.markerWrap]}>
+              <Animated.View style={[styles.ring]} />
+              <View style={styles.marker} />
+              </Animated.View>
+            </MapView.Marker>
+            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
+              <Animated.View style={[styles.markerWrap]}>
+              <Animated.View style={[styles.ring]} />
+              <View style={styles.marker} />
+              </Animated.View>
+            </MapView.Marker>
           </MapView>
         </View>
         <View >

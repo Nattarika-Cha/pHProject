@@ -24,8 +24,8 @@ class DevicedataScreen extends Component {
       ph_hight: '',
       soil_type: '',
       region: {
-        latitude: 45.52220671242907,
-        longitude: -122.6653281029795,
+        latitude: 13.8194926,
+        longitude: 100.5137078,
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
@@ -355,7 +355,7 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-                  <MapView.Marker coordinate={{ latitude: +this.state.latitude, longitude: +this.state.longitude }}>
+                  <MapView.Marker coordinate={{ latitude: 13.8194926, longitude: 100.5137078 }}>
                     <Animated.View style={[styles.markerWrap]}>
                       <Animated.View style={[styles.ring]} />
                       <View style={styles.marker} />
