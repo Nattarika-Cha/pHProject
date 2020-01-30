@@ -3,6 +3,8 @@ import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegist
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import MapView from "react-native-maps";
+import { RNNotificationBanner } from 'react-native-notification-banner';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 var status = 0;
 
