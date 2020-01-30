@@ -3,7 +3,7 @@ import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackg
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 //import ChartScreenfrom from './ChartScreen';
-import {LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
 
@@ -28,7 +28,10 @@ class ReportScreen extends Component {
       Report: [],
       Device: [],
       device_select: '',
-      Month: ''
+      Month: '',
+      Year: '',
+      start: '',
+      end: ''
     };
   }
 
@@ -43,7 +46,7 @@ class ReportScreen extends Component {
       if (value !== null) {
         // We have data!!
         var data = JSON.parse(value);
-        this.setState({ 
+        this.setState({
           token: data.token,
           fname: data.fname,
           lname: data.lname
@@ -58,9 +61,9 @@ class ReportScreen extends Component {
             .then(response => {
               const Device = response.data;
               this.setState({ Device: Device });
-              for(let i=0;i<this.state.Device.length;i++) {
-                device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
-              }
+              // for (let i = 0; i < this.state.Device.length; i++) {
+              //   device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
+              // }
               console.log(device_senser);
             })
             .catch(function (error) {
@@ -95,15 +98,85 @@ class ReportScreen extends Component {
     });
   }
 
-  reportList() {
-    return this.state.Report.map(function (object, i) {
-      return <ShowreportScreen obj={object} key={i} />
-    });
+  // reportList() {
+  //   return this.state.Report.map(function (object, i) {
+  //     return <ShowreportScreen obj={object} key={i} />
+  //   });
+  // }
+
+  showdata() {
+    console.log(this.state.device_select);
+    console.log(this.state.Month);
+    console.log(this.state.Year);
+    if((this.state.device_select != '') && (this.state.Month != '') && (this.state.Year != '')) {
+        if(this.state.Month == '1') {
+          var start = (this.state.Year-1) + "-12-31T17:00:00Z";
+          var end = this.state.Year + "-01-31T17:00:00Z";
+        } else if(this.state.Month == '2') {
+          var start = this.state.Year + "-01-31T17:00:00Z";
+          var end = this.state.Year + "-02-29T17:00:00Z";
+        } else if(this.state.Month == '3') {
+          var start = this.state.Year + "-02-29T17:00:00Z";
+          var end = this.state.Year + "-03-31T17:00:00Z";
+        } else if(this.state.Month == '4') {
+          var start = this.state.Year + "-03-31T17:00:00Z";
+          var end = this.state.Year + "-04-30T17:00:00Z";
+        } else if(this.state.Month == '5') {
+          var start = this.state.Year + "-04-30T17:00:00Z";
+          var end = this.state.Year + "-05-31T17:00:00Z";
+        } else if(this.state.Month == '6') {
+          var start = this.state.Year + "-05-31T17:00:00Z";
+          var end = this.state.Year + "-06-30T17:00:00Z";
+        } else if(this.state.Month == '7') {
+          var start = this.state.Year + "-06-30T17:00:00Z";
+          var end = this.state.Year + "-07-31T17:00:00Z";
+        } else if(this.state.Month == '8') {
+          var start = this.state.Year + "-07-31T17:00:00Z";
+          var end = this.state.Year + "-08-31T17:00:00Z";
+        } else if(this.state.Month == '9') {
+          var start = this.state.Year + "-08-31T17:00:00Z";
+          var end = this.state.Year + "-09-30T17:00:00Z";
+        } else if(this.state.Month == '10') {
+          var start = this.state.Year + "-09-30T17:00:00Z";
+          var end = this.state.Year + "-10-31T17:00:00Z";
+        } else if(this.state.Month == '11') {
+          var start = this.state.Year + "-10-31T17:00:00Z";
+          var end = this.state.Year + "-11-30T17:00:00Z";
+        } else if(this.state.Month == '12') {
+          var start = this.state.Year + "-11-30T17:00:00Z";
+          var end = this.state.Year + "-12-31T17:00:00Z";
+        }
+        this.setState({ 
+          start: start,
+          end: end
+        });
+        console.log(this.state.start);
+        console.log(this.state.end);
+
+        axios.get('http://165.22.250.24:3030/senser/senser_history', {
+            params: {
+              serialDevice: this.state.device_select,
+              start: this.state.start,
+              end: this.state.end
+            }
+          })
+            .then(response => {
+              const Report = response.data;
+              this.setState({ Report: Report });
+              for (let i = 0; i < this.state.Report.length; i++) {
+                device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
+              }
+              console.log(Report);
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+    }
   }
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column',  }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
           <Text style={styles.header}>รายงาน</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
@@ -112,113 +185,129 @@ class ReportScreen extends Component {
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                  onValueChange={(device_select) => this.setState({ device_select })}
-                  title="อุปกรณ์"
-                  placeholder={{
-                    label: 'อุปกรณ์',
-                    value: '',
-                  }}
-                  items={device_senser}
-                  value={this.state.device_select}
-                />
+                onValueChange={(device_select) => this.setState({ device_select })}
+                title="อุปกรณ์"
+                placeholder={{
+                  label: 'อุปกรณ์',
+                  value: '',
+                }}
+                items={device_senser}
+                value={this.state.device_select}
+              />
             </View>
           </View>
         </View>
 
         <View style={{ height: 250, alignItems: 'center' }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={styles.txtname}>
+            <Text style={styles.txtname}>
               เลือกเดือน :
             </Text>
-          <View style={styles.select}>
+            <View style={styles.select}>
               <RNPickerSelect
-                  onValueChange={(Month) => this.setState({ Month })}
-                  title="เดือน"
-                  placeholder={{
-                    label: 'เดือน',
-                    value: '',
-                  }}
-                  items={[
-                    { label: 'มกราคม', value: '1' },
-                    { label: 'กุมภาพันธ์', value: '2' },
-                    { label: 'มีนาคม', value: '3' },
-                    { label: 'เมษายน', value: '4' },
-                    { label: 'พฤษภาคม', value: '5' },
-                    { label: 'มิถุนายน', value: '6' },
-                    { label: 'กรกฎาคม', value: '7' },
-                    { label: 'สิงหาคม', value: '8' },
-                    { label: 'กันยายน', value: '9' },
-                    { label: 'ตุาคม', value: '10' },
-                    { label: 'พฤศจิกายน', value: '11' },
-                    { label: 'ธันวาคม', value: '12' },
-                  ]}
-                  value={this.state.Month}
-                />
-              </View>
-              
-              {/* <View style={styles.selectweek}>
-                
-                <RNPickerSelect
-                  onValueChange={(Week) => this.setState({ Week })}
-                  title="สัปดาห์"
-                  placeholder={{
-                    label: 'สัปดาห์',
-                    value: '',
-                  }}
-                  items={[
-                    { label: '1', value: '1' },
-                    { label: '2', value: '2' },
-                    { label: '3', value: '3' },
-                    { label: '4', value: '4' },
-                  ]}
-                  value={this.state.Week}
-                />
-              </View>  */}
-          </View> 
-        <View>
-        <LineChart
-          data={{
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [
-              {
-                data: [
-                  5,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6
+                onValueChange={(Month) => this.setState({ Month })}
+                title="เดือน"
+                placeholder={{
+                  label: 'เดือน',
+                  value: '',
+                }}
+                items={[
+                  { label: 'มกราคม', value: '1' },
+                  { label: 'กุมภาพันธ์', value: '2' },
+                  { label: 'มีนาคม', value: '3' },
+                  { label: 'เมษายน', value: '4' },
+                  { label: 'พฤษภาคม', value: '5' },
+                  { label: 'มิถุนายน', value: '6' },
+                  { label: 'กรกฎาคม', value: '7' },
+                  { label: 'สิงหาคม', value: '8' },
+                  { label: 'กันยายน', value: '9' },
+                  { label: 'ตุลาคม', value: '10' },
+                  { label: 'พฤศจิกายน', value: '11' },
+                  { label: 'ธันวาคม', value: '12' },
+                ]}
+                value={this.state.Month}
+              />
+            </View>
+          </View>
+
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+            <Text style={styles.txtname}>
+              เลือกปี :
+            </Text>
+            <View style={styles.select}>
+              <RNPickerSelect
+                onValueChange={(Year) => this.setState({ Year })}
+                title="ปี"
+                placeholder={{
+                  label: 'ปี',
+                  value: '',
+                }}
+                items={[
+                  { label: '2018', value: '2018' },
+                  { label: '2019', value: '2019' },
+                  { label: '2020', value: '2020' },
+                  { label: '2021', value: '2021' },
+                  { label: '2022', value: '2022' },
+                  { label: '2023', value: '2023' },
+                  { label: '2024', value: '2024' },
+                  { label: '2025', value: '2025' },
+                  { label: '2026', value: '2026' },
+                  { label: '2027', value: '2027' },
+                  { label: '2028', value: '2028' },
+                  { label: '2029', value: '2029' },
+                  { label: '2030', value: '2030' },
+                ]}
+                value={this.state.Year}
+              />
+            </View>
+          </View>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+            <Button title="ค้นหา" color="#5BB95A" type="clear" onPress={this.showdata.bind(this)} />
+          </View>
+          <View>
+            <LineChart
+              data={{
+                labels: ["January", "February", "March", "April", "May", "June"],
+                datasets: [
+                  {
+                    data: [
+                      5,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6
+                    ]
+                  }
                 ]
-              }
-            ]
-          }}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          yAxisLabel=""
-          yAxisSuffix="k"
-          chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726"
-            }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16
-          }}
-        />
-      </View>
+              }}
+              width={Dimensions.get("window").width} // from react-native
+              height={220}
+              yAxisLabel=""
+              yAxisSuffix="k"
+              chartConfig={{
+                backgroundColor: "#e26a00",
+                backgroundGradientFrom: "#fb8c00",
+                backgroundGradientTo: "#ffa726",
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                },
+                propsForDots: {
+                  r: "6",
+                  strokeWidth: "2",
+                  stroke: "#ffa726"
+                }
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16
+              }}
+            />
+          </View>
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 20 }}>
@@ -229,7 +318,7 @@ class ReportScreen extends Component {
           </View>
         </View>
         <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-          {this.reportList()}
+          {/* {this.reportList()} */}
         </View>
       </ScrollView>
     );

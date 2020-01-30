@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, Button } from 'react-native';
 import axios from 'axios';
 // import { navigation } from 'react-navigation';
+import { RNNotificationBanner } from 'react-native-notification-banner';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
@@ -47,6 +49,23 @@ class ShowdeviceHome extends Component {
         })
     }
 
+    _onClick = () => {
+        props.onClick && props.onClick()
+    }
+    
+    Humidity_analyze(){
+        if( (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))){
+        //   return <Text>ความชื้นปรกติ</Text>
+        } else if ( (parseFloat(this.state.Humidity) < parseFloat(this.state.humidity_low))) {
+            let glass = <Icon name="copy" size={24} color="#FFFFFF" family={"FontAwesome"} />;
+            RNNotificationBanner.Show({ title: "ความชื้น", subTitle: "ค่าความชื้นในดินน้อยกว่าที่คุณกำหนด ควรรดน้ำหรือเชคสถานะความชื้น", withIcon: true, icon: glass,})
+        //   return <Text>ความชื้นผิดปรกติ</Text>
+        }else {
+            let glass = <Icon name="copy" size={24} color="#FFFFFF" family={"FontAwesome"} />;
+            RNNotificationBanner.Show({ title: "ความชื้น", subTitle: "ค่าความชื้นในดินมากกว่าที่คุณกำหนด เชคสถานะความชื้นของคุณ", withIcon: true, icon: glass})
+        }
+      }
+
     render() {
         return (
             <TouchableOpacity onPress={this.gotopage.bind(this)}>
@@ -69,6 +88,7 @@ class ShowdeviceHome extends Component {
                             source={require('../img/h2.png')}></Image>
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
+                        {this.Humidity_analyze()}
                     </View>
                 </View>
             </TouchableOpacity>
