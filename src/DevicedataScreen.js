@@ -194,8 +194,8 @@ class DevicedataScreen extends Component {
             } else if (this.state.area_type == "M") {
               area_analyze = (this.state.area / 1600) * analyze.limestone;
             }
-            var text = "ดินเป็นกรด สามารถเลือกปรับค่าดืนได้ ดังนี้";
-            var text1 = "1. ควรเติมหินปูนบดละเอียด " + area_analyze + " กก.";
+            var text = "ดินเป็นกรด สามารถเลือกปรับค่าคืนได้ ดังนี้";
+            var text1 = "1. เติมหินปูนบดละเอียด " + area_analyze + " กก.";
             var text2 = "2. เติมหินปูนขาว " + (area_analyze * 0.74) + " กก.";
             var text3 = "3. เติมหินปูนโดโลไมต์ " + (area_analyze * 0.92) + " กก.";
             var text4 = "4. เติมหินปูนมร์ล " + (area_analyze * 1.25) + " กก.";
@@ -260,9 +260,8 @@ class DevicedataScreen extends Component {
         <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
           <View style={{
             flexDirection: 'column', width: 343, borderRadius: 6, backgroundColor: '#FFFBE9',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
-          }}>
-            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 343, alignItems: 'flex-start' }}>
+            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',}}>
+            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 343, alignItems: 'flex-start' ,}}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
                   <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', margin: 2, }}
@@ -289,7 +288,7 @@ class DevicedataScreen extends Component {
             <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
 
             <ScrollView>
-              <View style={{ height: 60, marginLeft: 30 }}>
+              <View style={{ height: 130, marginLeft: 30, marginRight:20 }}>
                 {this.pH_analyze()}
 
                 <Text>{this.state.text_analyze_ph}</Text>

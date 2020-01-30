@@ -16,7 +16,7 @@ export default createMaterialBottomTabNavigator(
         // tabBarLabel: '',
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-home'} />
+            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-home'} />
           </View>),
       }
     },
@@ -25,7 +25,7 @@ export default createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-easel'} />
+            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-easel'} />
           </View>),
       }, initialRouteName: 'Device'
     },
@@ -36,7 +36,7 @@ export default createMaterialBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <View>
             {/* <Icon type="bar-chart" /> */}
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-stats'} />
+            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-stats'} />
           </View>),
       }, initialRouteName: 'Report'
     },
@@ -46,7 +46,7 @@ export default createMaterialBottomTabNavigator(
         // tabBarLabel: 'Report',o
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: tintColor }]} size={25} name={'md-contact'} />
+            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-contact'} />
           </View>),
       }, initialRouteName: 'Profile'
     },
@@ -55,6 +55,6 @@ export default createMaterialBottomTabNavigator(
     activeColor: '#000000',
     activeTincolor: '#000000',
     inactiveColor: '#000000',
-    barStyle: { backgroundColor: '#ffffff' },
+    barStyle: { backgroundColor: '#FFFFFF' },
   }
 );

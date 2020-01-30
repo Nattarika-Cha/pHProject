@@ -267,7 +267,7 @@ class EditdeviceScreen extends Component {
               <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', }} >
                 <TouchableOpacity onPress={() => navigation.navigate('')}>
                   <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,  }}
-                    source={require('../img/device.png')}></Image>
+                    source={require('../img/devce.png')}></Image>
                 </TouchableOpacity>
               </View>
               <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >

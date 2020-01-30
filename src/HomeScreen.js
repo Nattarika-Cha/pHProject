@@ -9,8 +9,8 @@ import ShowdeviceHome from './ShowdeviceHome';
 import ShowmapHome from './ShowmapHome';
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_HEIGHT = height / 8;
+const CARD_WIDTH = CARD_HEIGHT - 70;
 
 //var token = '';
 var status = 0;
@@ -161,35 +161,30 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
 
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#FFF' }}>
-        <Text style={{fontSize: 20, marginTop: 15, marginBottom:15,marginLeft:20}}>สวัสดี {this.state.fname} {this.state.lname}</Text>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 , backgroundColor: '#FAFAFA'}}>
+        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
+        <Text style={{fontSize: 20, marginTop: 10, marginBottom:15,marginLeft:20}}>คุณ :  {this.state.fname} {this.state.lname}</Text>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0 , backgroundColor: '#e7ede6'}}>
             {/* <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text> */}
           </View>
         </View>
-        <View style={{ marginTop: 15, marginLeft: 15, marginRight: 15, marginBottom: 150, height: 400 }}>
-          <MapView
+        <View style={{ marginTop: 15, marginBottom: 180, height: 400, backgroundColor: '#FFFFFF', paddingTop: 10, paddingLeft:10 ,paddingRight:10 ,paddingBottom:10 , borderRadius: 6}}>
+          <MapView 
             ref={map => this.map = map}
             initialRegion={this.state.region}
-            style={styles.maphight}
-          >
-            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
-              <Animated.View style={[styles.markerWrap]}>
+            style={styles.maphight} >
+            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>             
               <Animated.View style={[styles.ring]} />
-              <View style={styles.marker} />
-              </Animated.View>
+              <View style={styles.marker} />             
             </MapView.Marker>
-            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
-              <Animated.View style={[styles.markerWrap]}>
+            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>              
               <Animated.View style={[styles.ring]} />
-              <View style={styles.marker} />
-              </Animated.View>
+              <View style={styles.marker} />             
             </MapView.Marker>
           </MapView>
         </View>
-        <View >
+        <View style={{ flexDirection: 'column', justifyContent: 'flex-start',alignItems:'flex-start',marginLeft: 25, borderRadius: 10}}>
           <Animated.ScrollView
             horizontal
             scrollEventThrottle={1}
@@ -305,7 +300,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   endPadding: {
-    paddingRight: width - CARD_WIDTH,
+    paddingRight: width - CARD_WIDTH ,
   },
   card: {
     padding: 10,
@@ -359,9 +354,10 @@ const styles = StyleSheet.create({
   },
   maphight: {
     // width: 300,
-    height: 300,
+    height: 380,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 150,
   }
 });
 

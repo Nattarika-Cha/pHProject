@@ -107,10 +107,10 @@ class DeviceScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
           {/* <Button>Device</Button> */}
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
+          {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
               source={require('../img/noti.png')}></Image>
-          </View>
+          </View> */}
         </View>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>

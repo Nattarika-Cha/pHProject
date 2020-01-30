@@ -23,9 +23,15 @@ class ManualScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>คู่มือการใช้งาน</Text>
             </View>
-            <View style={{ flexDirection: 'row', width: 360, height: 700, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-              
-
+            <View style={{ flexDirection: 'column', width: 320, height: 700, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start', paddingLeft:25 }}>
+              <Text>  </Text>
+              <Text style={styles.header3}>หากแอปพลิเคชันมีปัญหาหรือมี
+              อาการค้างให้ปิดแอปพลิเคชันแล้วเปิดใหม่</Text>
+              <Text>  </Text>
+              <Text style={styles.header3}>ติดต่อเราที่</Text>
+              <Text style={styles.header3}>e-mail: easyfarm.smart@gmail.com  </Text>
+              <Text>  </Text>
+              <Text style={styles.header3}>โทร: 092-8104990 </Text>
             </View>
           </View>
         </View>
@@ -44,9 +50,7 @@ const styles = StyleSheet.create({
   },
   header3: {
     fontSize: 18,
-
     fontWeight: 'bold',
-    paddingVertical: 14,
     alignItems: 'center',
   },
   txtinput: {
