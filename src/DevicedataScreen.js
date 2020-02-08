@@ -170,7 +170,7 @@ class DevicedataScreen extends Component {
         pH_getdata = 5;
       } else if ((parseFloat(this.state.pH) >= 6) && (parseFloat(this.state.pH) < 6.5)) {
         pH_getdata = 6;
-      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 7.9)) {
+      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 8)) {
         pH_getdata = 7;
       } else if ((parseFloat(this.state.pH) >= 8)) {
         pH_getdata = 8;
