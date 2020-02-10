@@ -6,6 +6,7 @@ import axios from 'axios';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
+import ShowreportScreen from './ShowreportScreen';
 var moment = require('moment');
 var PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -14,7 +15,8 @@ var HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 var PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var graph = {
-  labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+  // labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+  labels: [],
   datasets: [
     {
       data: PH_DATA
@@ -23,7 +25,8 @@ var graph = {
 };
 
 var graph1 = {
-  labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+  // labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+  labels: [],
   datasets: [
     {
       data: PH_DATA
@@ -31,6 +34,9 @@ var graph1 = {
   ]
 };
 var num = 0;
+var device_select = '';
+var Month = '';
+var Year = '';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -56,7 +62,8 @@ class ReportScreen extends Component {
       Month: '',
       Year: '',
       start: '',
-      end: ''
+      end: '',
+      day: ''
     };
   }
 
@@ -123,20 +130,51 @@ class ReportScreen extends Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
+      this.cls_data();
     });
   }
 
-  // reportList() {
-  //   return this.state.Report.map(function (object, i) {
-  //     return <ShowreportScreen obj={object} key={i} />
-  //   });
-  // }
+  cls_data() {
+    PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    PH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    graph = {
+      labels: [],
+      datasets: [
+        {
+          data: PH_DATA
+        }
+      ]
+    };
+
+    graph1 = {
+      labels: [],
+      datasets: [
+        {
+          data: PH_DATA
+        }
+      ]
+    };
+    num = 0;
+  }
 
   showdata() {
+    // console.log(this.state.device_select);
+    // console.log(this.state.Month);
+    // console.log(this.state.Year);
+    if ((this.state.device_select != device_select) || (this.state.Month != Month) || (this.state.Year != Year)) {
+      device_select = this.state.device_select;
+      Month = this.state.Month;
+      Year = this.state.Year;
+      // console.log("testttt");
+      this.cls_data();
+    }
+
     // console.log(num)
-    console.log(this.state.device_select);
-    console.log(this.state.Month);
-    console.log(this.state.Year);
+
     if ((this.state.device_select != '') && (this.state.Month != '') && (this.state.Year != '') && (num <= 2)) {
       num += 1;
       if (this.state.Month == '1') {
@@ -181,6 +219,9 @@ class ReportScreen extends Component {
         end: end
       });
 
+      // console.log(this.state.device_select);
+      // console.log(this.state.start);
+      // console.log(this.state.end);
       axios.get('http://165.22.250.24:3030/senser/senser_history', {
         params: {
           serialDevice: this.state.device_select,
@@ -193,42 +234,148 @@ class ReportScreen extends Component {
           this.setState({ Report: Report });
           for (let i = 0; i < this.state.Report.length; i++) {
             var day = moment(this.state.Report[i].date).format('DD');
-            PH[day] += parseFloat(this.state.Report[i].pH);
-            PH_NUM[day] += 1;
-            PH_DATA[day] = PH[day] / PH_NUM[day];
-            HM[day] += parseFloat(this.state.Report[i].moisture);
-            HM_NUM[day] += 1;
-            HM_DATA[day] = HM[day] / HM_NUM[day];
+            // console.log(day);
+            PH[day - 1] += parseFloat(this.state.Report[i].pH);
+            PH_NUM[day - 1] += 1;
+            PH_DATA[day - 1] = PH[day - 1] / PH_NUM[day - 1];
+            HM[day - 1] += parseFloat(this.state.Report[i].moisture);
+            HM_NUM[day - 1] += 1;
+            HM_DATA[day - 1] = HM[day - 1] / HM_NUM[day - 1];
           }
 
-          graph = {
-            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
-            datasets: [
-              {
-                data: PH_DATA
+          if (this.state.Month == 2) {
+            if ((this.state.Year % 4) == 0) {
+              graph = {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
+                datasets: [
+                  {
+                    data: PH_DATA
+                  }
+                ]
               }
-            ]
+
+              graph1 = {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
+                datasets: [
+                  {
+                    data: HM_DATA
+                  }
+                ]
+              }
+
+              this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"] });
+            } else {
+              graph = {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
+                datasets: [
+                  {
+                    data: PH_DATA
+                  }
+                ]
+              }
+
+              graph1 = {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
+                datasets: [
+                  {
+                    data: HM_DATA
+                  }
+                ]
+              }
+              this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"] });
+            }
+          } else if ((this.state.Month == 1) || (this.state.Month == 3) || (this.state.Month == 5) || (this.state.Month == 7) || (this.state.Month == 8) || (this.state.Month == 10) || (this.state.Month == 12)) {
+            graph = {
+              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+              datasets: [
+                {
+                  data: PH_DATA
+                }
+              ]
+            }
+
+            graph1 = {
+              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+              datasets: [
+                {
+                  data: HM_DATA
+                }
+              ]
+            }
+
+            this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"] });
+          } else if ((this.state.Month == 4) || (this.state.Month == 6) || (this.state.Month == 9) || (this.state.Month == 11)) {
+            graph = {
+              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+              datasets: [
+                {
+                  data: PH_DATA
+                }
+              ]
+            }
+
+            graph1 = {
+              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+              datasets: [
+                {
+                  data: HM_DATA
+                }
+              ]
+            }
+
+            this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"] });
           }
 
-          graph1 = {
-            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
-            datasets: [
-              {
-                data: HM_DATA
-              }
-            ]
-          }
+          // console.log(PH_DATA);
+          // console.log(HM_DATA);
+          // console.log(PH);
+          // console.log(HM);
+          // console.log(PH_NUM);
+          // console.log(HM_NUM);
+
         })
         .catch(function (error) {
           // console.log(error);
         })
     }
-    else if (((this.state.device_select != this.state.device_select) || (this.state.Month != this.state.Month) || (this.state.Year != this.state.Month)) && (num > 2)) {
-      // num = 0;
-      console.log(this.state.device_select);
-      console.log(this.state.Month);
-      console.log(this.state.Year);
-      console.log("test");
+  }
+
+  reportList() {
+    if ((this.state.device_select != '') && (this.state.Month != '') && (this.state.Year != '')) {
+      var month = '';
+      if (this.state.Month == '1')
+        month = 'ม.ค.';
+      else if (this.state.Month == '2')
+        month = 'ก.พ.';
+      else if (this.state.Month == '3')
+        month = 'มี.ค.';
+      else if (this.state.Month == '4')
+        month = 'เม.ย.';
+      else if (this.state.Month == '5')
+        month = 'พ.ค.';
+      else if (this.state.Month == '6')
+        month = 'มิ.ย.';
+      else if (this.state.Month == '7')
+        month = 'ก.ค.';
+      else if (this.state.Month == '8')
+        month = 'ส.ค.';
+      else if (this.state.Month == '9')
+        month = 'ก.ย.';
+      else if (this.state.Month == '10')
+        month = 'ต.ค.';
+      else if (this.state.Month == '11')
+        month = 'พ.ย.';
+      else if (this.state.Month == '12')
+        month = 'ธ.ค.';
+      var year = parseInt(this.state.Year) + 543;
+      // console.log("dayyyy:" + this.state.day.length);
+      if (this.state.day.length > 0) {
+        return this.state.day.map(function (object, i) {
+          // console.log("i: " + i);
+          return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} day={i + 1} month={month} year={year} />
+        });
+      }
+
     }
   }
 
@@ -388,15 +535,15 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 350 }}>
-          {/* <View style={{ width: 343, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 370 }}>
+          <View style={{ width: 343, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
             <Text style={styles.header2}>
               ประวัติ
             </Text>
-          </View> */}
+          </View>
         </View>
         <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-          {/* {this.reportList()} */}
+          {this.reportList()}
         </View>
       </ScrollView>
     );
