@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage, Animated } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, Dimensions, ScrollView, Alert, AsyncStorage, Animated } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import MapView from "react-native-maps";
-import { RNNotificationBanner } from 'react-native-notification-banner';
-import Icon from 'react-native-vector-icons/FontAwesome'
+
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = height / 8;
+const CARD_WIDTH = CARD_HEIGHT - 70;
 
 var status = 0;
 var num = 0;
@@ -29,8 +31,8 @@ class DevicedataScreen extends Component {
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
-      latitude: '',
-      longitude: '',
+      latitude: 0.0,
+      longitude: 0.0,
       Humidity: '',
       pH: '',
       date: '',
@@ -40,7 +42,10 @@ class DevicedataScreen extends Component {
       text_analyze_ph1: '',
       text_analyze_ph2: '',
       text_analyze_ph3: '',
-      text_analyze_ph4: ''
+      text_analyze_ph4: '',
+      text_analyze_hm: '',
+      text_status_ph: '',
+      text_status_hm: '',
     };
   }
 
@@ -80,23 +85,29 @@ class DevicedataScreen extends Component {
             .catch(function (error) {
               // console.log(error);
             })
-          axios.get('http://165.22.250.24:3030/senser/data_senser', {
-            params: {
-              serialDevice: this.props.navigation.state.params.serialDevice
-            }
-          })
-            .then(data_senser => {
-              this.setState({
-                latitude: data_senser.data.latitude,
-                longitude: data_senser.data.longitude,
-                Humidity: data_senser.data.moisture,
-                pH: data_senser.data.pH,
-                date: data_senser.data.date
-              });
+          this.intervalId = setInterval(() => {
+            axios.get('http://165.22.250.24:3030/senser/data_senser', {
+              params: {
+                serialDevice: this.props.navigation.state.params.serialDevice
+              }
             })
-            .catch(function (error) {
-              console.log(error);
-            })
+              .then(data_senser => {
+                // console.log(data_senser.data);
+                this.setState({
+                  latitude: parseFloat(data_senser.data.latitude),
+                  longitude: parseFloat(data_senser.data.longitude),
+                  Humidity: data_senser.data.moisture,
+                  pH: data_senser.data.pH,
+                  date: data_senser.data.date
+                });
+                num = 0;
+                this.Humidity_analyze();
+                this.pH_analyze();
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+          }, 1000);
         } else {
           if (status == 2) {
             status = 0;
@@ -122,8 +133,9 @@ class DevicedataScreen extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
+      // setInterval(() => {
       this._retrieveData();
-      num = 0;
+      // }, 3000);
     });
   }
 
@@ -133,32 +145,55 @@ class DevicedataScreen extends Component {
     })
   }
 
-  img_pH() {
-    if ((parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))) {
-      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
-    }
-    else {
-      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
-    }
-  }
+  // img_pH() {
+  //   setInterval(() => {
+  //     if ((parseFloat(this.state.pH) >= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) <= parseFloat(this.state.ph_hight))) {
+  //       this.setState({ text_status_ph: require('../img/normal.png') });
+  //       //return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
+  //     }
+  //     else {
+  //       this.setState({ text_status_ph: require('../img/no-normal.png') });
+  //       //return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
+  //     }
+  //   }, 1000);
+  // }
 
-  img_Humidity() {
-    if ((parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.humidity_hight))) {
-      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
+  Humidity_analyze() {
+    // this.intervalId1 = setInterval(() => {
+    if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
+      this.setState({
+        text_status_hm: require('../img/normal.png'),
+        text_analyze_hm: 'ความชื้นปรกติ'
+      });
+      // console.log("testttt1");
+      // clearInterval(this.intervalId1);
+      // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
     } else {
-      return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
+      this.setState({
+        text_status_hm: require('../img/no-normal.png'),
+        text_analyze_hm: 'ความชื้นผิดปรกติ'
+      });
+      // console.log("testttt2");
+      // clearInterval(this.intervalId1);
+      // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
     }
+    // }, 3000);
   }
 
   pH_analyze() {
-
-    if ((parseFloat(this.state.pH) <= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) >= parseFloat(this.state.ph_hight))) {
+    // setInterval(() => {
+    // console.log(num);
+    if ((parseFloat(this.state.pH) >= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) <= parseFloat(this.state.ph_hight))) {
       var text = "ค่าปกติ";
-      this.setState({ text_analyze_ph: text });
+      this.setState({
+        text_analyze_ph: text,
+        text_status_ph: require('../img/normal.png')
+      });
     } else {
+      this.setState({ text_status_ph: require('../img/no-normal.png') });
       var pH_getdata = -1;
       var area_analyze = 0;
-      if((parseFloat(this.state.pH) < 3.5)) {
+      if ((parseFloat(this.state.pH) < 3.5)) {
         pH_getdata = 3;
       } else if ((parseFloat(this.state.pH) >= 3.5) && (parseFloat(this.state.pH) < 4)) {
         pH_getdata = 3.5;
@@ -170,7 +205,7 @@ class DevicedataScreen extends Component {
         pH_getdata = 5;
       } else if ((parseFloat(this.state.pH) >= 6) && (parseFloat(this.state.pH) < 6.5)) {
         pH_getdata = 6;
-      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 7.9)) {
+      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 8)) {
         pH_getdata = 7;
       } else if ((parseFloat(this.state.pH) >= 8)) {
         pH_getdata = 8;
@@ -212,35 +247,68 @@ class DevicedataScreen extends Component {
           })
       } else if ((pH_getdata == 6) && (num == 0) && (pH_getdata != -1)) {
         var text = "ดินของคุณเป็นกรด ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นด่าง";
-        this.setState({ text_analyze_ph: text });
+        this.setState({
+          text_analyze_ph: text,
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
+        });
         num++;
       } else if ((pH_getdata == 7) && (num == 0) && (pH_getdata != -1)) {
         var text = "ดินของคุณมีความผิดปรกติจากค่าที่ตั้งไว้ แต่มีความอุดมสมบูรณ์ดี";
-        this.setState({ text_analyze_ph: text });
+        this.setState({
+          text_analyze_ph: text,
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
+        });
         num++;
       } else if ((pH_getdata == 8) && (num == 0) && (pH_getdata != -1)) {
         var text = "ดินของคุณเป็นด่าง ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นกรด";
-        this.setState({ text_analyze_ph: text });
+        this.setState({
+          text_analyze_ph: text,
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
+        });
         num++;
       } else {
         if ((num == 0) && (pH_getdata != -1)) {
           var text = "ดินของคุณเป็นกรดมาก ไม่ควรปลูกพืช";
-          this.setState({ text_analyze_ph: text });
+          this.setState({
+            text_analyze_ph: text,
+            text_analyze_ph1: '',
+            text_analyze_ph2: '',
+            text_analyze_ph3: '',
+            text_analyze_ph4: ''
+          });
           num++;
         }
       }
     }
+    // }, 1000);
   }
 
-  Humidity_analyze() {
-    if ((parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_hight))) {
-      return <Text>ความชื้นปรกติ</Text>
-    } else {
-      return <Text>ความชื้นผิดปรกติ </Text>
-    }
-  }
+  // Humidity_analyze() {
+  //   setInterval(() => {
+  //     if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
+  //       this.setState({ text_analyze_hm: 'ความชื้นปรกติ' });
+  //       // return <Text></Text>
+  //     } else {
+  //       this.setState({ text_analyze_hm: 'ความชื้นผิดปรกติ' });
+  //       // return <Text>ความชื้นผิดปรกติ </Text>
+  //     }
+  //   }, 1000);
+  // }
 
   render() {
+    const { navigation } = this.props;
+    this.didBlurListener = navigation.addListener('didBlur', () => {
+      clearInterval(this.intervalId);
+    });
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
@@ -260,8 +328,9 @@ class DevicedataScreen extends Component {
         <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
           <View style={{
             flexDirection: 'column', width: 343, borderRadius: 6, backgroundColor: '#FFFBE9',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',}}>
-            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 343, alignItems: 'flex-start' ,}}>
+            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
+          }}>
+            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: 343, alignItems: 'flex-start', }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
                   <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', margin: 2, }}
@@ -269,7 +338,8 @@ class DevicedataScreen extends Component {
                   <Text style={styles.txtHea}> pH</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  {this.img_pH()}
+                  {/* {this.pH_analyze()} */}
+                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={this.state.text_status_ph}></Image>
                 </View>
               </View>
               <View style={{
@@ -288,8 +358,8 @@ class DevicedataScreen extends Component {
             <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
 
             <ScrollView>
-              <View style={{ height: 130, marginLeft: 30, marginRight:20 }}>
-                {this.pH_analyze()}
+              <View style={{ height: 130, marginLeft: 30, marginRight: 20 }}>
+                {/* {this.pH_analyze()} */}
 
                 <Text>{this.state.text_analyze_ph}</Text>
                 <Text>{this.state.text_analyze_ph1}</Text>
@@ -313,7 +383,8 @@ class DevicedataScreen extends Component {
                   <Text style={styles.txtHea}> ความชื้น</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  {this.img_Humidity()}
+                  {/* {this.Humidity_analyze()} */}
+                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={this.state.text_status_hm}></Image>
                 </View>
               </View>
               <View style={{
@@ -333,7 +404,9 @@ class DevicedataScreen extends Component {
               การวิเคราะห์
                 </Text>
             <View style={{ height: 60, marginLeft: 25 }}>
-              {this.Humidity_analyze()}
+              {/* {this.Humidity_analyze()} */}
+              <Text>{this.state.text_analyze_hm}</Text>
+              {/* {clearInterval(this.intervalId1)} */}
             </View>
           </View>
           <View style={{
@@ -354,11 +427,9 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-                  <MapView.Marker coordinate={{ latitude: 13.8194926, longitude: 100.5137078 }}>
-                    <Animated.View style={[styles.markerWrap]}>
-                      <Animated.View style={[styles.ring]} />
-                      <View style={styles.marker} />
-                    </Animated.View>
+                  <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}>
+                    <Animated.View style={[styles.ring]} />
+                    <View style={styles.marker} />
                   </MapView.Marker>
                 </MapView>
               </View>

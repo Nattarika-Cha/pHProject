@@ -21,8 +21,8 @@ import ManualScreen from './ManualScreen';
 import CameraScreen from './CameraScreen'
 import ForgotpasslScreen from './ForgotpasslScreen';
 import TestnotiScreen from './TestnotiScreen';
-import ShowdeviceHome from './ShowdeviceHome';
-import Testcamera from './Testcamera'
+import ShowreportScreen from './ShowreportScreen';
+
 
 const RootStack = createStackNavigator({
   Login: {
@@ -133,8 +133,8 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  Testcamera:{
-    screen: Testcamera,
+  Showreport: {
+    screen: ShowreportScreen,
     navigationOptions: {
       header: null,
     },
