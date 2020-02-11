@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 // import Icon from 'react-native-ionicons';
 
 class RegisterScreen extends Component {
@@ -13,7 +14,8 @@ class RegisterScreen extends Component {
       fname: '',
       lname: '',
       gender: '',
-      Cpassword: ''
+      Cpassword: '',
+      fileUri: ''
     };
   }
 
@@ -27,7 +29,8 @@ class RegisterScreen extends Component {
       password: this.state.password,
       fname: this.state.fname,
       lname: this.state.lname,
-      gender: this.state.gender
+      gender: this.state.gender,
+      image: this.state.fileUri
     })
       .then((response) => {
         if (response.data == "Registration success") {
@@ -55,6 +58,49 @@ class RegisterScreen extends Component {
       });
   }
 
+  chooseImage = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('response', JSON.stringify(response));
+        this.setState({
+          filePath: response,
+          fileData: response.data,
+          fileUri: response.uri
+        });
+      }
+    });
+  }
+
+  renderFileUri() {
+    if (this.state.fileUri) {
+      return <Image
+        source={{ uri: this.state.fileUri }}
+        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+      />
+    } else {
+      return <Image
+        source={require('../img/user.png')}
+        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+      />
+    }
+  }
+
   render() {
     return (
       <ScrollView style={{backgroundColor:'#fafafa'}}>
@@ -71,22 +117,20 @@ class RegisterScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center',  alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
-            {/* <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
-              <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,}}
-                source={require('../img/user.png')}></Image>
-
+            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+            {this.renderFileUri()} 
+              
               <View style={{
                 position: 'absolute', width: 40, height: 40, borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 60,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
-                <TouchableOpacity onPress={() => navigation.navigate('')}>
+                <TouchableOpacity onPress={this.chooseImage}>
                   <Image style={{ padding: 5, width: 30, height: 30, resizeMode: 'contain', margin: 5, }}
                     source={require('../img/add.png')}></Image>
                 </TouchableOpacity>
               </View>
-            </View> */}
-            
+            </View>           
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start',  alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
                 <TextInput

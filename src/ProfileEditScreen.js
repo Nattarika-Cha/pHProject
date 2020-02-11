@@ -122,9 +122,6 @@ class ProfileEditScreen extends Component {
   chooseImage = () => {
     let options = {
       title: 'Select Image',
-      // customButtons: [
-      //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      // ],
       storageOptions: {
         skipBackup: true,
         path: 'images',
