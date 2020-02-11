@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
+import {Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 import { withNavigation } from 'react-navigation';
 
 var status = 0;
@@ -12,7 +13,9 @@ class ProfileEditScreen extends Component {
       username: '',
       password: '',
       fname: '',
-      lname: ''
+      lname: '',
+      // fileData: '',
+      fileUri: ''
     };
   }
 
@@ -80,7 +83,8 @@ class ProfileEditScreen extends Component {
       username: this.state.username,
       fname: this.state.fname,
       lname: this.state.lname,
-      gender: this.state.gender
+      gender: this.state.gender,
+      image: this.state.fileUri
     })
       .then((response) => {
         if (response.data == "Edit user success") {
@@ -115,8 +119,52 @@ class ProfileEditScreen extends Component {
     });
   }
 
-  
+  chooseImage = () => {
+    let options = {
+      title: 'Select Image',
+      // customButtons: [
+      //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+      // ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('response', JSON.stringify(response));
+        this.setState({
+          filePath: response,
+          fileData: response.data,
+          fileUri: response.uri
+        });
+      }
+    });
+  }
+
+  renderFileUri() {
+    if (this.state.fileUri) {
+      return <Image
+        source={{ uri: this.state.fileUri }}
+        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+      />
+    } else {
+      return <Image
+        source={require('../img/us.png')}
+        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+      />
+    }
+  }
+  
   render() {
     return (
       <ScrollView style={{backgroundColor:'#FAFAFA'}}> 
@@ -132,19 +180,19 @@ class ProfileEditScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
-            {/* <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
-              
+            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+            {this.renderFileUri()} 
               <View style={{
                 position: 'absolute', width: 40, height: 40, borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 60,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
-                 <TouchableOpacity>
+                <TouchableOpacity onPress={this.chooseImage}>
                   <Image style={{ padding: 5, width: 30, height: 30, resizeMode: 'contain', margin: 5, }}
                     source={require('../img/add.png')}></Image>
-                </TouchableOpacity> 
+                </TouchableOpacity>               
               </View>
-            </View> */}
+            </View>
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
                 <TextInput
@@ -280,8 +328,14 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     color: "#5BB95A"
-
-},
+  },
+  images: {
+    width: 150,
+    height: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    marginHorizontal: 3
+  },
 });
 
 export default withNavigation(ProfileEditScreen);

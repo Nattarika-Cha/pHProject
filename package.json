@@ -30,6 +30,7 @@
     "react-native-camera": "^3.14.0",
     "react-native-chart-kit": "^4.4.1",
     "react-native-gesture-handler": "^1.5.1",
+    "react-native-image-picker": "^2.3.0",
     "react-native-maps": "^0.26.1",
     "react-native-notification-banner": "^1.0.1",
     "react-native-paper": "^3.2.1",
