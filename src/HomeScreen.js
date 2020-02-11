@@ -145,6 +145,7 @@ class HomeScreen extends React.Component {
   }
 
   deviceList() {
+    // console.log(this.state.Device);
       return this.state.Device.map(function (object, i) {
         return <ShowdeviceHome obj={object} key={i} pop={pop} />
       });
@@ -172,14 +173,15 @@ class HomeScreen extends React.Component {
             ref={map => this.map = map}
             initialRegion={this.state.region}
             style={styles.maphight} >
-            <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
+            {/* <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
               <Animated.View style={[styles.ring]} />
               <View style={styles.marker} />
             </MapView.Marker>
             <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
               <Animated.View style={[styles.ring]} />
               <View style={styles.marker} />
-            </MapView.Marker>
+            </MapView.Marker> */}
+            {this.mapList()}
           </MapView>
         </View>
         <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 25, borderRadius: 10 }}>

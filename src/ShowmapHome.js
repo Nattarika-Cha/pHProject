@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, Dimensions, Animated, TouchableOpacity, Button } from 'react-native';
 import MapView from "react-native-maps";
 import axios from 'axios';
+import { withNavigation } from 'react-navigation';
 // import { navigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window");
@@ -12,49 +13,70 @@ class ShowmapHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            coordinate: [],
-            Humidity: '',
-            pH: '',
+            latitude: 0.0,
+            longitude: 0.0,
             serialDevice: '',
             date: ''
         };
     }
 
-    // componentDidMount() {
-    //     axios.get('http://165.22.250.24:3030/senser/data_senser', {
-    //         params: {
-    //             serialDevice: this.props.obj.serialDevice
-    //         }
-    //     })
-    //         .then(data_senser => {
-    //             this.setState({
-    //                 coordinate: 
-    //                     // latitude: data_senser.data.latitude,
-    //                     // longitude: data_senser.data.longitude
-    //                     {
-    //                         latitude: -33.4727879,
-    //                         longitude: -70.6298313
-    //                       }
-    //                 ,
-    //                 // Humidity: data_senser.data.moisture,
-    //                 // pH: data_senser.data.pH,
-    //                 serialDevice: serialDevice,
-    //                 date: data_senser.data.date
-    //             });
-    //             console.log(this.state.coordinate);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // }
+    componentWillUnmount() {
+        this.focusListener.remove();
+        // clearInterval(intervalId);
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            // console.log(this.props.obj.serialDevice);
+            this.intervalId = setInterval(() => {
+                axios.get('http://165.22.250.24:3030/senser/data_senser', {
+                    params: {
+                        serialDevice: this.props.obj.serialDevice
+                    }
+                })
+                    .then(data_senser => {
+                        this.setState({
+                            latitude: parseFloat(data_senser.data.latitude),
+                            longitude: parseFloat(data_senser.data.longitude),
+                            serialDevice: serialDevice,
+                            date: data_senser.data.date
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }, 1000);
+        });
+        this.intervalId = setInterval(() => {
+            axios.get('http://165.22.250.24:3030/senser/data_senser', {
+                params: {
+                    serialDevice: this.props.obj.serialDevice
+                }
+            })
+                .then(data_senser => {
+                    this.setState({
+                        latitude: parseFloat(data_senser.data.latitude),
+                        longitude: parseFloat(data_senser.data.longitude),
+                        serialDevice: serialDevice,
+                        date: data_senser.data.date
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }, 1000);
+    }
 
     render() {
+        const { navigation } = this.props;
+        this.didBlurListener = navigation.addListener('didBlur', () => {
+            clearInterval(this.intervalId);
+        });
         return (
-            <MapView.Marker key={this.props.key} coordinate={this.state.coordinate}>
-                <Animated.View style={[styles.markerWrap]}>
-                    <Animated.View style={[styles.ring]} />
-                    <View style={styles.marker} />
-                </Animated.View>
+            <MapView.Marker key={this.props.key} coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}>
+                <Animated.View style={[styles.ring]} />
+                <View style={styles.marker} />
             </MapView.Marker>
         );
     }
@@ -66,8 +88,8 @@ const styles = StyleSheet.create({
         height: 8,
         borderRadius: 4,
         backgroundColor: "rgba(130,4,150, 0.9)",
-      },
-      ring: {
+    },
+    ring: {
         width: 24,
         height: 24,
         borderRadius: 12,
@@ -75,13 +97,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         borderWidth: 1,
         borderColor: "rgba(130,4,150, 0.5)",
-      },
-      maphight: {
+    },
+    maphight: {
         // width: 300,
         height: 300,
         alignItems: 'center',
         justifyContent: 'center',
-      }
+    }
 });
 
-export default ShowmapHome;
+export default withNavigation(ShowmapHome);

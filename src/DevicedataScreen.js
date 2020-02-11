@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage, Animated } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, Dimensions, ScrollView, Alert, AsyncStorage, Animated } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import MapView from "react-native-maps";
-import { RNNotificationBanner } from 'react-native-notification-banner';
-import Icon from 'react-native-vector-icons/FontAwesome'
+
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = height / 8;
+const CARD_WIDTH = CARD_HEIGHT - 70;
 
 var status = 0;
 var num = 0;
@@ -29,8 +31,8 @@ class DevicedataScreen extends Component {
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
-      latitude: '',
-      longitude: '',
+      latitude: 0.0,
+      longitude: 0.0,
       Humidity: '',
       pH: '',
       date: '',
@@ -92,8 +94,8 @@ class DevicedataScreen extends Component {
               .then(data_senser => {
                 // console.log(data_senser.data);
                 this.setState({
-                  latitude: data_senser.data.latitude,
-                  longitude: data_senser.data.longitude,
+                  latitude: parseFloat(data_senser.data.latitude),
+                  longitude: parseFloat(data_senser.data.longitude),
                   Humidity: data_senser.data.moisture,
                   pH: data_senser.data.pH,
                   date: data_senser.data.date
@@ -158,135 +160,135 @@ class DevicedataScreen extends Component {
 
   Humidity_analyze() {
     // this.intervalId1 = setInterval(() => {
-      if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
-        this.setState({
-          text_status_hm: require('../img/normal.png'),
-          text_analyze_hm: 'ความชื้นปรกติ'
-        });
-        // console.log("testttt1");
-        // clearInterval(this.intervalId1);
-        // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
-      } else {
-        this.setState({
-          text_status_hm: require('../img/no-normal.png'),
-          text_analyze_hm: 'ความชื้นผิดปรกติ'
-        });
-        // console.log("testttt2");
-        // clearInterval(this.intervalId1);
-        // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
-      }
+    if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
+      this.setState({
+        text_status_hm: require('../img/normal.png'),
+        text_analyze_hm: 'ความชื้นปรกติ'
+      });
+      // console.log("testttt1");
+      // clearInterval(this.intervalId1);
+      // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/normal.png')}></Image>
+    } else {
+      this.setState({
+        text_status_hm: require('../img/no-normal.png'),
+        text_analyze_hm: 'ความชื้นผิดปรกติ'
+      });
+      // console.log("testttt2");
+      // clearInterval(this.intervalId1);
+      // return <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={require('../img/no-normal.png')}></Image>
+    }
     // }, 3000);
   }
 
   pH_analyze() {
     // setInterval(() => {
-      // console.log(num);
-      if ((parseFloat(this.state.pH) >= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) <= parseFloat(this.state.ph_hight))) {
-        var text = "ค่าปกติ";
+    // console.log(num);
+    if ((parseFloat(this.state.pH) >= parseFloat(this.state.ph_low)) && (parseFloat(this.state.pH) <= parseFloat(this.state.ph_hight))) {
+      var text = "ค่าปกติ";
+      this.setState({
+        text_analyze_ph: text,
+        text_status_ph: require('../img/normal.png')
+      });
+    } else {
+      this.setState({ text_status_ph: require('../img/no-normal.png') });
+      var pH_getdata = -1;
+      var area_analyze = 0;
+      if ((parseFloat(this.state.pH) < 3.5)) {
+        pH_getdata = 3;
+      } else if ((parseFloat(this.state.pH) >= 3.5) && (parseFloat(this.state.pH) < 4)) {
+        pH_getdata = 3.5;
+      } else if ((parseFloat(this.state.pH) >= 4) && (parseFloat(this.state.pH) < 4.5)) {
+        pH_getdata = 4;
+      } else if ((parseFloat(this.state.pH) >= 4.5) && (parseFloat(this.state.pH) < 5)) {
+        pH_getdata = 4.5;
+      } else if ((parseFloat(this.state.pH) >= 5) && (parseFloat(this.state.pH) < 6)) {
+        pH_getdata = 5;
+      } else if ((parseFloat(this.state.pH) >= 6) && (parseFloat(this.state.pH) < 6.5)) {
+        pH_getdata = 6;
+      } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 8)) {
+        pH_getdata = 7;
+      } else if ((parseFloat(this.state.pH) >= 8)) {
+        pH_getdata = 8;
+      }
+
+      if ((pH_getdata == 3.5) || (pH_getdata == 4) || (pH_getdata == 4.5) || (pH_getdata == 5)) {
+        axios.get('http://165.22.250.24:3030/analyze/analyze', {
+          params: {
+            pH: pH_getdata,
+            soil_type: this.state.soil_type
+          }
+        })
+          .then(analyze_data => {
+            const analyze = analyze_data.data;
+            if (this.state.area_type == "R") {
+              area_analyze = this.state.area * analyze.limestone;
+            } else if (this.state.area_type == "TrV") {
+              area_analyze = (this.state.area / 400) * analyze.limestone;
+            } else if (this.state.area_type == "K") {
+              area_analyze = (this.state.area / 4) * analyze.limestone;
+            } else if (this.state.area_type == "M") {
+              area_analyze = (this.state.area / 1600) * analyze.limestone;
+            }
+            var text = "ดินเป็นกรด สามารถเลือกปรับค่าคืนได้ ดังนี้";
+            var text1 = "1. เติมหินปูนบดละเอียด " + area_analyze + " กก.";
+            var text2 = "2. เติมหินปูนขาว " + (area_analyze * 0.74) + " กก.";
+            var text3 = "3. เติมหินปูนโดโลไมต์ " + (area_analyze * 0.92) + " กก.";
+            var text4 = "4. เติมหินปูนมร์ล " + (area_analyze * 1.25) + " กก.";
+            this.setState({
+              text_analyze_ph: text,
+              text_analyze_ph1: text1,
+              text_analyze_ph2: text2,
+              text_analyze_ph3: text3,
+              text_analyze_ph4: text4
+            });
+          })
+          .catch(function (error) {
+            // console.log(error);
+          })
+      } else if ((pH_getdata == 6) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณเป็นกรด ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นด่าง";
         this.setState({
           text_analyze_ph: text,
-          text_status_ph: require('../img/normal.png')
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
         });
+        num++;
+      } else if ((pH_getdata == 7) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณมีความผิดปรกติจากค่าที่ตั้งไว้ แต่มีความอุดมสมบูรณ์ดี";
+        this.setState({
+          text_analyze_ph: text,
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
+        });
+        num++;
+      } else if ((pH_getdata == 8) && (num == 0) && (pH_getdata != -1)) {
+        var text = "ดินของคุณเป็นด่าง ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นกรด";
+        this.setState({
+          text_analyze_ph: text,
+          text_analyze_ph1: '',
+          text_analyze_ph2: '',
+          text_analyze_ph3: '',
+          text_analyze_ph4: ''
+        });
+        num++;
       } else {
-        this.setState({ text_status_ph: require('../img/no-normal.png') });
-        var pH_getdata = -1;
-        var area_analyze = 0;
-        if ((parseFloat(this.state.pH) < 3.5)) {
-          pH_getdata = 3;
-        } else if ((parseFloat(this.state.pH) >= 3.5) && (parseFloat(this.state.pH) < 4)) {
-          pH_getdata = 3.5;
-        } else if ((parseFloat(this.state.pH) >= 4) && (parseFloat(this.state.pH) < 4.5)) {
-          pH_getdata = 4;
-        } else if ((parseFloat(this.state.pH) >= 4.5) && (parseFloat(this.state.pH) < 5)) {
-          pH_getdata = 4.5;
-        } else if ((parseFloat(this.state.pH) >= 5) && (parseFloat(this.state.pH) < 6)) {
-          pH_getdata = 5;
-        } else if ((parseFloat(this.state.pH) >= 6) && (parseFloat(this.state.pH) < 6.5)) {
-          pH_getdata = 6;
-        } else if ((parseFloat(this.state.pH) >= 6.5) && (parseFloat(this.state.pH) < 8)) {
-          pH_getdata = 7;
-        } else if ((parseFloat(this.state.pH) >= 8)) {
-          pH_getdata = 8;
-        }
-
-        if ((pH_getdata == 3.5) || (pH_getdata == 4) || (pH_getdata == 4.5) || (pH_getdata == 5)) {
-          axios.get('http://165.22.250.24:3030/analyze/analyze', {
-            params: {
-              pH: pH_getdata,
-              soil_type: this.state.soil_type
-            }
-          })
-            .then(analyze_data => {
-              const analyze = analyze_data.data;
-              if (this.state.area_type == "R") {
-                area_analyze = this.state.area * analyze.limestone;
-              } else if (this.state.area_type == "TrV") {
-                area_analyze = (this.state.area / 400) * analyze.limestone;
-              } else if (this.state.area_type == "K") {
-                area_analyze = (this.state.area / 4) * analyze.limestone;
-              } else if (this.state.area_type == "M") {
-                area_analyze = (this.state.area / 1600) * analyze.limestone;
-              }
-              var text = "ดินเป็นกรด สามารถเลือกปรับค่าคืนได้ ดังนี้";
-              var text1 = "1. เติมหินปูนบดละเอียด " + area_analyze + " กก.";
-              var text2 = "2. เติมหินปูนขาว " + (area_analyze * 0.74) + " กก.";
-              var text3 = "3. เติมหินปูนโดโลไมต์ " + (area_analyze * 0.92) + " กก.";
-              var text4 = "4. เติมหินปูนมร์ล " + (area_analyze * 1.25) + " กก.";
-              this.setState({
-                text_analyze_ph: text,
-                text_analyze_ph1: text1,
-                text_analyze_ph2: text2,
-                text_analyze_ph3: text3,
-                text_analyze_ph4: text4
-              });
-            })
-            .catch(function (error) {
-              // console.log(error);
-            })
-        } else if ((pH_getdata == 6) && (num == 0) && (pH_getdata != -1)) {
-          var text = "ดินของคุณเป็นกรด ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นด่าง";
+        if ((num == 0) && (pH_getdata != -1)) {
+          var text = "ดินของคุณเป็นกรดมาก ไม่ควรปลูกพืช";
           this.setState({
-                text_analyze_ph: text,
-                text_analyze_ph1: '',
-                text_analyze_ph2: '',
-                text_analyze_ph3: '',
-                text_analyze_ph4: ''
-              });
+            text_analyze_ph: text,
+            text_analyze_ph1: '',
+            text_analyze_ph2: '',
+            text_analyze_ph3: '',
+            text_analyze_ph4: ''
+          });
           num++;
-        } else if ((pH_getdata == 7) && (num == 0) && (pH_getdata != -1)) {
-          var text = "ดินของคุณมีความผิดปรกติจากค่าที่ตั้งไว้ แต่มีความอุดมสมบูรณ์ดี";
-          this.setState({
-                text_analyze_ph: text,
-                text_analyze_ph1: '',
-                text_analyze_ph2: '',
-                text_analyze_ph3: '',
-                text_analyze_ph4: ''
-              });
-          num++;
-        } else if ((pH_getdata == 8) && (num == 0) && (pH_getdata != -1)) {
-          var text = "ดินของคุณเป็นด่าง ควรเติมสารปรับค่าหรือปุ๋ยที่มีฤทธิ์เป็นกรด";
-          this.setState({
-                text_analyze_ph: text,
-                text_analyze_ph1: '',
-                text_analyze_ph2: '',
-                text_analyze_ph3: '',
-                text_analyze_ph4: ''
-              });
-          num++;
-        } else {
-          if ((num == 0) && (pH_getdata != -1)) {
-            var text = "ดินของคุณเป็นกรดมาก ไม่ควรปลูกพืช";
-            this.setState({
-                text_analyze_ph: text,
-                text_analyze_ph1: '',
-                text_analyze_ph2: '',
-                text_analyze_ph3: '',
-                text_analyze_ph4: ''
-              });
-            num++;
-          }
         }
       }
+    }
     // }, 1000);
   }
 
@@ -425,11 +427,9 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-                  <MapView.Marker coordinate={{ latitude: 13.8194926, longitude: 100.5137078 }}>
-                    <Animated.View style={[styles.markerWrap]}>
-                      <Animated.View style={[styles.ring]} />
-                      <View style={styles.marker} />
-                    </Animated.View>
+                  <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}>
+                    <Animated.View style={[styles.ring]} />
+                    <View style={styles.marker} />
                   </MapView.Marker>
                 </MapView>
               </View>
