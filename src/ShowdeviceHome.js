@@ -14,8 +14,6 @@ class ShowdeviceHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            latitude: '',
-            longitude: '',
             Humidity: '',
             pH: '',
             serialDevice: '',
@@ -31,7 +29,9 @@ class ShowdeviceHome extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', () => {
+            // console.log(this.props.obj.serialDevice);
             this.intervalId = setInterval(() => {
+                // console.log(this.intervalId);
                 axios.get('http://165.22.250.24:3030/senser/data_senser', {
                     params: {
                         serialDevice: this.props.obj.serialDevice
@@ -41,8 +41,6 @@ class ShowdeviceHome extends Component {
                         // console.log(this.intervalID);
                         // console.log("device: " + data_senser.data);
                         this.setState({
-                            // latitude: data_senser.data.latitude,
-                            // longitude: data_senser.data.longitude,
                             Humidity: data_senser.data.moisture,
                             pH: data_senser.data.pH,
                             serialDevice: serialDevice,
@@ -54,6 +52,27 @@ class ShowdeviceHome extends Component {
                     })
             }, 1000);
         });
+        this.intervalId = setInterval(() => {
+            // console.log(this.intervalId);
+            axios.get('http://165.22.250.24:3030/senser/data_senser', {
+                params: {
+                    serialDevice: this.props.obj.serialDevice
+                }
+            })
+                .then(data_senser => {
+                    // console.log(this.intervalID);
+                    // console.log("device: " + data_senser.data);
+                    this.setState({
+                        Humidity: data_senser.data.moisture,
+                        pH: data_senser.data.pH,
+                        serialDevice: serialDevice,
+                        date: data_senser.data.date
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }, 1000);
     }
 
     gotopage() {
