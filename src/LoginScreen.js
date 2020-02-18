@@ -167,8 +167,11 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 15,
     width: 300,
-    marginLeft: 27,
+    marginLeft: 55,
     fontWeight: 'bold'
+
+    
+              
 
   },
   alternativeLayoutButtonContainer: {
