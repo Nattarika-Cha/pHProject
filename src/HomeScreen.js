@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import ShowdeviceHome from './ShowdeviceHome';
 import ShowmapHome from './ShowmapHome';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 8;
@@ -160,15 +161,20 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
+        <View style={{ faex: 1, flexDirection: 'row',  paddingLeft: 10, paddingRight: 5, alignItems: 'center',justifyContent: 'flex-end',  height: hp('9%'),backgroundColor:'#FFFFFF' }}>
+        <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
+              source={require('../img/logo.png')}></Image>
+        </View>
+        {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
           <Text style={{ fontSize: 16, marginTop: 12, marginBottom: 15, marginLeft: 25 }}>{this.state.fname} {this.state.lname}</Text>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', padding: 10, margin: 0, backgroundColor: '#e7ede6' }}>
-            {/* <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
+            <Image style={{ width: 35, height: 35, resizeMode: 'contain', }}
               source={require('../img/tm.png')}></Image>
-            <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text> */}
+            <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
-        </View>
-        <View style={{ marginTop: 15, marginBottom: 180, height: 400, backgroundColor: '#FFFFFF', paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 10, borderRadius: 6 }}>
+        </View> */}
+        <View style={{faex: 1,flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
+        <View style={{ faex: 1,flexDirection: 'row',marginTop: hp('1%'),  width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 10, borderRadius: 3,alignItems: 'center',justifyContent: 'center' }}>
           <MapView
             ref={map => this.map = map}
             initialRegion={this.state.region}
@@ -184,6 +190,8 @@ class HomeScreen extends React.Component {
             {this.mapList()}
           </MapView>
         </View>
+        </View>
+        
         <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 25, borderRadius: 10 }}>
           <Animated.ScrollView
             horizontal
@@ -285,12 +293,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   map: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   mapStyle: {
-    width: 80,
-    height: 80,
+    width: wp('80%'),
+    height: hp('50%'),
   },
   scrollView: {
     position: "absolute",
@@ -353,8 +361,8 @@ const styles = StyleSheet.create({
     borderColor: "rgba(130,4,150, 0.5)",
   },
   maphight: {
-    // width: 300,
-    height: 380,
+    width: wp('90%'),
+    height: hp('50%'),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 150,

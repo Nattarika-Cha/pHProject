@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text,Linking, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 var status = 0;
 class ProfileScreen extends Component {
   constructor(props) {
@@ -120,8 +120,8 @@ class ProfileScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-          <View style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
+          <View style={{ width:  wp("28%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Image style={{ width:  wp("28%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
             source={{ uri: this.state.image }}>
             </Image>
           </View>
@@ -136,22 +136,22 @@ class ProfileScreen extends Component {
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
-            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+            <View style={{ flexDirection: 'row', width: wp('80%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/setting.png')}></Image>
               <Text style={styles.header3}> ตั้งค่า </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
-            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+            <View style={{ flexDirection: 'row',width: wp('80%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/help.png')}></Image>
               <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.clearAsyncStorage.bind(this)}>
-            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-              <Image style={{ padding: 5, width: 32, height: 32, resizeMode: 'contain', margin: 16, }}
+            <View style={{ flexDirection: 'row', width: wp('80%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/log-out.png')}></Image>
               <Text style={styles.header3}> ออกจากระบบ </Text>
             </View>
