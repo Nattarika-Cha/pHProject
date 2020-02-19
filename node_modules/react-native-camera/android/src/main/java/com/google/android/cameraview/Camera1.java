@@ -124,6 +124,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     private boolean mIsScanning;
 
     private boolean mustUpdateSurface;
+    private boolean surfaceWasDestroyed;
 
     private SurfaceTexture mPreviewTexture;
 
@@ -133,12 +134,56 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         preview.setCallback(new PreviewImpl.Callback() {
             @Override
             public void onSurfaceChanged() {
-                updateSurface();
+
+                // if we got our surface destroyed
+                // we must re-start the camera and surface
+                // otherwise, just update our surface
+
+
+                synchronized(Camera1.this){
+                    if(!surfaceWasDestroyed){
+                        updateSurface();
+                    }
+                    else{
+                        mBgHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                start();
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
             public void onSurfaceDestroyed() {
-                stop();
+
+                // need to this early so we don't get buffer errors due to sufrace going away.
+                // Then call stop in bg thread since it might be quite slow and will freeze
+                // the UI or cause an ANR while it is happening.
+                synchronized(Camera1.this){
+                    if(mCamera != null){
+
+                        // let the instance know our surface was destroyed
+                        // and we might need to re-create it and restart the camera
+                        surfaceWasDestroyed = true;
+
+                        try{
+                            mCamera.setPreviewCallback(null);
+                            // note: this might give a debug message that can be ignored.
+                            mCamera.setPreviewDisplay(null);
+                        }
+                        catch(Exception e){
+                            Log.e("CAMERA_1::", "onSurfaceDestroyed preview cleanup failed", e);
+                        }
+                    }
+                }
+                mBgHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        stop();
+                    }
+                });
             }
         });
     }
@@ -228,6 +273,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
                 mMediaRecorder = null;
 
                 if (mIsRecording.get()) {
+                    mCallback.onRecordingEnd();
+
                     int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
                     mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
                 }
@@ -235,8 +282,13 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
             if (mCamera != null) {
                 mIsPreviewActive = false;
-                mCamera.stopPreview();
-                mCamera.setPreviewCallback(null);
+                try{
+                    mCamera.stopPreview();
+                    mCamera.setPreviewCallback(null);
+                }
+                catch(Exception e){
+                    Log.e("CAMERA_1::", "stop preview cleanup failed", e);
+                }
             }
 
             releaseCamera();
@@ -247,6 +299,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     @SuppressLint("NewApi")
     void setUpPreview() {
         try {
+            surfaceWasDestroyed = false;
+
             if(mCamera != null){
                 if (mPreviewTexture != null) {
                     mCamera.setPreviewTexture(mPreviewTexture);
@@ -446,6 +500,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
             final Set<Size> sizes = mPreviewSizes.sizes(ratio);
             if (sizes == null) {
                 // do nothing, ratio remains unchanged. Consistent with Camera2 and initial mount behaviour
+                Log.w("CAMERA_1::", "setAspectRatio received an unsupported value and will be ignored.");
             } else {
                 mAspectRatio = ratio;
                 mBgHandler.post(new Runnable() {
@@ -753,6 +808,10 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
                     Log.e("CAMERA_1::", "Record setParameters failed", e);
                 }
 
+                int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
+                mCallback.onRecordingStart(path, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+
+
                 return true;
             } catch (Exception e) {
                 mIsRecording.set(false);
@@ -870,7 +929,10 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         if(_mCameraId == null){
             int count = Camera.getNumberOfCameras();
             if(count == 0){
-                throw new RuntimeException("No camera available.");
+                //throw new RuntimeException("No camera available.");
+                mCameraId = INVALID_CAMERA_ID;
+                Log.w("CAMERA_1::", "getNumberOfCameras returned 0. No camera available.");
+                return;
             }
 
             for (int i = 0; i < count; i++) {
@@ -899,19 +961,38 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         if (mCamera != null) {
             releaseCamera();
         }
+
+        // in case we got an invalid camera ID
+        // due to no cameras or invalid ID provided,
+        // return false so we can raise a mount error
+        if(mCameraId == INVALID_CAMERA_ID){
+            return false;
+        }
+
         try {
             mCamera = Camera.open(mCameraId);
             mCameraParameters = mCamera.getParameters();
+
             // Supported preview sizes
             mPreviewSizes.clear();
             for (Camera.Size size : mCameraParameters.getSupportedPreviewSizes()) {
                 mPreviewSizes.add(new Size(size.width, size.height));
             }
+
             // Supported picture sizes;
             mPictureSizes.clear();
             for (Camera.Size size : mCameraParameters.getSupportedPictureSizes()) {
                 mPictureSizes.add(new Size(size.width, size.height));
             }
+
+            // to be consistent with Camera2, and to prevent crashes on some devices
+            // do not allow preview sizes that are not also in the picture sizes set
+            for (AspectRatio aspectRatio : mPreviewSizes.ratios()) {
+                if (mPictureSizes.sizes(aspectRatio) == null) {
+                    mPreviewSizes.remove(aspectRatio);
+                }
+            }
+
             // AspectRatio
             if (mAspectRatio == null) {
                 mAspectRatio = Constants.DEFAULT_ASPECT_RATIO;
@@ -939,6 +1020,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     void adjustCameraParameters() {
         SortedSet<Size> sizes = mPreviewSizes.sizes(mAspectRatio);
         if (sizes == null) { // Not supported
+            Log.w("CAMERA_1::", "adjustCameraParameters received an unsupported aspect ratio value and will be ignored.");
             mAspectRatio = chooseAspectRatio();
             sizes = mPreviewSizes.sizes(mAspectRatio);
         }
@@ -1390,26 +1472,36 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
     private void stopMediaRecorder() {
 
-        if (mMediaRecorder != null) {
-            try {
-                mMediaRecorder.stop();
-            } catch (RuntimeException ex) {
-                Log.e("CAMERA_1::", "stopMediaRecorder failed", ex);
+        synchronized(this){
+            if (mMediaRecorder != null) {
+                try {
+                    mMediaRecorder.stop();
+                } catch (RuntimeException ex) {
+                    Log.e("CAMERA_1::", "stopMediaRecorder stop failed", ex);
+                }
+
+                try{
+                    mMediaRecorder.reset();
+                    mMediaRecorder.release();
+                } catch (RuntimeException ex) {
+                    Log.e("CAMERA_1::", "stopMediaRecorder reset failed", ex);
+                }
+
+                mMediaRecorder = null;
             }
-            mMediaRecorder.reset();
-            mMediaRecorder.release();
-            mMediaRecorder = null;
+
+            mCallback.onRecordingEnd();
+
+            int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
+
+            if (mVideoPath == null || !new File(mVideoPath).exists()) {
+                mCallback.onVideoRecorded(null, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+                return;
+            }
+
+            mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+            mVideoPath = null;
         }
-
-        int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
-        if (mVideoPath == null || !new File(mVideoPath).exists()) {
-            mCallback.onVideoRecorded(null, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
-            return;
-        }
-
-        mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
-        mVideoPath = null;
-
     }
 
     private void setCamcorderProfile(CamcorderProfile profile, boolean recordAudio) {
