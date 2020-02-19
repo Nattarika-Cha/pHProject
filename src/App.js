@@ -22,7 +22,7 @@ import CameraScreen from './CameraScreen'
 import ForgotpasslScreen from './ForgotpasslScreen';
 import TestnotiScreen from './TestnotiScreen';
 import ShowreportScreen from './ShowreportScreen';
-
+import ChangepassScreen from './ChangepassScreen';
 
 const RootStack = createStackNavigator({
   Login: {
@@ -135,6 +135,12 @@ const RootStack = createStackNavigator({
   },
   Showreport: {
     screen: ShowreportScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Changepass: {
+    screen: ChangepassScreen,
     navigationOptions: {
       header: null,
     },
