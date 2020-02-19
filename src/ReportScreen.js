@@ -7,6 +7,8 @@ import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, Stacke
 import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
 import ShowreportScreen from './ShowreportScreen';
+import { hasPrefixSuffix } from "antd/lib/input/ClearableLabeledInput";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 var moment = require('moment');
 var PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -403,7 +405,7 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ height: 250, alignItems: 'center' }}>
+        <View style={{ height: hp('50%'), alignItems: 'center' }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกเดือน :
@@ -471,11 +473,11 @@ class ReportScreen extends Component {
           </View>
           <View>
             {this.showdata()}
-            <Text>ค่า pH</Text>
+            <Text style={styles.header2}>ค่า pH</Text>
             <LineChart
               data={graph}
-              width={Dimensions.get("window").width} // from react-native
-              height={220}
+              width={wp('90%')} // from react-native
+              height={hp('35%')}
               yAxisLabel=""
               yAxisSuffix=""
               chartConfig={{
@@ -503,11 +505,11 @@ class ReportScreen extends Component {
           </View>
 
           <View>
-            <Text>ค่าความชื้น</Text>
+            <Text style={styles.header2}>ค่าความชื้น</Text>
             <LineChart
               data={graph1}
-              width={Dimensions.get("window").width} // from react-native
-              height={220}
+              width={wp('90%')} // from react-native
+              height={hp('35%')}
               yAxisLabel=""
               yAxisSuffix=""
               chartConfig={{
@@ -535,16 +537,17 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 370 }}>
-          <View style={{ width: 343, flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: hp('56%') }}>
+          <View style={{ width: wp('90%'), flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
             <Text style={styles.header2}>
               ประวัติ
             </Text>
           </View>
-        </View>
-        <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'column', width: wp('80%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
           {this.reportList()}
         </View>
+        </View>
+        
       </ScrollView>
     );
   }
@@ -552,14 +555,14 @@ class ReportScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 20,
+    fontSize: hp('3%'),
     color: '#5BB95A',
     fontWeight: 'bold',
     paddingVertical: 14,
     alignItems: 'center',
   },
   header2: {
-    fontSize: 20,
+    fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
     paddingVertical: 14,
@@ -580,7 +583,7 @@ const styles = StyleSheet.create({
 
   },
   txtname: {
-    fontSize: 18,
+    fontSize: hp('2.4%'),
     color: '#000000',
     fontWeight: 'bold',
     marginRight: 15,
@@ -593,9 +596,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
-    paddingLeft: 10,
-    width: 150,
-    height: 40,
+    paddingLeft: wp('1%'),
+   
+    width: wp('35%'),
+    height: hp('6%'),
     borderColor: '#000000',
     borderWidth: 1,
     fontSize: 15,
