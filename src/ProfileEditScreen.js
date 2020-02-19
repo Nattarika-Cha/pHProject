@@ -4,6 +4,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { withNavigation } from 'react-navigation';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 var status = 0;
 class ProfileEditScreen extends Component {
@@ -152,12 +153,12 @@ class ProfileEditScreen extends Component {
     if (this.state.fileUri) {
       return <Image
         source={{ uri: this.state.fileUri }}
-        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{width:  wp("27%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
       />
     } else {
       return <Image
         source={require('../img/us.png')}
-        style={{width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{width:  wp("27%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
       />
     }
   }
@@ -168,29 +169,29 @@ class ProfileEditScreen extends Component {
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
             <TouchableOpacity onPress={() => {this.props.navigation.navigate('Profile')}}>
-            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+            <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
               source={require('../img/back.png')} ></Image>
             </TouchableOpacity>
           </View>
 
-          <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems:'center' }}>
+          <View style={{ flex: 1, backgroundColor: 'FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems:'center' }}>
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
-            <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
+            <View style={{ width:  wp("25%"), height:  hp("15%"), borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
             {this.renderFileUri()} 
               <View style={{
-                position: 'absolute', width: 40, height: 40, borderRadius: 20
-                , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 60,
+                position: 'absolute', width:  wp("6.5%"), height:  hp("4%"), borderRadius: 20
+                , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 80,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
                 <TouchableOpacity onPress={this.chooseImage}>
-                  <Image style={{ padding: 5, width: 30, height: 30, resizeMode: 'contain', margin: 5, }}
+                  <Image style={{ padding: 5, width:  wp("5%"), height:  hp("3.5%"), resizeMode: 'contain', margin: 5, }}
                     source={require('../img/add.png')}></Image>
                 </TouchableOpacity>               
               </View>
             </View>
-            <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
+            <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5, marginTop: hp('1%') }}>
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
@@ -213,8 +214,8 @@ class ProfileEditScreen extends Component {
                 backgroundColor: "#FFFFFF",
                 borderRadius: 30,
                 margin: 7,
-                paddingLeft: 10,
-                width: 300,
+                paddingLeft: wp('1%'),
+                width: wp('75%'),
                 borderColor: '#000000',
                 borderWidth: 1
               }}>
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
     margin: 7,
-    width: 300,
+    width: wp('75%'),
     borderColor: '#000000',
     borderWidth: 1
   },
@@ -295,9 +296,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputContainer: {
-    marginRight: 20,
-    marginTop: 5,
-    marginLeft: 20
+    marginRight: wp('2%'),
+    marginTop: hp('0.5%'),
+    marginLeft: wp('2%')
   },
   inputBorder: {
     borderRadius: 4,
@@ -316,23 +317,17 @@ const styles = StyleSheet.create({
   txt: {
     backgroundColor: "#FFFFFF",
     padding: 7,
-    height: 33,
+    height: hp('5%'),
     margin: 7,
     borderRadius: 20,
   },
   buttonContainer: {
     margin: 10,
-    height: 50,
-    width: 200,
+    height: hp('8%'),
+    width: wp('50%'),
     color: "#5BB95A"
   },
-  images: {
-    width: 150,
-    height: 150,
-    borderColor: 'black',
-    borderWidth: 1,
-    marginHorizontal: 3
-  },
+  
 });
 
 export default withNavigation(ProfileEditScreen);

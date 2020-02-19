@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, AsyncStorage, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -98,14 +99,14 @@ class LoginScreen extends Component {
     return (
       <ImageBackground style={styles.container2} source={require('../img/bg_login.jpg')}>
         <ScrollView styl={{faex:1, justifyContent: 'flex-start', alignContent: 'center', alignItems:'canter' }}>
-          <View style={{ height: 180 }}></View>
+          <View style={{ height: hp('25%') }}></View>
           <View style={{
             faex: 1, flexDirection: 'column',
             padding: 40,
             justifyContent: 'center',
             alignContent: 'center',
           }} >
-            <Text style={{ fontSize: 30, color: '#000000', fontWeight: "bold" }}>ยินดีต้อนรับ</Text>
+            <Text style={{ fontSize: hp('4%'), color: '#1f1f1f1', fontWeight: "bold" }}>ยินดีต้อนรับ</Text>
           </View>
           <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 5 }}>
             <View style={{
@@ -114,11 +115,11 @@ class LoginScreen extends Component {
               alignContent: 'center',
               backgroundColor: "#FFFFFF", borderRadius: 5,
               margin: 5,
-              width: 300
+              width: wp('75%')
             }}>
-              <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/email-icon.png')}></Image>
+              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1%')}} source={require('../img/email-icon.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 , width: 250}}
+                style={{ backgroundColor: "#FFFFFF", height: hp('7%'), padding: 10, fontSize: 15 , width: wp('60%')}}
                 placeholder="ชื่อผู้ใช้"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -128,11 +129,11 @@ class LoginScreen extends Component {
               faex: 1, flexDirection: 'row',
               justifyContent: 'flex-start',
               alignContent: 'center',
-              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: 300, height: 50,
+              backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: wp('75%'), 
             }}>
-              <Image style={{ padding: 10, width: 20, height: 20, resizeMode: 'contain', margin: 10, marginTop: 15 }} source={require('../img/pass.png')}></Image>
+              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop:  hp('1%')}} source={require('../img/pass.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", padding: 10, height: 50, fontSize: 15, width: 250 }}
+                style={{ backgroundColor: "#FFFFFF", padding: 10, height: hp('7%'), fontSize: 15, width: wp('60%') }}
                 placeholder="รหัสผ่าน"
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
@@ -166,9 +167,12 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     fontSize: 15,
-    width: 300,
-    marginLeft: 27,
+    width: wp('75%'),
+    marginLeft: wp('12%'),
     fontWeight: 'bold'
+
+    
+              
 
   },
   alternativeLayoutButtonContainer: {
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    fontSize: 15,
+    fontSize: hp('2%'),
     fontWeight: 'bold'
   }
 });

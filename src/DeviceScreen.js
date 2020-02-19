@@ -115,7 +115,7 @@ class DeviceScreen extends Component {
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>
             <TouchableOpacity >
-              <Text style={{ fontSize: 17, color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ Add Device</Text>
+              <Text style={{ fontSize: 17, color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ เพิ่มอุปกรณ์</Text>
             </TouchableOpacity>
           </View>
         </View>
