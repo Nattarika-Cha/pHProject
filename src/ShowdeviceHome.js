@@ -5,10 +5,12 @@ import axios from 'axios';
 import { RNNotificationBanner } from 'react-native-notification-banner';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { withNavigation } from 'react-navigation';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = 130;
-const CARD_WIDTH = 150;
+// const CARD_HEIGHT = 130;
+// const CARD_WIDTH = 150;
 var serialDevice = undefined;
 class ShowdeviceHome extends Component {
     constructor(props) {
@@ -52,6 +54,7 @@ class ShowdeviceHome extends Component {
                     })
             }, 1000);
         });
+
         this.intervalId = setInterval(() => {
             // console.log(this.intervalId);
             axios.get('http://165.22.250.24:3030/senser/data_senser', {
@@ -73,6 +76,7 @@ class ShowdeviceHome extends Component {
                     console.log(error);
                 })
         }, 1000);
+
     }
 
     gotopage() {
@@ -116,17 +120,22 @@ class ShowdeviceHome extends Component {
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
                     </View> */}
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.header}>...............</Text>
+
+                    </View>
 
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                        <Image style={{ width: 30, height: 30, resizeMode: 'contain', }}
+
+                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
                             source={require('../img/h3.png')}></Image>
-                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>:</Text>
+                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5, marginTop: wp('1.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
                     </View>
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                        <Image style={{ width: 30, height: 30, resizeMode: 'contain', }}
+                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
                             source={require('../img/h2.png')}></Image>
-                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>:</Text>
+                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5, marginTop: wp('1.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
                         {/* {this.Humidity_analyze()} */}
                     </View>
@@ -143,23 +152,38 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         marginHorizontal: 10,
         shadowColor: "#000",
-        shadowRadius: 5,
-        shadowOpacity: 0.3,
-        shadowOffset: { x: 2, y: -2 },
-        height: CARD_HEIGHT,
-        width: CARD_WIDTH,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+        height: hp('20%'),
+        width: wp('30%'),
         overflow: "hidden",
         justifyContent: 'flex-start',
-        flexDirection: 'column'
+        flexDirection: 'column',
+
+
     },
     cardtitle: {
         fontSize: 18,
-        marginTop: 5,
+        
         fontWeight: "bold",
+        marginTop: wp('1.7%')
     },
     cardDescription: {
         fontSize: 18,
         color: "#444",
+        marginTop: wp('1.9%')
+    },
+    header: {
+        fontSize: 15,
+        color: '#5BB95A',
+        fontWeight: 'bold',
+
+        alignItems: 'center',
     },
 });
 

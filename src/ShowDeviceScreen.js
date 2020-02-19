@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 class ShowdeviceScreen extends Component {
 
     deviceList() {
-        if(this.props.obj.status == 'ON'){
+        if (this.props.obj.status == 'ON') {
             // console.log("ON");
-            return <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
-            source={require('../img/on.png')}></Image>
+            return <Image style={{ padding: '0.5%', width: wp('10%'), height: hp('6%'), resizeMode: 'contain', marginTop: hp('1%'), }}
+                source={require('../img/on.png')}></Image>
         } else {
             // console.log("OFF");
-            return <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
-            source={require('../img/off.png')}></Image>
+            return <Image style={{ padding: '0.5%', width: wp('10%'), height: hp('6%'), resizeMode: 'contain', marginTop: hp('1%'), }}
+                source={require('../img/off.png')}></Image>
         }
     }
 
@@ -20,14 +22,22 @@ class ShowdeviceScreen extends Component {
         return (
             <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
                 <View style={{
-                    flexDirection: 'column', width: 320, borderRadius: 6, backgroundColor: '#FFFFFF',
+                    flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#FFFFFF',
                     margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 1,
+                    },
+                    shadowOpacity: 0.20,
+                    shadowRadius: 1.41,
+                    elevation: 2,
                 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: 320, }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: wp('80%'), }}>
                         <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                            <Image style={{ padding: 5, width: 65, height: 65, resizeMode: 'contain', margin: 2, }}
+                            <Image style={{ padding: 5, width: wp('15%'), height: hp('10%'), resizeMode: 'contain', margin: 2,  }}
                                 source={require('../img/devce.png')}></Image>
-                            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 15 }}>
+                            <View style={{ flexDirection: 'column', faex: 1, marginLeft: wp('5%') }}>
                                 <Text style={styles.headerDevice}>{this.props.obj.serialDevice}</Text>
                                 {/* <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
                         source={require('../img/on.png')}></Image> */}
@@ -65,13 +75,14 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#51B1FB',
         alignItems: 'center',
-        marginLeft: 10
+        marginLeft: wp('10%')
     },
     txtcanOFF: {
         fontSize: 15,
         color: '#b7b7b7',
         alignItems: 'center',
-        marginLeft: 10
+        marginLeft: wp('1%')
+    
     },
 });
 
