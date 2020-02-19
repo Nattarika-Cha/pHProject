@@ -129,6 +129,9 @@ class ProfileScreen extends Component {
           <View style={styles.button}>
             <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('ProfileEdit')} />
           </View>
+          <View style={styles.button}>
+            <Button title="เปลี่ยนรหัส" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('Changepass')} />
+          </View>
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
