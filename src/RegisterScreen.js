@@ -16,7 +16,8 @@ class RegisterScreen extends Component {
       lname: '',
       gender: '',
       Cpassword: '',
-      fileUri: ''
+      fileUri: '',
+      email: ''
     };
   }
 
@@ -25,38 +26,50 @@ class RegisterScreen extends Component {
   // };
 
   onSubmit() {
-    axios.post('http://165.22.250.24:3030/user/register', {
-      username: this.state.username,
-      password: this.state.password,
-      fname: this.state.fname,
-      lname: this.state.lname,
-      gender: this.state.gender,
-      image: this.state.fileUri
-    })
-      .then((response) => {
-        if (response.data == "Registration success") {
-          Alert.alert(
-            'Success',
-            'Registration success',
-            [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-            ],
-            { cancelable: false }
-          )
-        } else {
-          Alert.alert(
-            'Error',
-            response.data,
-            [
-              { text: 'OK' },
-            ],
-            { cancelable: false }
-          )
-        }
-        //console.log(response.data);
-      }, (error) => {
-        console.log(error);
-      });
+    if (this.state.password == this.state.Cpassword) {
+      axios.post('http://165.22.250.24:3030/user/register', {
+        username: this.state.username,
+        password: this.state.password,
+        fname: this.state.fname,
+        lname: this.state.lname,
+        gender: this.state.gender,
+        image: this.state.fileUri,
+        email: this.state.email
+      })
+        .then((response) => {
+          if (response.data == "Registration success") {
+            Alert.alert(
+              'Success',
+              'Registration success',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          } else {
+            Alert.alert(
+              'Error',
+              response.data,
+              [
+                { text: 'OK' },
+              ],
+              { cancelable: false }
+            )
+          }
+          //console.log(response.data);
+        }, (error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert(
+        'Error',
+        'Password ไม่ตรงกัน',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+    }
   }
 
   chooseImage = () => {
@@ -104,7 +117,7 @@ class RegisterScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={{backgroundColor:'#fafafa'}}>
+      <ScrollView style={{ backgroundColor: '#fafafa' }}>
         <View style={{ flex: 1, backgroundColor: '#FAFaFa', flexDirection: 'column', justifyContent: 'flex-start', }}>
           
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', }}>
@@ -115,7 +128,7 @@ class RegisterScreen extends Component {
             </View>
 
           <View style={{ flex: 1, backgroundColor: '#fafafa', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
-            <View style={{ faex: 1, justifyContent: 'center',  alignItems: 'center', padding: 5 }}>
+            <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
             <View style={{ width:  wp("27%"), height:  hp("16%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
@@ -131,8 +144,8 @@ class RegisterScreen extends Component {
                     source={require('../img/add.png')}></Image>
                 </TouchableOpacity>
               </View>
-            </View>           
-            <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start',  alignItems: 'center', padding: 5 }}>
+            </View>
+            <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 5 }}>
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
@@ -171,6 +184,14 @@ class RegisterScreen extends Component {
                     { label: 'หญิง', value: 'Female' },
                   ]}
                   value={this.state.gender}
+                />
+              </View>
+              <View style={styles.txtinput}>
+                <TextInput
+                  style={styles.txt}
+                  placeholder="Email"
+                  onChangeText={(email) => this.setState({ email })}
+                  value={this.state.email}
                 />
               </View>
               <View style={styles.txtinput}>
@@ -265,7 +286,7 @@ const styles = StyleSheet.create({
     width: wp('50%'),
     color: "#5BB95A"
 
-},
+  },
 });
 
 export default RegisterScreen;
