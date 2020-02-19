@@ -139,17 +139,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-<<<<<<< HEAD
 }, { initialRouteName: 'Home' });
-=======
-  Changepass: {
-    screen: ChangepassScreen,
-    navigationOptions: {
-      header: null,
-    },
-  },
-}, { initialRouteName: 'Login' });
->>>>>>> cbdfd9402ad43c28ef3bafad504f6d0cfb10abb4
 
 class App extends Component {
   constructor(props) {
