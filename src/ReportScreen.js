@@ -543,7 +543,7 @@ class ReportScreen extends Component {
               ประวัติ
             </Text>
           </View>
-          <View style={{ flexDirection: 'column', width: wp('80%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'column', width: wp('80%'), borderRadius: 6, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
           {this.reportList()}
         </View>
         </View>
