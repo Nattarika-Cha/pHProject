@@ -161,7 +161,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ faex: 1, flexDirection: 'row',  paddingLeft: 10, paddingRight: 5, alignItems: 'center',justifyContent: 'flex-end',  height: hp('9%'),backgroundColor:'#FFFFFF' }}>
+        <View style={{ faex: 1, flexDirection: 'row',  paddingLeft: 0,  alignItems: 'center',justifyContent: 'flex-end',  height: hp('9%'),backgroundColor:'#FFFFFF' }}>
         <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
               source={require('../img/logo.png')}></Image>
         </View>
@@ -174,11 +174,12 @@ class HomeScreen extends React.Component {
           </View>
         </View> */}
         <View style={{faex: 1,flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
-        <View style={{ faex: 1,flexDirection: 'row',marginTop: hp('1%'),  width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 10, borderRadius: 3,alignItems: 'center',justifyContent: 'center' }}>
+        <View style={{ faex: 1,flexDirection: 'row',marginTop: hp('1%'),  width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5, borderRadius: 1,alignItems: 'center',justifyContent: 'center' }}>
           <MapView
             ref={map => this.map = map}
             initialRegion={this.state.region}
             style={styles.maphight} >
+              
             {/* <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
               <Animated.View style={[styles.ring]} />
               <View style={styles.marker} />
@@ -188,11 +189,13 @@ class HomeScreen extends React.Component {
               <View style={styles.marker} />
             </MapView.Marker> */}
             {this.mapList()}
+            <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
+              source={require('../img/logo.png')}></Image>
           </MapView>
         </View>
         </View>
         
-        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 25, borderRadius: 10 }}>
+        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10 ,width: wp('100%'), height: hp('27%')}}>
           <Animated.ScrollView
             horizontal
             scrollEventThrottle={1}
@@ -243,6 +246,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     //justifyContent: 'center',
   },
   inputContainer: {
@@ -361,8 +366,10 @@ const styles = StyleSheet.create({
     borderColor: "rgba(130,4,150, 0.5)",
   },
   maphight: {
-    width: wp('90%'),
-    height: hp('50%'),
+    width: wp('93%'),
+    height: hp('55%'),
+    // width: wp('90%'),
+    // height: hp('50%'),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 150,

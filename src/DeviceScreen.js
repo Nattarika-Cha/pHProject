@@ -5,6 +5,7 @@ import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
 import ShowdeviceScreen from './ShowdeviceScreen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 // var token = '';
 var status = 0;
@@ -105,7 +106,11 @@ class DeviceScreen extends Component {
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
+        <Text style={styles.header}>อุปกรณ์</Text>
+        </View>
+      
+        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, marginTop: 2 }}>
           {/* <Button>Device</Button> */}
           {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
@@ -131,8 +136,8 @@ class DeviceScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 25,
-    color: '#000000',
+      fontSize: hp('3%'),
+    color: '#5BB95A',
     fontWeight: 'bold',
     paddingVertical: 14,
     alignItems: 'center',
