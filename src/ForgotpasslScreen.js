@@ -13,8 +13,10 @@ class ForgotpasslScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
-            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-              source={require('../img/back.png')}></Image>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+              <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                source={require('../img/back.png')}></Image>
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -45,14 +47,14 @@ class ForgotpasslScreen extends Component {
                   onChangeText={() => this.setState({})}
 
                 />
-              
+
               </View>
-              
+
 
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="ส่งรหัสผ่านใหม่" color="#5BB95A" />
-              </View>
+              <Button title="ส่งรหัสผ่านใหม่" color="#5BB95A" />
+            </View>
           </View>
         </View>
       </ScrollView>
