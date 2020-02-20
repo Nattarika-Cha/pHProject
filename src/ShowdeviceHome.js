@@ -121,7 +121,7 @@ class ShowdeviceHome extends Component {
                         <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
                     </View> */}
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={styles.header}>...............</Text>
+                        <Text style={styles.header}>{this.props.obj.serialDevice}</Text>
 
                     </View>
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     },
     cardtitle: {
         fontSize: 18,
-        
+
         fontWeight: "bold",
         marginTop: wp('1.7%')
     },
