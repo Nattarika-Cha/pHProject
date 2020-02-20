@@ -116,7 +116,6 @@ class ShowdeviceHome extends Component {
                         <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
                     </View> */}
-
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                         <Image style={{ width: 30, height: 30, resizeMode: 'contain', }}
                             source={require('../img/h3.png')}></Image>
