@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 class ShowreportScreen extends Component{
 
   // statusList() {
@@ -16,8 +18,17 @@ class ShowreportScreen extends Component{
   // }
     render(){
         return(
-            <View style={{ flexDirection: 'column', width: 360, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 343, }}>
+            <View style={{ flexDirection: 'column', width: wp('90%'), borderRadius: 6,borderColor:'#FAFAFA ', 
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 1,
+            },
+            shadowOpacity: 0.20,
+            shadowRadius: 1.41,
+            elevation: 2,
+            backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'),borderRadius: 6, backgroundColor: '#FFFFFF',  }}>
                     {/* <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                         <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
                         source={require('../img/sunc.png')}></Image>
@@ -28,17 +39,17 @@ class ShowreportScreen extends Component{
                         <Text style={styles.header3}> {this.props.day} {this.props.month} {this.props.year}</Text>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 360, }}>
-                  <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                      <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between',width: wp('80%'), }}>
+                  <View style={{ flexDirection: 'row', width: wp('37%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                      <Image style={{ padding: 5, width: wp('12%'), height: hp('6%'), resizeMode: 'contain', margin: 2, }}
                       source={require('../img/hum.png')}></Image>
                       <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
                       <Text style={styles.header3}>ความชื้น</Text>
                       <Text style={styles.txtdata}>{parseFloat(this.props.hm).toFixed(2)}%</Text>
                       </View>
                   </View>
-                  <View style={{ flexDirection: 'row', width: 100, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                      <Image style={{ padding: 5, width: 40, height: 40, resizeMode: 'contain', margin: 2, }}
+                  <View style={{ flexDirection: 'row', width: wp('37%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                      <Image style={{ padding: 5, width: wp('12%'), height: hp('6%'), resizeMode: 'contain', margin: 2, }}
                       source={require('../img/ph2.png')}></Image>
                       <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
                       <Text style={styles.header3}>pH</Text>
