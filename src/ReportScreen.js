@@ -8,7 +8,8 @@ import { Dimensions } from "react-native";
 import { withNavigation } from 'react-navigation';
 import ShowreportScreen from './ShowreportScreen';
 import { hasPrefixSuffix } from "antd/lib/input/ClearableLabeledInput";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import DatePicker from 'react-native-datepicker'
 var moment = require('moment');
 var PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -65,7 +66,8 @@ class ReportScreen extends Component {
       Year: '',
       start: '',
       end: '',
-      day: ''
+      day: '',
+      date: '2020-02-21'
     };
   }
 
@@ -406,7 +408,7 @@ class ReportScreen extends Component {
         </View>
 
         <View style={{ height: hp('50%'), alignItems: 'center' }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกเดือน :
             </Text>
@@ -435,9 +437,9 @@ class ReportScreen extends Component {
                 value={this.state.Month}
               />
             </View>
-          </View>
+          </View> */}
 
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกปี :
             </Text>
@@ -467,12 +469,36 @@ class ReportScreen extends Component {
                 value={this.state.Year}
               />
             </View>
-          </View>
+          </View> */}
+          <DatePicker
+            style={{ width: 200 }}
+            date={this.state.date}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            // minDate="2016-05-01"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={(date) => { this.setState({ date: date }) }}
+          />
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             {/* <Button title="ค้นหา" color="#5BB95A" type="clear" onPress={this.showdata.bind(this)} /> */}
           </View>
           <View>
-            {this.showdata()}
+            {/* {this.showdata()} */}
             <Text style={styles.header2}>ค่า pH</Text>
             <LineChart
               data={graph}
@@ -544,10 +570,10 @@ class ReportScreen extends Component {
             </Text>
           </View>
           <View style={{ flexDirection: 'column', width: wp('80%'), borderRadius: 6, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-          {this.reportList()}
+            {/* {this.reportList()} */}
+          </View>
         </View>
-        </View>
-        
+
       </ScrollView>
     );
   }
@@ -597,7 +623,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: wp('1%'),
-   
+
     width: wp('35%'),
     height: hp('6%'),
     borderColor: '#000000',

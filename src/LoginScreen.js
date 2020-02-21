@@ -42,6 +42,14 @@ class LoginScreen extends Component {
         //console.log(response.data);
       }, (error) => {
         console.log(error);
+        Alert.alert(
+          'Error',
+          'มีปัญหากับการเชื่อมต่อ Server กรุณาลองใหม่ภายหลัง',
+          [
+            { text: 'OK' },
+          ],
+          { cancelable: false }
+        )
       });
   }
 
