@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { withNavigation } from 'react-navigation';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 var status = 0;
 class ChangepassScreen extends Component {
@@ -123,11 +124,16 @@ class ChangepassScreen extends Component {
                 <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
                     <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
                         <TouchableOpacity onPress={() => { this.props.navigation.navigate('Profile') }}>
-                            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                            <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
                                 source={require('../img/back.png')} ></Image>
                         </TouchableOpacity>
                     </View>
+                    <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
+                        <Image style={{ padding: 10, width: wp('40%'), height: hp('15%'), resizeMode: 'contain', margin: 10, marginTop: hp('10%') }}
+                            source={require('../img/CP.png')}></Image>
 
+
+                    </View>
                     <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
                         <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
                             <Text style={styles.header}>เปลียนรหัส</Text>
@@ -187,7 +193,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderRadius: 30,
         margin: 7,
-        width: 300,
+        width: wp('75%'),
         borderColor: '#000000',
         borderWidth: 1
     },

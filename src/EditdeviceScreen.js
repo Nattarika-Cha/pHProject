@@ -276,7 +276,7 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
           </View>
-          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: hp('1.5%'), marginLeft: 5, padding: 10, }}>
+          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start',alignItems: 'center', marginTop: hp('1.5%'), marginLeft: 5, padding: 10, }}>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: hp('1.5%') }}>
               <Text style={styles.txtname}>
                 ชนิดพืช :
@@ -299,11 +299,15 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',  }}>
-              <Text style={styles.txtname}>
+              <Text style={{fontSize: hp('2.5%'),
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: wp('2%'),
+    marginLeft: wp('12%'),}}>
                 อายุ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", width:wp('15%'), height: hp('6.5%'), marginLeft: wp('7%'),fontSize: 15 ,   borderRadius: 10 ,marginRight:wp('2.5%'),paddingLeft: wp('3%'),borderColor: '#000000',borderWidth: 1,}}
+                style={{ backgroundColor: "#FFFFFF", width:wp('15%'), height: hp('6.5%'),fontSize: 15 ,   borderRadius: 10 ,marginRight:wp('2.5%'),paddingLeft: wp('3%'),borderColor: '#000000',borderWidth: 1,}}
                 placeholder="อายุ"
                 onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
@@ -325,11 +329,15 @@ class EditdeviceScreen extends Component {
               </View>
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', }}>
-              <Text style={styles.txtname}>
+              <Text style={{fontSize: hp('2.5%'),
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: wp('2%'),
+    marginLeft: wp('10%'),}}>
                 พื้นที่ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF",width:wp('15%'), height: hp('6.5%'), marginLeft: wp('6%'), padding: 10, fontSize: 15 ,  borderRadius: 10 ,margin: 10,paddingLeft: wp('3%'),borderWidth: 1,}}
+                style={{ backgroundColor: "#FFFFFF",width:wp('15%'), height: hp('6.5%'), padding: 10, fontSize: 15 ,  borderRadius: 10 ,margin: 10, marginLeft:wp('0.5%'),borderWidth: 1,}}
                 placeholder="พื้นที่"
                 onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
@@ -410,7 +418,11 @@ class EditdeviceScreen extends Component {
              
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-              <Text style={styles.txtname3}>
+              <Text style={{fontSize: hp('2.5%'),
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: wp('2%'),
+    marginLeft: wp('2%'),}}>
               ความชื้น :
             </Text>
               <View style={{  width:wp('50%'), height: hp('6.5%'),  borderRadius: 10, borderWidth: 1, borderColor: '#000000', paddingLeft: 10, }}>
@@ -431,7 +443,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname2}>
                 ถึง
             </Text>
-              <View style={{ width:wp('50%'), height: hp('6.5%'),borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
+              <View style={{ width:wp('50%'), height: hp('6.5%'),borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10,marginLeft:wp('1.5%')}}>
                 <RNPickerSelect
                    onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
                    placeholder={{
@@ -483,28 +495,28 @@ const styles = StyleSheet.create({
     fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: wp('7%'),
-    marginLeft: wp('7%'),
+    marginRight: wp('2%'),
+    marginLeft: wp('5%'),
   },
   txtname1: {
     fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: wp('10%'),
+    marginRight: wp('2%'),
     marginLeft: wp('7%'),
   },
   txtname2: {
     fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: wp('3%'),
-    marginLeft: wp('20%'),
+    marginRight: wp('2%'),
+    marginLeft: wp('13%'),
   },
   txtname3: {
     fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: wp('5%'),
+    marginRight: wp('2%'),
     marginLeft: wp('7%'),
   },
   select: {

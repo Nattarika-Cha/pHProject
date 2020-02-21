@@ -188,9 +188,8 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: hp('2%'),
-    fontWeight: 'bold'
-    ,
-    marginRight:wp('10%')
+    marginRight:wp('10%'),
+    color: '#5BB95A'
   }
 });
 
