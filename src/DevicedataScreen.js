@@ -352,7 +352,7 @@ class DevicedataScreen extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                   {/* {this.pH_analyze()} */}
-                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={this.state.text_status_ph}></Image>
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.text_status_ph}></Image>
                 </View>
               </View>
               <View style={{
@@ -405,7 +405,7 @@ class DevicedataScreen extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                   {/* {this.Humidity_analyze()} */}
-                  <Image style={{ padding: 5, width: 72, height: 24, resizeMode: 'contain', margin: 2, }} source={this.state.text_status_hm}></Image>
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.text_status_hm}></Image>
                 </View>
               </View>
               <View style={{
@@ -421,9 +421,16 @@ class DevicedataScreen extends Component {
                 </View>
               </View>
             </View>
-            <Text style={styles.txtHea2}>
-              การวิเคราะห์
-                </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), }}>
+                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                    <Text style={styles.txtHea2}>การวิเคราะห์                </Text>
+                </View>
+                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                  {/* {this.Humidity_analyze()} */}
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={require('../img/wt.png')}></Image>
+                </View>
+              </View>
+            
             <View style={{ height: hp('10%'), marginLeft: wp('6%') }}>
               {/* {this.Humidity_analyze()} */}
               <Text>{this.state.text_analyze_hm}</Text>
