@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 var status = 0;
 
 var itempH = [
@@ -255,29 +255,29 @@ class EditdeviceScreen extends Component {
           <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '', }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Devicedata')}>
-                <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%')  }}
                   source={require('../img/back.png')}></Image>
               </TouchableOpacity>
             </View>
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
               <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '', alignItems: 'center', }}>
-                <Text style={styles.header}>Edit Device</Text>
+                <Text style={styles.header}>ตั้งค่าอุปกรณ์</Text>
               </View>
 
               <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', }} >
                 <TouchableOpacity onPress={() => navigation.navigate('')}>
-                  <Image style={{ padding: 5, width: 80, height: 80, resizeMode: 'contain', margin: 5,  }}
+                  <Image style={{ padding: 1, width: wp('20%'), height: hp('20%'), resizeMode: 'contain',   }}
                     source={require('../img/devce.png')}></Image>
                 </TouchableOpacity>
               </View>
               <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 5, fontSize: 15, }} >
-                <Text style={{ fontSize: 18 }}>Serial Number :</Text>
+                <Text style={{ fontSize: 18 }}>รหัสอุปกรณ์ :</Text>
                 <Text style={{ fontSize: 18 }}> {this.props.navigation.state.params.serialDevice}</Text>
               </View>
             </View>
           </View>
-          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: 10, marginLeft: 5, padding: 10, }}>
-            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', marginTop: hp('1.5%'), marginLeft: 5, padding: 10, }}>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: hp('1.5%') }}>
               <Text style={styles.txtname}>
                 ชนิดพืช :
             </Text>
@@ -303,12 +303,12 @@ class EditdeviceScreen extends Component {
                 อายุ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 44, fontSize: 15 , width:100,  borderRadius: 10 ,marginRight:10,paddingLeft: 10,borderColor: '#000000',borderWidth: 1,}}
+                style={{ backgroundColor: "#FFFFFF", width:wp('15%'), height: hp('6.5%'), marginLeft: wp('7%'),fontSize: 15 ,   borderRadius: 10 ,marginRight:wp('2.5%'),paddingLeft: wp('3%'),borderColor: '#000000',borderWidth: 1,}}
                 placeholder="อายุ"
                 onChangeText={(age) => this.setState({ age })}
                 value={this.state.age}
               />
-              <View style={{ width: 125, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{ width:wp('33%'), height: hp('6.5%'), borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(age_type) => this.setState({ age_type })}
                   placeholder={{
@@ -329,12 +329,12 @@ class EditdeviceScreen extends Component {
                 พื้นที่ :
             </Text>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: 44, padding: 10, fontSize: 15 ,width:70,  borderRadius: 10 ,margin:10,paddingLeft: 10,borderWidth: 1,}}
+                style={{ backgroundColor: "#FFFFFF",width:wp('15%'), height: hp('6.5%'), marginLeft: wp('6%'), padding: 10, fontSize: 15 ,  borderRadius: 10 ,margin: 10,paddingLeft: wp('3%'),borderWidth: 1,}}
                 placeholder="พื้นที่"
                 onChangeText={(area) => this.setState({ area })}
                 value={this.state.area}
               />
-              <View style={{ width: 135, borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{  width:wp('33%'), height: hp('6.5%'), borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(area_type) => this.setState({ area_type })}
                   placeholder={{
@@ -353,7 +353,7 @@ class EditdeviceScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+            <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: hp('1.5%') }}>
               <Text style={styles.txtname}>
                 ชนิดดิน :
             </Text>
@@ -378,7 +378,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname1}>
                 ค่า pH :
             </Text>
-              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{  width:wp('50%'), height: hp('6.5%') , borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                   onValueChange={(pH_low) => this.setState({ pH_low })}
                   placeholder={{
@@ -396,7 +396,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname2}>
                 ถึง
             </Text>
-              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
+              <View style={{ width:wp('50%'), height: hp('6.5%'),  borderRadius: 10, borderWidth: 1, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
                 <RNPickerSelect
                   onValueChange={(pH_hight) => this.setState({ pH_hight })}
                   placeholder={{
@@ -413,7 +413,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname3}>
               ความชื้น :
             </Text>
-              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10, }}>
+              <View style={{  width:wp('50%'), height: hp('6.5%'),  borderRadius: 10, borderWidth: 1, borderColor: '#000000', paddingLeft: 10, }}>
                 <RNPickerSelect
                    onValueChange={(humidity_low) => this.setState({ humidity_low })}
                    placeholder={{
@@ -431,7 +431,7 @@ class EditdeviceScreen extends Component {
               <Text style={styles.txtname2}>
                 ถึง
             </Text>
-              <View style={{ width:200 , borderRadius: 10, borderWidth: 1, height: 44, borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
+              <View style={{ width:wp('50%'), height: hp('6.5%'),borderRadius: 10, borderWidth: 1,  borderColor: '#000000', paddingLeft: 10,marginLeft:10 }}>
                 <RNPickerSelect
                    onValueChange={(humidity_hight) => this.setState({ humidity_hight })}
                    placeholder={{
@@ -448,7 +448,7 @@ class EditdeviceScreen extends Component {
           </View>
           <View style={{ flex: 1, alignItems: 'center', flexDirection: 'column' }}>
             <View style={styles.buttonContainer}>
-              <Button title="OK" color="#5BB95A" onPress={this.onEdit.bind(this)} />
+              <Button title="ตกลง" color="#5BB95A" onPress={this.onEdit.bind(this)} />
             </View>
           </View>
         </View>
@@ -460,7 +460,7 @@ class EditdeviceScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 22,
+    fontSize: hp('3%'),
     color: '#5BB95A',
     fontWeight: 'bold',
     paddingVertical: 14,
@@ -480,32 +480,32 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   txtname: {
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: 15,
-    marginLeft: 15,
+    marginRight: wp('7%'),
+    marginLeft: wp('7%'),
   },
   txtname1: {
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: 33,
-    marginLeft: 15,
+    marginRight: wp('10%'),
+    marginLeft: wp('7%'),
   },
   txtname2: {
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: 5,
-    marginLeft: 70,
+    marginRight: wp('3%'),
+    marginLeft: wp('20%'),
   },
   txtname3: {
-    fontSize: 18,
+    fontSize: hp('2.5%'),
     color: '#000000',
     fontWeight: 'bold',
-    marginRight: 10,
-    marginLeft: 15,
+    marginRight: wp('5%'),
+    marginLeft: wp('7%'),
   },
   select: {
     justifyContent: 'flex-end',
@@ -513,8 +513,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingLeft: 10,
-    width: 200,
-    height: 45,
+    width: wp('50%'),
+    height: hp('6.5%'),
     borderColor: '#000000',
     borderWidth: 1,
     fontSize: 15,

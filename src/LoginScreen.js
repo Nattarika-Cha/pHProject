@@ -117,7 +117,7 @@ class LoginScreen extends Component {
               margin: 5,
               width: wp('75%')
             }}>
-              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1%')}} source={require('../img/email-icon.png')}></Image>
+              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%')}} source={require('../img/email-icon.png')}></Image>
               <TextInput
                 style={{ backgroundColor: "#FFFFFF", height: hp('7%'), padding: 10, fontSize: 15 , width: wp('60%')}}
                 placeholder="ชื่อผู้ใช้"
@@ -131,7 +131,7 @@ class LoginScreen extends Component {
               alignContent: 'center',
               backgroundColor: "#FFFFFF", borderRadius: 5, margin: 5, width: wp('75%'), 
             }}>
-              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop:  hp('1%')}} source={require('../img/pass.png')}></Image>
+              <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop:  hp('1.5%')}} source={require('../img/pass.png')}></Image>
               <TextInput
                 style={{ backgroundColor: "#FFFFFF", padding: 10, height: hp('7%'), fontSize: 15, width: wp('60%') }}
                 placeholder="รหัสผ่าน"
@@ -189,6 +189,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: hp('2%'),
     fontWeight: 'bold'
+    ,
+    marginRight:wp('10%')
   }
 });
 
