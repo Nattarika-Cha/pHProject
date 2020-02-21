@@ -23,6 +23,8 @@ import ForgotpasslScreen from './ForgotpasslScreen';
 import TestnotiScreen from './TestnotiScreen';
 import ShowreportScreen from './ShowreportScreen';
 import ChangepassScreen from './ChangepassScreen';
+import ConfirmationScreen from './ConfirmationScreen';
+import ChangeForgetPassScreen from './ChangeForgetPassScreen'; 
 
 const RootStack = createStackNavigator({
   Login: {
@@ -141,6 +143,18 @@ const RootStack = createStackNavigator({
   },
   Changepass: {
     screen: ChangepassScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Confirmation: {
+    screen: ConfirmationScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  ChangeForgetPass: {
+    screen: ChangeForgetPassScreen,
     navigationOptions: {
       header: null,
     },
