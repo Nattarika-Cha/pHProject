@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: hp('2%'),
     marginRight:wp('3%'),
-    marginLeft:wp('3%'),
+    marginLeft:wp('39%'),
     color: '#878787'
   }
 });
