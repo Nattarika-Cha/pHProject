@@ -1,11 +1,37 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, Switch } from 'react-native';
-
+import axios from 'axios';
 class ForgotpasslScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: ''
     };
+  }
+
+  onSubmit() {
+    axios.post('http://165.22.250.24:3030/forget/forget_pass', {
+      email: this.state.email
+    })
+      .then((response) => {
+        if (response.data == "Change password success") {
+          this.props.navigation.navigate('Confirmation', {
+            email: this.state.email
+          });
+        } else {
+          Alert.alert(
+            'Error',
+            response.data,
+            [
+              { text: 'OK' },
+            ],
+            { cancelable: false }
+          )
+        }
+        //console.log(response.data);
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -13,8 +39,10 @@ class ForgotpasslScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
-            <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
-              source={require('../img/back.png')}></Image>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+              <Image style={{ padding: 10, width: 30, height: 30, resizeMode: 'contain', margin: 10 }}
+                source={require('../img/back.png')}></Image>
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -22,7 +50,7 @@ class ForgotpasslScreen extends Component {
               <Image style={{ padding: 10, width: 318.5, height: 229, resizeMode: 'contain', margin: 10, marginTop: 40 }}
                 source={require('../img/1.png')}></Image>
               <Text style={styles.header}>
-                เราจะทำการส่งรหัสผ่านใหม่ไปยังอีเมล์
+                เราจะทำการส่งรหัสยืนยันตัวตนไปยังอีเมล์
                  </Text>
               <Text style={styles.header}>
                 ที่ได้ทำงานลงทะเบียนไว้
@@ -42,17 +70,13 @@ class ForgotpasslScreen extends Component {
                 <TextInput
                   style={{ backgroundColor: "#FFFFFF", height: 50, padding: 10, fontSize: 15 }}
                   placeholder="กรุณากรอกอีเมล์"
-                  onChangeText={() => this.setState({})}
-
+                  onChangeText={(email) => this.setState({ email })}
                 />
-              
               </View>
-              
-
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="ส่งรหัสผ่านใหม่" color="#5BB95A" />
-              </View>
+              <Button title="ส่งรหัสยืนยันตัวตน" color="#5BB95A" onPress={this.onSubmit.bind(this)}/>
+            </View>
           </View>
         </View>
       </ScrollView>

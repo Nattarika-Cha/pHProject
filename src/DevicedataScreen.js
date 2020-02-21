@@ -188,6 +188,10 @@ class DevicedataScreen extends Component {
       var text = "ค่าปกติ";
       this.setState({
         text_analyze_ph: text,
+        text_analyze_ph1: '',
+        text_analyze_ph2: '',
+        text_analyze_ph3: '',
+        text_analyze_ph4: '',
         text_status_ph: require('../img/normal.png')
       });
     } else {
@@ -315,8 +319,8 @@ class DevicedataScreen extends Component {
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-              <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
-              source={require('../img/back.png')} ></Image>
+              <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
+                source={require('../img/back.png')} ></Image>
             </TouchableOpacity>
           </View>
           <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
@@ -332,8 +336,8 @@ class DevicedataScreen extends Component {
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
             shadowColor: "#000",
             shadowOffset: {
-                width: 0,
-                height: 1,
+              width: 0,
+              height: 1,
             },
             shadowOpacity: 0.20,
             shadowRadius: 1.41,
@@ -385,8 +389,8 @@ class DevicedataScreen extends Component {
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
             shadowColor: "#000",
             shadowOffset: {
-                width: 0,
-                height: 1,
+              width: 0,
+              height: 1,
             },
             shadowOpacity: 0.20,
             shadowRadius: 1.41,
@@ -407,11 +411,11 @@ class DevicedataScreen extends Component {
               <View style={{
                 flexDirection: 'row', justifyContent: 'flex-start', width: wp('80%'), marginLeft: 25, marginBottom: 10
               }}>
-                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('37%'), borderEndWidth: 1, borderEndColor: '#000000', marginEnd: wp('5%')  }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('37%'), borderEndWidth: 1, borderEndColor: '#000000', marginEnd: wp('5%') }}>
                   <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
                   <Text style={styles.txtData}>{this.state.humidity_low} - {this.state.humidity_hight}</Text>
                 </View>
-                <View style={{ flexDirection: 'column', justifyContent: 'flex-start',width: wp('37%'), marginBottom: hp('1%') }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('37%'), marginBottom: hp('1%') }}>
                   <Text style={styles.txtTitle}>ค่าที่ได้</Text>
                   <Text style={styles.txtData}>{this.state.Humidity}</Text>
                 </View>
@@ -431,15 +435,15 @@ class DevicedataScreen extends Component {
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
             shadowColor: "#000",
             shadowOffset: {
-                width: 0,
-                height: 1,
+              width: 0,
+              height: 1,
             },
             shadowOpacity: 0.20,
             shadowRadius: 1.41,
             elevation: 2,
           }}>
             <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('80%'), alignItems: 'flex-start' }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', width:wp('80%'), }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), }}>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
                   <Image style={{ padding: 5, width: wp('8%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
                     source={require('../img/h4.png')}></Image>
