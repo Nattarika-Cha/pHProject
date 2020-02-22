@@ -11,12 +11,12 @@ import { hasPrefixSuffix } from "antd/lib/input/ClearableLabeledInput";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import DatePicker from 'react-native-datepicker'
 var moment = require('moment');
-var PH = [0, 0, 0, 0, 0, 0, 0];
-var HM = [0, 0, 0, 0, 0, 0, 0];
-var PH_NUM = [0, 0, 0, 0, 0, 0, 0];
-var HM_NUM = [0, 0, 0, 0, 0, 0, 0];
-var PH_DATA = [0, 0, 0, 0, 0, 0, 0];
-var HM_DATA = [0, 0, 0, 0, 0, 0, 0];
+var PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var PH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var graph = {
   labels: [],
   datasets: [
@@ -37,8 +37,10 @@ var graph1 = {
 
 var num = 0;
 var device_select = '';
-var Month = '';
-var Year = '';
+var date = '';
+var qty_day = '';
+var date_lable = [];
+var date_lable2 = [];
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -61,12 +63,13 @@ class ReportScreen extends Component {
       Report: [],
       Device: [],
       device_select: '',
-      Month: '',
-      Year: '',
+      // Month: '',
+      // Year: '',
       start: '',
       end: '',
       day: '',
-      date: '2020-02-21'
+      date: '',
+      qty_day: ''
     };
   }
 
@@ -86,8 +89,10 @@ class ReportScreen extends Component {
           fname: data.fname,
           lname: data.lname,
           device_select: '',
-          Month: '',
-          Year: ''
+          date: '',
+          qty_day: ''
+          // Month: '',
+          // Year: ''
         });
         if (this.state.token != '') {
           status = 0;
@@ -102,7 +107,7 @@ class ReportScreen extends Component {
               for (let i = 0; i < this.state.Device.length; i++) {
                 device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
               }
-              console.log(device_senser);
+              // console.log(device_senser);
             })
             .catch(function (error) {
               // console.log(error);
@@ -138,12 +143,12 @@ class ReportScreen extends Component {
   }
 
   cls_data() {
-    PH = [0, 0, 0, 0, 0, 0, 0];
-    HM = [0, 0, 0, 0, 0, 0, 0];
-    PH_NUM = [0, 0, 0, 0, 0, 0, 0];
-    HM_NUM = [0, 0, 0, 0, 0, 0, 0];
-    PH_DATA = [0, 0, 0, 0, 0, 0, 0];
-    HM_DATA = [0, 0, 0, 0, 0, 0, 0];
+    PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    PH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     graph = {
       labels: [],
       datasets: [
@@ -162,60 +167,46 @@ class ReportScreen extends Component {
       ]
     };
     num = 0;
+    date_lable = [];
+    date_lable2 = [];
   }
 
   showdata() {
     // console.log(this.state.device_select);
     // console.log(this.state.Month);
     // console.log(this.state.Year);
-    if ((this.state.device_select != device_select) || (this.state.Month != Month) || (this.state.Year != Year)) {
+    if ((this.state.device_select != device_select) || (this.state.date != date) || (this.state.qty_day != qty_day)) {
       device_select = this.state.device_select;
-      Month = this.state.Month;
-      Year = this.state.Year;
-      // console.log("testttt");
+      date = this.state.date;
+      qty_day = this.state.qty_day;
+      date_lable = [];
       this.cls_data();
     }
 
     // console.log(num)
 
-    if ((this.state.device_select != '') && (this.state.Month != '') && (this.state.Year != '') && (num <= 2)) {
+    if ((this.state.device_select != '') && (this.state.date != '') && (this.state.qty_day != '') && (num <= 2)) {
       num += 1;
-      if (this.state.Month == '1') {
-        var start = (this.state.Year - 1) + "-12-31T17:00:00Z";
-        var end = this.state.Year + "-01-31T17:00:00Z";
-      } else if (this.state.Month == '2') {
-        var start = this.state.Year + "-01-31T17:00:00Z";
-        var end = this.state.Year + "-02-29T17:00:00Z";
-      } else if (this.state.Month == '3') {
-        var start = this.state.Year + "-02-29T17:00:00Z";
-        var end = this.state.Year + "-03-31T17:00:00Z";
-      } else if (this.state.Month == '4') {
-        var start = this.state.Year + "-03-31T17:00:00Z";
-        var end = this.state.Year + "-04-30T17:00:00Z";
-      } else if (this.state.Month == '5') {
-        var start = this.state.Year + "-04-30T17:00:00Z";
-        var end = this.state.Year + "-05-31T17:00:00Z";
-      } else if (this.state.Month == '6') {
-        var start = this.state.Year + "-05-31T17:00:00Z";
-        var end = this.state.Year + "-06-30T17:00:00Z";
-      } else if (this.state.Month == '7') {
-        var start = this.state.Year + "-06-30T17:00:00Z";
-        var end = this.state.Year + "-07-31T17:00:00Z";
-      } else if (this.state.Month == '8') {
-        var start = this.state.Year + "-07-31T17:00:00Z";
-        var end = this.state.Year + "-08-31T17:00:00Z";
-      } else if (this.state.Month == '9') {
-        var start = this.state.Year + "-08-31T17:00:00Z";
-        var end = this.state.Year + "-09-30T17:00:00Z";
-      } else if (this.state.Month == '10') {
-        var start = this.state.Year + "-09-30T17:00:00Z";
-        var end = this.state.Year + "-10-31T17:00:00Z";
-      } else if (this.state.Month == '11') {
-        var start = this.state.Year + "-10-31T17:00:00Z";
-        var end = this.state.Year + "-11-30T17:00:00Z";
-      } else if (this.state.Month == '12') {
-        var start = this.state.Year + "-11-30T17:00:00Z";
-        var end = this.state.Year + "-12-31T17:00:00Z";
+      if (this.state.qty_day == '7') {
+        var end = moment(this.state.date).subtract(1, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
+        var start = moment(this.state.date).subtract(8, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
+        for (let z = 0; z < 7; z++) {
+          date_lable[z] = moment(this.state.date).subtract(z, 'days').format('YYYY-MM-DD');
+          date_lable2[z] = moment(this.state.date).subtract(z, 'days').format('DD');
+        }
+        PH = [0, 0, 0, 0, 0, 0, 0];
+        HM = [0, 0, 0, 0, 0, 0, 0];
+        PH_NUM = [0, 0, 0, 0, 0, 0, 0];
+        HM_NUM = [0, 0, 0, 0, 0, 0, 0];
+        PH_DATA = [0, 0, 0, 0, 0, 0, 0];
+        HM_DATA = [0, 0, 0, 0, 0, 0, 0];
+      } else if (this.state.qty_day == '14') {
+        var end = moment(this.state.date).subtract(1, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
+        var start = moment(this.state.date).subtract(15, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
+        for (let z = 0; z < 14; z++) {
+          date_lable[z] = moment(this.state.date).subtract(z, 'days').format('YYYY-MM-DD');
+          date_lable2[z] = moment(this.state.date).subtract(z, 'days').format('DD');
+        }
       }
       this.setState({
         start: start,
@@ -235,99 +226,50 @@ class ReportScreen extends Component {
         .then(response => {
           const Report = response.data;
           this.setState({ Report: Report });
+          // console.log(this.state.Report);
           for (let i = 0; i < this.state.Report.length; i++) {
             var day = moment(this.state.Report[i].date).format('DD');
             // console.log(day);
-            PH[day - 1] += parseFloat(this.state.Report[i].pH);
-            PH_NUM[day - 1] += 1;
-            PH_DATA[day - 1] = PH[day - 1] / PH_NUM[day - 1];
-            HM[day - 1] += parseFloat(this.state.Report[i].moisture);
-            HM_NUM[day - 1] += 1;
-            HM_DATA[day - 1] = HM[day - 1] / HM_NUM[day - 1];
-          }
-
-          if (this.state.Month == 2) {
-            if ((this.state.Year % 4) == 0) {
-              graph = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
-                datasets: [
-                  {
-                    data: PH_DATA
-                  }
-                ]
+            if (this.state.qty_day == '7') {
+              for (let m = 0; m < 7; m++) {
+                if (moment(date_lable[m]).format('DD') == day)
+                  var row = m;
               }
-
-              graph1 = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
-                datasets: [
-                  {
-                    data: HM_DATA
-                  }
-                ]
-              }
-
-              this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"] });
             } else {
-              graph = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
-                datasets: [
-                  {
-                    data: PH_DATA
-                  }
-                ]
+              for (let m = 0; m < 14; m++) {
+                if (moment(date_lable[m]).format('DD') == day)
+                  var row = m;
               }
-
-              graph1 = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"],
-                datasets: [
-                  {
-                    data: HM_DATA
-                  }
-                ]
-              }
-              this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28"] });
             }
-          } else if ((this.state.Month == 1) || (this.state.Month == 3) || (this.state.Month == 5) || (this.state.Month == 7) || (this.state.Month == 8) || (this.state.Month == 10) || (this.state.Month == 12)) {
-            graph = {
-              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
-              datasets: [
-                {
-                  data: PH_DATA
-                }
-              ]
-            }
-
-            graph1 = {
-              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
-              datasets: [
-                {
-                  data: HM_DATA
-                }
-              ]
-            }
-
-            this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"] });
-          } else if ((this.state.Month == 4) || (this.state.Month == 6) || (this.state.Month == 9) || (this.state.Month == 11)) {
-            graph = {
-              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-              datasets: [
-                {
-                  data: PH_DATA
-                }
-              ]
-            }
-
-            graph1 = {
-              labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
-              datasets: [
-                {
-                  data: HM_DATA
-                }
-              ]
-            }
-
-            this.setState({ day: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"] });
+            // console.log(row);
+            PH[row] += parseFloat(this.state.Report[i].pH);
+            PH_NUM[row] += 1;
+            PH_DATA[row] = PH[row] / PH_NUM[row];
+            HM[row] += parseFloat(this.state.Report[i].moisture);
+            HM_NUM[row] += 1;
+            HM_DATA[row] = HM[row] / HM_NUM[row];
           }
+
+          // console.log(date_lable)
+          graph = {
+            labels: date_lable2,
+            datasets: [
+              {
+                data: PH_DATA
+              }
+            ]
+          }
+
+          graph1 = {
+            labels: date_lable2,
+            datasets: [
+              {
+                data: HM_DATA
+              }
+            ]
+          }
+
+          this.setState({ day: date_lable2 });
 
           // console.log(PH_DATA);
           // console.log(HM_DATA);
@@ -344,38 +286,39 @@ class ReportScreen extends Component {
   }
 
   reportList() {
-    if ((this.state.device_select != '') && (this.state.Month != '') && (this.state.Year != '')) {
-      var month = '';
-      if (this.state.Month == '1')
-        month = 'ม.ค.';
-      else if (this.state.Month == '2')
-        month = 'ก.พ.';
-      else if (this.state.Month == '3')
-        month = 'มี.ค.';
-      else if (this.state.Month == '4')
-        month = 'เม.ย.';
-      else if (this.state.Month == '5')
-        month = 'พ.ค.';
-      else if (this.state.Month == '6')
-        month = 'มิ.ย.';
-      else if (this.state.Month == '7')
-        month = 'ก.ค.';
-      else if (this.state.Month == '8')
-        month = 'ส.ค.';
-      else if (this.state.Month == '9')
-        month = 'ก.ย.';
-      else if (this.state.Month == '10')
-        month = 'ต.ค.';
-      else if (this.state.Month == '11')
-        month = 'พ.ย.';
-      else if (this.state.Month == '12')
-        month = 'ธ.ค.';
-      var year = parseInt(this.state.Year) + 543;
+    if ((this.state.device_select != '') && (this.state.date != '') && (this.state.qty_day != '')) {
+      // var month = '';
+      // if (this.state.Month == '1')
+      //   month = 'ม.ค.';
+      // else if (this.state.Month == '2')
+      //   month = 'ก.พ.';
+      // else if (this.state.Month == '3')
+      //   month = 'มี.ค.';
+      // else if (this.state.Month == '4')
+      //   month = 'เม.ย.';
+      // else if (this.state.Month == '5')
+      //   month = 'พ.ค.';
+      // else if (this.state.Month == '6')
+      //   month = 'มิ.ย.';
+      // else if (this.state.Month == '7')
+      //   month = 'ก.ค.';
+      // else if (this.state.Month == '8')
+      //   month = 'ส.ค.';
+      // else if (this.state.Month == '9')
+      //   month = 'ก.ย.';
+      // else if (this.state.Month == '10')
+      //   month = 'ต.ค.';
+      // else if (this.state.Month == '11')
+      //   month = 'พ.ย.';
+      // else if (this.state.Month == '12')
+      //   month = 'ธ.ค.';
+      // var year = parseInt(this.state.Year) + 543;
       // console.log("dayyyy:" + this.state.day.length);
       if (this.state.day.length > 0) {
         return this.state.day.map(function (object, i) {
           // console.log("i: " + i);
-          return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} day={i + 1} month={month} year={year} />
+          // return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} day={i + 1} month={month} year={year} />
+          return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} date={date_lable[i]} />
         });
       }
 
@@ -438,45 +381,35 @@ class ReportScreen extends Component {
             </View>
           </View> */}
 
-          {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
-              เลือกปี :
+              เลือกจำนวนวัน :
             </Text>
             <View style={styles.select}>
               <RNPickerSelect
-                onValueChange={(Year) => this.setState({ Year })}
-                title="ปี"
+                onValueChange={(qty_day) => this.setState({ qty_day })}
+                title="จำนวนวัน"
                 placeholder={{
-                  label: 'ปี',
+                  label: 'จำนวนวัน',
                   value: '',
                 }}
                 items={[
-                  { label: '2018', value: '2018' },
-                  { label: '2019', value: '2019' },
-                  { label: '2020', value: '2020' },
-                  { label: '2021', value: '2021' },
-                  { label: '2022', value: '2022' },
-                  { label: '2023', value: '2023' },
-                  { label: '2024', value: '2024' },
-                  { label: '2025', value: '2025' },
-                  { label: '2026', value: '2026' },
-                  { label: '2027', value: '2027' },
-                  { label: '2028', value: '2028' },
-                  { label: '2029', value: '2029' },
-                  { label: '2030', value: '2030' },
+                  { label: '7 วัน', value: '7' },
+                  { label: '14 วัน', value: '14' },
                 ]}
-                value={this.state.Year}
+                value={this.state.qty_day}
               />
             </View>
-          </View> */}
+          </View>
+
           <DatePicker
             style={{ width: 200 }}
             date={this.state.date}
             mode="date"
             placeholder="select date"
             format="YYYY-MM-DD"
-            // minDate="2016-05-01"
-            // maxDate="2016-06-01"
+            minDate="2020-01-01"
+            maxDate={moment().format("YYYY-MM-DD")}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -489,15 +422,13 @@ class ReportScreen extends Component {
               dateInput: {
                 marginLeft: 36
               }
-              // ... You can check the source to find the other keys.
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
-            {/* <Button title="ค้นหา" color="#5BB95A" type="clear" onPress={this.showdata.bind(this)} /> */}
           </View>
           <View>
-            {/* {this.showdata()} */}
+            {this.showdata()}
             <Text style={styles.header2}>ค่า pH</Text>
             <LineChart
               data={graph}
@@ -569,7 +500,7 @@ class ReportScreen extends Component {
             </Text>
           </View>
           <View style={{ flexDirection: 'column', width: wp('80%'), borderRadius: 6, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            {/* {this.reportList()} */}
+            {this.reportList()}
           </View>
         </View>
 
