@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text,Linking, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
+import { Text, Linking, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert, fontFamily, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 var status = 0;
 class ProfileScreen extends Component {
   constructor(props) {
@@ -98,9 +98,9 @@ class ProfileScreen extends Component {
     this.focusListener.remove();
   }
 
-  componentDidMount(){ //
+  componentDidMount() { //
     const { navigation } = this.props;
-    this.focusListener = navigation.addListener('didFocus' , () => {
+    this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
     });
   }
@@ -120,64 +120,80 @@ class ProfileScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-          <View style={{ width:  wp("28%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ width:  wp("28%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
-            source={{ uri: this.state.image }}>
+          <View style={{ width: wp("28%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Image style={{ width: wp("28%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
+              source={{ uri: this.state.image }}>
             </Image>
           </View>
           <Text style={styles.header2}>{this.state.fname} {this.state.lname}</Text>
-          <View style={{  flexDirection: 'row', justifyContent: 'flex-start',alignItems: 'center', }}>
-          <View style={styles.button}>
-            <Button title="แก้ไขข้อมูล" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('ProfileEdit')} />
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', }}>
+            <View style={styles.button}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileEdit')}>
+                <Text style={styles.label}>แก้ไขข้อมูล</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={{fontSize: hp('3%'),}}>
+                |
+              </Text>
+            </View>
+            <View style={styles.button}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Changepass')}>
+                <Text style={styles.label}>เปลี่ยนรหัส</Text>
+              </TouchableOpacity>
+
+            </View>
           </View>
-          <View style={styles.button}>
-            <Button title="เปลี่ยนรหัส" color="#5BB95A" type="clear" onPress={() => this.props.navigation.navigate('Changepass')} />
-          </View>
-          </View>
-          
+
         </View>
 
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')}>
-            <View style={{ flexDirection: 'row', width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' 
-            ,shadowColor: "#000",
-            shadowOffset: {
+            <View style={{
+              flexDirection: 'row', width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center'
+              , shadowColor: "#000",
+              shadowOffset: {
                 width: 0,
                 height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 1,}}>
+              },
+              shadowOpacity: 0.20,
+              shadowRadius: 1.41,
+              elevation: 1,
+            }}>
               <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/setting.png')}></Image>
               <Text style={styles.header3}> ตั้งค่า </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
-            <View style={{ flexDirection: 'row',width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center',
-            shadowColor: "#000",
-            shadowOffset: {
+            <View style={{
+              flexDirection: 'row', width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center',
+              shadowColor: "#000",
+              shadowOffset: {
                 width: 0,
                 height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 1, }}>
+              },
+              shadowOpacity: 0.20,
+              shadowRadius: 1.41,
+              elevation: 1,
+            }}>
               <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/help.png')}></Image>
               <Text style={styles.header3}>  แนะนำการใช้งาน</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.clearAsyncStorage.bind(this)}>
-            <View style={{ flexDirection: 'row', width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center',
-            shadowColor: "#000",
-            shadowOffset: {
+            <View style={{
+              flexDirection: 'row', width: wp('70%'), height: hp('9%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center',
+              shadowColor: "#000",
+              shadowOffset: {
                 width: 0,
                 height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 1, }}>
+              },
+              shadowOpacity: 0.20,
+              shadowRadius: 1.41,
+              elevation: 1,
+            }}>
               <Image style={{ padding: 5, width: wp('10%'), height: hp('5%'), resizeMode: 'contain', margin: 16, }}
                 source={require('../img/log-out.png')}></Image>
               <Text style={styles.header3}> ออกจากระบบ </Text>
@@ -261,6 +277,12 @@ const styles = StyleSheet.create({
     color: "#5BB95A"
 
   },
+  label: {
+    fontSize: hp('2%'),
+    marginRight:wp('3%'),
+    marginLeft:wp('3%'),
+    color: '#878787'
+  }
 });
 
 export default withNavigation(ProfileScreen);
