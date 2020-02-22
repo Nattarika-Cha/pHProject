@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View} from 'react-native';
+import { View, Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -13,10 +13,11 @@ export default createMaterialBottomTabNavigator(
     Home: {
       screen: MapHomeScreen,
       navigationOptions: {
-        // tabBarLabel: '',
+        tabBarLabel: '',
         tabBarIcon: ({ tintColor }) => (
-          <View>
-            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-home'} />
+          <View >
+            {/* {0 && <Image source={require('../img/Path8.png')} />} */}
+            <Image isFocused={tintColor} source={require('../img/Path8.png')} />
           </View>),
       }
     },
@@ -25,7 +26,8 @@ export default createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-easel'} />
+            {/* <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-easel'} /> */}
+            <Image source={require('../img/router_3.png')} />
           </View>),
       }, initialRouteName: 'Device'
     },
@@ -36,7 +38,8 @@ export default createMaterialBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <View>
             {/* <Icon type="bar-chart" /> */}
-            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-stats'} />
+            {/* <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-stats'} /> */}
+            <Image source={require('../img/Path360.png')} />
           </View>),
       }, initialRouteName: 'Report'
     },
@@ -46,7 +49,8 @@ export default createMaterialBottomTabNavigator(
         // tabBarLabel: 'Report',o
         tabBarIcon: ({ tintColor }) => (
           <View>
-            <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-contact'} />
+            {/* <Icon style={[{ color: "#5e8c5b" }]} size={25} name={'md-contact'} /> */}
+            <Image source={require('../img/Path6.png')} />
           </View>),
       }, initialRouteName: 'Profile'
     },
