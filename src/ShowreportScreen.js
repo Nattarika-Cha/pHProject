@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+var moment = require('moment');
 class ShowreportScreen extends Component{
 
   // statusList() {
@@ -36,7 +36,7 @@ class ShowreportScreen extends Component{
                     </View> */}
                     {/* {this.statusList()} */}
                     <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                        <Text style={styles.header3}> {this.props.day} {this.props.month} {this.props.year}</Text>
+                        <Text style={styles.header3}>{moment(this.props.date).format('DD MMMM YYYY')}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between',width: wp('80%'), }}>
