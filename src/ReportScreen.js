@@ -403,10 +403,10 @@ class ReportScreen extends Component {
           </View>
 
           <DatePicker
-            style={{ width: 200 }}
+            style={{ width: wp('50%'), }}
             date={this.state.date}
             mode="date"
-            placeholder="select date"
+            placeholder="เลือกวันที่"
             format="YYYY-MM-DD"
             minDate="2020-01-01"
             maxDate={moment().format("YYYY-MM-DD")}
@@ -418,9 +418,11 @@ class ReportScreen extends Component {
                 left: 0,
                 top: 4,
                 marginLeft: 0
+                
               },
               dateInput: {
-                marginLeft: 36
+                marginLeft: 36,
+                borderRadius: 10,borderColor: '#878787',borderWidth: 1,
               }
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
