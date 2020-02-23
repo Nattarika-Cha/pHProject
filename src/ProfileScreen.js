@@ -139,7 +139,7 @@ class ProfileScreen extends Component {
             </View>
             <View style={styles.button}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Changepass')}>
-                <Text style={styles.label}>เปลี่ยนรหัส</Text>
+                <Text style={styles.label2}>เปลี่ยนรหัส</Text>
               </TouchableOpacity>
 
             </View>
@@ -278,6 +278,12 @@ const styles = StyleSheet.create({
 
   },
   label: {
+    fontSize: hp('2%'),
+    marginRight:wp('3%'),
+    marginLeft:wp('5'),
+    color: '#878787'
+  },
+  label2: {
     fontSize: hp('2%'),
     marginRight:wp('3%'),
     marginLeft:wp('3%'),
