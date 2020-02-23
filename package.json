@@ -29,6 +29,7 @@
     "react-native-axios": "^0.17.1",
     "react-native-camera": "^3.18.0",
     "react-native-chart-kit": "^4.4.1",
+    "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^5.5.3",
     "react-native-gesture-handler": "^1.5.6",
     "react-native-image-picker": "^2.3.0",
