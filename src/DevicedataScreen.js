@@ -11,6 +11,9 @@ const CARD_WIDTH = CARD_HEIGHT - 70;
 
 var status = 0;
 var num = 0;
+var pump = '';
+var old_status_pump = '';
+var count_status_pump = 0;
 
 class DevicedataScreen extends Component {
   constructor(props) {
@@ -36,6 +39,7 @@ class DevicedataScreen extends Component {
       longitude: 0.0,
       Humidity: '',
       pH: '',
+      pump: '',
       date: '',
       area_analyze: '',
       pH_getdata: '',
@@ -47,6 +51,7 @@ class DevicedataScreen extends Component {
       text_analyze_hm: '',
       text_status_ph: '',
       text_status_hm: '',
+      status_pump: '',
     };
   }
 
@@ -99,11 +104,19 @@ class DevicedataScreen extends Component {
                   longitude: parseFloat(data_senser.data.longitude),
                   Humidity: data_senser.data.moisture,
                   pH: data_senser.data.pH,
+                  pump: data_senser.data.pump,
                   date: data_senser.data.date
                 });
                 num = 0;
                 this.Humidity_analyze();
                 this.pH_analyze();
+                if(pump == '2' && old_status_pump == data_senser.data.pump && count_status_pump != 60) 
+                {
+                  count_status_pump = count_status_pump + 1;
+                } else {
+                  this.status_pump();
+                  count_status_pump = 0;
+                }
               })
               .catch(function (error) {
                 console.log(error);
@@ -298,19 +311,55 @@ class DevicedataScreen extends Component {
   }
 
   pump() {
+    if(this.state.pump == '0')
+      var status = '1111';
+    else if(this.state.pump == '1')
+      var status = '0000'
+    pump = '2';
+    this.setState({
+      pump: '2',
+      status_pump: require('../img/wt.png')
+    });
     axios.post('http://165.22.250.24:3030/senser/pump', {
       devive_EUI: this.props.navigation.state.params.devive_EUI,
       port: this.props.navigation.state.params.port,
-      status: '0000'
+      status: status
     })
       .then(response => {
-        console.log(response)
+        // console.log(response.data.substring(1, 4));
+        // if(response.data.status != 'QUEUED')
+        // {
+        //   pump = old_status_pump;
+        // }
+        //this.status_pump();
+        // console.log(response)
       })
       .catch(function (error) {
         // console.log(error);
       })
   }
 
+  status_pump() {
+    if(this.state.pump == '0') {
+      pump = '0';
+      old_status_pump = '0';
+      this.setState({
+        status_pump: require('../img/off.png')
+      });
+    }
+    else if(this.state.pump == '1') {
+      pump = '1';
+      old_status_pump = '1';
+      this.setState({
+        status_pump: require('../img/on.png')
+      });
+    } else {
+      pump = '2';
+      this.setState({
+        status_pump: require('../img/wt.png')
+      });
+    }
+  }
   // Humidity_analyze() {
   //   setInterval(() => {
   //     if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
@@ -437,12 +486,12 @@ class DevicedataScreen extends Component {
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), }}>
               <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Text style={styles.txtHea2}>การวิเคราะห์                </Text>
+                <Text style={styles.txtHea2}>การวิเคราะห์</Text>
               </View>
               <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                 {/* {this.Humidity_analyze()} */}
                 <TouchableOpacity onPress={this.pump.bind(this)}>
-                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={require('../img/wt.png')}></Image>
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.status_pump}></Image>
                 </TouchableOpacity>
               </View>
             </View>
