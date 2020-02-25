@@ -10,6 +10,7 @@ class LoginScreen extends Component {
     this.state = {
       username: '',
       password: '',
+      check_text:''
     };
   }
 
@@ -22,6 +23,16 @@ class LoginScreen extends Component {
   };
 
   onButtonLogin() {
+    if(this.state.username == '' || this.state.password == ''){
+      Alert.alert(
+        'โปรดกรอกข้อมูล',
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        [
+          { text: 'OK'},
+        ],
+        { cancelable: false }
+      )
+    }else{
     axios.post('http://165.22.250.24:3030/user/login', {
       username: this.state.username,
       password: this.state.password
@@ -51,6 +62,7 @@ class LoginScreen extends Component {
           { cancelable: false }
         )
       });
+    }
   }
 
   _storeData = async (user) => {
@@ -68,29 +80,6 @@ class LoginScreen extends Component {
       )
     }
   };
-
-  // _retrieveData = async () => {
-  //   //console.log("test");
-  //   try {
-  //     const value = await AsyncStorage.getItem('user');
-  //     if (value !== null) {
-  //       console.log(value);
-  //     } else {
-  //       console.log("No data");
-  //     }
-  //   } catch (error) {
-  //     // Error retrieving data
-  //     console.log("No data");
-  //   }
-  // };
-
-  // componentDidMount() {
-  //   const { navigation } = this.props;
-  //   this.focusListener = navigation.addListener('didFocus', () => {
-  //     console.log("test");
-  //     this._retrieveData();
-  //   });
-  // }
 
   componentDidMount() {
     const { navigation } = this.props;
@@ -124,7 +113,7 @@ class LoginScreen extends Component {
               backgroundColor: "#FFFFFF", borderRadius: 5,
               margin: 5,
               width: wp('75%')
-            }}>
+            }}>           
               <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%') }} source={require('../img/email-icon.png')}></Image>
               <TextInput
                 style={{ backgroundColor: "#FFFFFF", height: hp('7%'), padding: 10, fontSize: 15, width: wp('60%') }}

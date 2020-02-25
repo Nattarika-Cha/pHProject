@@ -202,6 +202,16 @@ class EditdeviceScreen extends Component {
   };
 
   onEdit() {
+    if(this.state.name == '' || this.state.age == '' || this.state.age_type == '' || this.state.area == '' || this.state.area_type == '' || this.state.soil_type == '' || this.state.pH_low == '' || this.state.pH_hight == '' || this.state.humidity_low == '' || this.state.humidity_hight == ''){
+      Alert.alert(
+        'โปรดกรอกข้อมูล',
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        [
+          { text: 'OK'},
+        ],
+        { cancelable: false }
+      )
+    }else{
     axios.post('http://165.22.250.24:3030/config/add', {
       name: this.state.name,
       age: this.state.age,
@@ -216,7 +226,7 @@ class EditdeviceScreen extends Component {
       serialDevice: this.props.navigation.state.params.serialDevice
     })
       .then((response) => {
-        if (response.data == "Save success") {
+        if ((response.data == "Save success") || (response.data == "Edit config success")) {
           Alert.alert(
             'Success',
             'Edit success',
@@ -239,6 +249,7 @@ class EditdeviceScreen extends Component {
       }, (error) => {
         console.log(error);
       });
+    }
   }
 
   componentDidMount(){ //
@@ -277,6 +288,7 @@ class EditdeviceScreen extends Component {
             </View>
           </View>
           <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start',alignItems: 'center', marginTop: hp('1.5%'), marginLeft: 5, padding: 10, }}>
+            
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: hp('1.5%') }}>
               <Text style={styles.txtname}>
                 ชนิดพืช :

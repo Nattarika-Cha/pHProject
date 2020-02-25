@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
+import { Text, Label, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { set } from 'react-native-reanimated';
 // import Icon from 'react-native-ionicons';
 
-class RegisterScreen extends Component {
+export default class RegisterScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +18,8 @@ class RegisterScreen extends Component {
       gender: '',
       Cpassword: '',
       fileUri: '',
-      email: ''
+      email: '',
+      check_text:''
     };
   }
 
@@ -26,6 +28,16 @@ class RegisterScreen extends Component {
   // };
 
   onSubmit() {
+    if(this.state.username == '' || this.state.password == '' || this.state.fname == '' || this.state.lname == '' || this.state.gender == '' || this.state.email == ''){
+      Alert.alert(
+        'โปรดกรอกข้อมูล',
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        [
+          { text: 'OK'},
+        ],
+        { cancelable: false }
+      )
+    }else{
     if (this.state.password == this.state.Cpassword) {
       axios.post('http://165.22.250.24:3030/user/register', {
         username: this.state.username,
@@ -70,6 +82,7 @@ class RegisterScreen extends Component {
         { cancelable: false }
       )
     }
+  }
   }
 
   chooseImage = () => {
@@ -118,22 +131,19 @@ class RegisterScreen extends Component {
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#fafafa' }}>
-        <View style={{ flex: 1, backgroundColor: '#FAFaFa', flexDirection: 'column', justifyContent: 'flex-start', }}>
-          
+        <View style={{ flex: 1, backgroundColor: '#FAFaFa', flexDirection: 'column', justifyContent: 'flex-start', }}>          
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                 <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
                   source={require('../img/back.png')}></Image>
               </TouchableOpacity>
             </View>
-
           <View style={{ flex: 1, backgroundColor: '#fafafa', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
             <View style={{ width:  wp("27%"), height:  hp("16%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
-            {this.renderFileUri()} 
-              
+            {this.renderFileUri()}             
               <View style={{
                 position: 'absolute', width:  wp("6.5%"), height:  hp("4%"), borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 70,
@@ -153,7 +163,7 @@ class RegisterScreen extends Component {
                   onChangeText={(fname) => this.setState({ fname })}
                   value={this.state.fname}
                 />
-              </View>
+              </View>              
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
@@ -289,4 +299,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+// export default RegisterScreen;

@@ -80,6 +80,16 @@ class ProfileEditScreen extends Component {
   // };
 
   onSubmit() {
+    if(this.state.username == '' || this.state.fname == '' || this.state.lname == '' || this.state.gender == ''){
+      Alert.alert(
+        'โปรดกรอกข้อมูล',
+        'โปรดกรอกข้อมูลให้ครบถ้วน',
+        [
+          { text: 'OK'},
+        ],
+        { cancelable: false }
+      )
+    }else{
     axios.post('http://165.22.250.24:3030/user/edituser', {
       username: this.state.username,
       fname: this.state.fname,
@@ -111,6 +121,7 @@ class ProfileEditScreen extends Component {
       }, (error) => {
         console.log(error);
       });
+    }
   }
 
   componentDidMount(){ //
