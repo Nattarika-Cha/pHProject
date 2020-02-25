@@ -418,11 +418,11 @@ class ReportScreen extends Component {
                 left: 0,
                 top: 4,
                 marginLeft: 0
-                
+
               },
               dateInput: {
                 marginLeft: 36,
-                borderRadius: 10,borderColor: '#878787',borderWidth: 1,
+                borderRadius: 10, borderColor: '#878787', borderWidth: 1,
               }
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
@@ -439,25 +439,27 @@ class ReportScreen extends Component {
               yAxisLabel=""
               yAxisSuffix=""
               chartConfig={{
-                backgroundColor: "##fae389",
-                backgroundGradientFrom: "#ffff",
+                backgroundColor: "#000000",
+                backgroundGradientFrom: "#fae389",
                 backgroundGradientTo: "#fae389",
                 decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 style: {
-                  borderRadius: 16
+                  borderRadius: 16,
+                  color: '#000000'
                 },
                 propsForDots: {
                   r: "1",
                   strokeWidth: "2",
-                  stroke: "#1b4721"
+                  stroke: "#000000"
                 }
               }}
               bezier
               style={{
                 marginVertical: 8,
-                borderRadius: 16
+                borderRadius: 16,
+                color: '#000000'
               }}
             />
           </View>
@@ -472,11 +474,11 @@ class ReportScreen extends Component {
               yAxisSuffix=""
               chartConfig={{
                 backgroundColor: "#bedafa",
-                backgroundGradientFrom: "#ffffff",
+                backgroundGradientFrom: "#bedafa",
                 backgroundGradientTo: "#bedafa",
                 decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 style: {
                   borderRadius: 16
                 },
