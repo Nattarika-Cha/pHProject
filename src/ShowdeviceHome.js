@@ -84,7 +84,9 @@ class ShowdeviceHome extends Component {
         // console.log(intervalId);
         clearInterval(this.intervalId);
         this.props.pop.navigation.navigate('Devicedata', {
-            serialDevice: this.props.obj.serialDevice
+            serialDevice: this.props.obj.serialDevice,
+            devive_EUI: this.props.obj.devive_EUI,
+            port: this.props.obj.port
         })
     }
 

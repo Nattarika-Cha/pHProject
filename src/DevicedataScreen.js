@@ -297,6 +297,20 @@ class DevicedataScreen extends Component {
     // }, 1000);
   }
 
+  pump() {
+    axios.post('http://165.22.250.24:3030/senser/pump', {
+      devive_EUI: this.props.navigation.state.params.devive_EUI,
+      port: this.props.navigation.state.params.port,
+      status: '0000'
+    })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(function (error) {
+        // console.log(error);
+      })
+  }
+
   // Humidity_analyze() {
   //   setInterval(() => {
   //     if ((parseFloat(this.state.Humidity) >= parseFloat(this.state.humidity_low)) && (parseFloat(this.state.Humidity) <= parseFloat(this.state.humidity_hight))) {
@@ -422,15 +436,17 @@ class DevicedataScreen extends Component {
               </View>
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), }}>
-                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                                    <Text style={styles.txtHea2}>การวิเคราะห์                </Text>
-                </View>
-                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  {/* {this.Humidity_analyze()} */}
-                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={require('../img/wt.png')}></Image>
-                </View>
+              <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Text style={styles.txtHea2}>การวิเคราะห์                </Text>
               </View>
-            
+              <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                {/* {this.Humidity_analyze()} */}
+                <TouchableOpacity onPress={this.pump.bind(this)}>
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={require('../img/wt.png')}></Image>
+                </TouchableOpacity>
+              </View>
+            </View>
+
             <View style={{ height: hp('10%'), marginLeft: wp('6%') }}>
               {/* {this.Humidity_analyze()} */}
               <Text>{this.state.text_analyze_hm}</Text>
