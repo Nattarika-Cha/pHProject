@@ -439,9 +439,9 @@ class ReportScreen extends Component {
               yAxisLabel=""
               yAxisSuffix=""
               chartConfig={{
-                backgroundColor: "#e26a00",
-                backgroundGradientFrom: "#fb8c00",
-                backgroundGradientTo: "#ffa726",
+                backgroundColor: "##fae389",
+                backgroundGradientFrom: "#ffff",
+                backgroundGradientTo: "#fae389",
                 decimalPlaces: 2, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -449,9 +449,9 @@ class ReportScreen extends Component {
                   borderRadius: 16
                 },
                 propsForDots: {
-                  r: "6",
+                  r: "1",
                   strokeWidth: "2",
-                  stroke: "#ffa726"
+                  stroke: "#1b4721"
                 }
               }}
               bezier
@@ -471,9 +471,9 @@ class ReportScreen extends Component {
               yAxisLabel=""
               yAxisSuffix=""
               chartConfig={{
-                backgroundColor: "#e26a00",
-                backgroundGradientFrom: "#fb8c00",
-                backgroundGradientTo: "#ffa726",
+                backgroundColor: "#bedafa",
+                backgroundGradientFrom: "#ffffff",
+                backgroundGradientTo: "#bedafa",
                 decimalPlaces: 2, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -481,9 +481,9 @@ class ReportScreen extends Component {
                   borderRadius: 16
                 },
                 propsForDots: {
-                  r: "6",
+                  r: "1",
                   strokeWidth: "2",
-                  stroke: "#ffa726"
+                  stroke: "#1b4721"
                 }
               }}
               bezier
