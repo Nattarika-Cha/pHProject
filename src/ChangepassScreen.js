@@ -51,6 +51,16 @@ class ChangepassScreen extends Component {
     };
 
     onSubmit() {
+        if(this.state.passwordOld == '' || this.state.passwordNew == ''){
+            Alert.alert(
+                'โปรดกรอกข้อมูล',
+                'โปรดกรอกข้อมูลให้ครบถ้วน',
+                [
+                  { text: 'OK'},
+                ],
+                { cancelable: false }
+              )
+        }else{
         if (this.state.passwordNew == this.state.CpasswordNew) {
             axios.post('http://165.22.250.24:3030/user/change_pass', {
                 username: this.state.username,
@@ -109,6 +119,7 @@ class ChangepassScreen extends Component {
                 { cancelable: false }
             )
         }
+    }
     }
 
     componentDidMount() { //
