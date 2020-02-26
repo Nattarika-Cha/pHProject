@@ -30,53 +30,7 @@ class HomeScreen extends React.Component {
     super(props);
     pop = this.props;
     this.state = {
-      // markers: [
-      //   {
-      //     coordinate: {
-      //       latitude: 45.524548,
-      //       longitude: -122.6749817,
-      //     },
-      //     Humidity: "35 C",
-      //     pH: "5.5",
-      //     image: Images[0],
-      //   },
-      //   {
-      //     coordinate: {
-      //       latitude: 45.524698,
-      //       longitude: -122.6655507,
-      //     },
-      //     Humidity: "35 C",
-      //     pH: "5.5",
-      //     image: Images[1],
-      //   },
-      //   {
-      //     coordinate: {
-      //       latitude: 45.5230786,
-      //       longitude: -122.6701034,
-      //     },
-      //     Humidity: " 35 C",
-      //     pH: "6.0",
-      //     image: Images[2],
-      //   },
-      //   {
-      //     coordinate: {
-      //       latitude: 45.521016,
-      //       longitude: -122.6561917,
-      //     },
-      //     Humidity: " 35 C",
-      //     pH: "6.0",
-      //     image: Images[3],
-      //   },
-      //   {
-      //     coordinate: {
-      //       latitude: 45.521016,
-      //       longitude: -122.6561917,
-      //     },
-      //     Humidity: " 35 C",
-      //     pH: "6.0",
-      //     image: Images[3],
-      //   },
-      // ],
+
       region: {
         latitude: 13.8194926,
         longitude: 100.5137078,

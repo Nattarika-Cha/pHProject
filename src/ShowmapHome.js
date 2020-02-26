@@ -74,9 +74,11 @@ class ShowmapHome extends Component {
             clearInterval(this.intervalId);
         });
         return (
-            <MapView.Marker key={this.props.key} coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}>
-                <Animated.View style={[styles.ring]} />
-                <View style={styles.marker} />
+            <MapView.Marker key={this.props.key} 
+                coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
+                image={require('../img/devce.png')}
+                title={this.props.obj.serialDevice}>      
+                {/* <View style={sty/les.marker} /> */}
             </MapView.Marker>
         );
     }
@@ -88,15 +90,6 @@ const styles = StyleSheet.create({
         height: 8,
         borderRadius: 4,
         backgroundColor: "rgba(130,4,150, 0.9)",
-    },
-    ring: {
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        backgroundColor: "rgba(130,4,150, 0.3)",
-        position: "absolute",
-        borderWidth: 1,
-        borderColor: "rgba(130,4,150, 0.5)",
     },
     maphight: {
         // width: 300,
