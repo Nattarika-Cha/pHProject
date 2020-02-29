@@ -116,7 +116,7 @@ class LoginScreen extends Component {
             }}>           
               <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%') }} source={require('../img/email-icon.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", height: hp('7%'), padding: 10, fontSize: 15, width: wp('60%') }}
+                style={{ backgroundColor: "#FFFFFF", height: hp('7%'), padding: 10, fontSize: 15, width: wp('63%') }}
                 placeholder="ชื่อผู้ใช้"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -130,7 +130,7 @@ class LoginScreen extends Component {
             }}>
               <Image style={{ padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%') }} source={require('../img/pass.png')}></Image>
               <TextInput
-                style={{ backgroundColor: "#FFFFFF", padding: 10, height: hp('7%'), fontSize: 15, width: wp('60%') }}
+                style={{ backgroundColor: "#FFFFFF", padding: 10, height: hp('7%'), fontSize: 15, width: wp('63%') }}
                 placeholder="รหัสผ่าน"
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
@@ -138,7 +138,7 @@ class LoginScreen extends Component {
               />
             </View>
           </View>
-          <View style={{ flexDirection: "row-reverse", padding: 10, width: 400 }}>
+          <View style={{ flexDirection: "row-reverse", padding: 10, width: wp('100%') }}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Forgotpassl')}>
               <Text style={styles.label}>ลืมรหัสผ่าน?</Text>
             </TouchableOpacity>

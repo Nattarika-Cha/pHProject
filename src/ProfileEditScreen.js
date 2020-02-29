@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage } from 'react-native';
+import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage, Handle, Header ,Title} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { withNavigation } from 'react-navigation';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 var status = 0;
 class ProfileEditScreen extends Component {
@@ -24,7 +24,7 @@ class ProfileEditScreen extends Component {
     this.focusListener.remove();
   }
 
-  _retrieveData = async () => { 
+  _retrieveData = async () => {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
@@ -41,14 +41,14 @@ class ProfileEditScreen extends Component {
           })
             .then(response => {
               console.log(response.data);
-              this.setState({ 
+              this.setState({
                 fname: response.data.fname,
                 lname: response.data.lname,
                 gender: response.data.gender,
-                });
+              });
               // console.log(this.state.Device.length);
               // console.log(this.state.Device);
-              
+
             })
             .catch(function (error) {
               // console.log(error);
@@ -80,53 +80,53 @@ class ProfileEditScreen extends Component {
   // };
 
   onSubmit() {
-    if(this.state.username == '' || this.state.fname == '' || this.state.lname == '' || this.state.gender == ''){
+    if (this.state.username == '' || this.state.fname == '' || this.state.lname == '' || this.state.gender == '') {
       Alert.alert(
         'โปรดกรอกข้อมูล',
         'โปรดกรอกข้อมูลให้ครบถ้วน',
         [
-          { text: 'OK'},
+          { text: 'OK' },
         ],
         { cancelable: false }
       )
-    }else{
-    axios.post('http://165.22.250.24:3030/user/edituser', {
-      username: this.state.username,
-      fname: this.state.fname,
-      lname: this.state.lname,
-      gender: this.state.gender,
-      image: this.state.fileUri
-    })
-      .then((response) => {
-        if (response.data == "Edit user success") {
-          Alert.alert(
-            'Success',
-            'Edit user success',
-            [
-              { text: 'OK', onPress: () => this.props.navigation.navigate('Profile') },
-            ],
-            { cancelable: false }
-          )
-        } else {
-          Alert.alert(
-            'Error',
-            response.data,
-            [
-              { text: 'OK' },
-            ],
-            { cancelable: false }
-          )
-        }
-        //console.log(response.data);
-      }, (error) => {
-        console.log(error);
-      });
+    } else {
+      axios.post('http://165.22.250.24:3030/user/edituser', {
+        username: this.state.username,
+        fname: this.state.fname,
+        lname: this.state.lname,
+        gender: this.state.gender,
+        image: this.state.fileUri
+      })
+        .then((response) => {
+          if (response.data == "Edit user success") {
+            Alert.alert(
+              'Success',
+              'Edit user success',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Profile') },
+              ],
+              { cancelable: false }
+            )
+          } else {
+            Alert.alert(
+              'Error',
+              response.data,
+              [
+                { text: 'OK' },
+              ],
+              { cancelable: false }
+            )
+          }
+          //console.log(response.data);
+        }, (error) => {
+          console.log(error);
+        });
     }
   }
 
-  componentDidMount(){ //
-    const { navigation} = this.props;
-    this.focusListener = navigation.addListener('didFocus' , () => {
+  componentDidMount() { //
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
     });
   }
@@ -164,49 +164,51 @@ class ProfileEditScreen extends Component {
     if (this.state.fileUri) {
       return <Image
         source={{ uri: this.state.fileUri }}
-        style={{width:  wp("27%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{ width: wp("27%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
       />
     } else {
       return <Image
         source={require('../img/us.png')}
-        style={{width:  wp("27%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{ width: wp("27%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
       />
     }
   }
-  
+
   render() {
     return (
-      <ScrollView style={{backgroundColor:'#FAFAFA'}}> 
+      <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
+
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#ffffff', }}>
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('Profile')}}>
-            <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
-              source={require('../img/back.png')} ></Image>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Profile') }}>
+              <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
+                source={require('../img/back.png')} ></Image>
             </TouchableOpacity>
           </View>
+                
 
-          <View style={{ flex: 1, backgroundColor: 'FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems:'center' }}>
+          <View style={{ flex: 1, backgroundColor: 'FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
-            <View style={{ width:  wp("25%"), height:  hp("15%"), borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}>
-            {this.renderFileUri()} 
+            <View style={{ width: wp("25%"), height: hp("15%"), borderRadius: 50, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+              {this.renderFileUri()}
               <View style={{
-                position: 'absolute', width:  wp("6.5%"), height:  hp("4%"), borderRadius: 20
+                position: 'absolute', width: wp("6.5%"), height: hp("4%"), borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 80,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
                 <TouchableOpacity onPress={this.chooseImage}>
-                  <Image style={{ padding: 5, width:  wp("5%"), height:  hp("3.5%"), resizeMode: 'contain', margin: 5, }}
+                  <Image style={{ padding: 5, width: wp("5%"), height: hp("3.5%"), resizeMode: 'contain', margin: 5, }}
                     source={require('../img/add.png')}></Image>
-                </TouchableOpacity>               
+                </TouchableOpacity>
               </View>
             </View>
             <View style={{ faex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5, marginTop: hp('1%') }}>
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
-                  placeholder="ชื่อ"
+                  placeholder="ชื่อ                          "
                   onChangeText={(fname) => this.setState({ fname })}
                   value={this.state.fname}
                 />
@@ -329,6 +331,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: 7,
     height: hp('5%'),
+    width: wp('70%'),
+
     margin: 7,
     borderRadius: 20,
   },
@@ -338,7 +342,7 @@ const styles = StyleSheet.create({
     width: wp('50%'),
     color: "#5BB95A"
   },
-  
+
 });
 
 export default withNavigation(ProfileEditScreen);

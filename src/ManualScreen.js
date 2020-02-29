@@ -24,15 +24,44 @@ class ManualScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>คู่มือการใช้งาน</Text>
             </View>
-            <View style={{ flexDirection: 'column', width: wp('80%'), height: 700, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start', paddingLeft:25 }}>
+            <View style={{ flexDirection: 'column', width: wp('90%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start', }}>
               <Text>  </Text>
+
+              <Image style={{  width: wp("90%"), height: hp("65%")}}
+              source={require('../img/m1.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("70%")}}
+              source={require('../img/m2.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("65%")}}
+              source={require('../img/m3.jpg')}>
+                </Image>
+                <Image style={{  width: wp("90%"), height: hp("68%")}}
+              source={require('../img/m4.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("75%")}}
+              source={require('../img/m5.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("75%")}}
+              source={require('../img/m6.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("70%")}}
+              source={require('../img/m7.jpg')}>
+              </Image>
+              <Image style={{  width: wp("90%"), height: hp("70%")}}
+              source={require('../img/m8.jpg')}>
+              </Image>
+              <View style={{ flexDirection: 'column', width: wp('90%'), borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: wp('15%')}}>
               <Text style={styles.header3}>หากแอปพลิเคชันมีปัญหาหรือมี
-              อาการค้างให้ปิดแอปพลิเคชันแล้วเปิดใหม่</Text>
+              อาการค้าง</Text>
+              <Text style={styles.header3}>ให้ปิดแอปพลิเคชันแล้วเปิดใหม่</Text>
               <Text>  </Text>
               <Text style={styles.header3}>ติดต่อเราที่</Text>
               <Text style={styles.header3}>e-mail: easyfarm.smart@gmail.com  </Text>
               <Text>  </Text>
               <Text style={styles.header3}>โทร: 092-8104990 </Text>
+              </View>
+              
             </View>
           </View>
         </View>
@@ -50,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header3: {
-    fontSize: 18,
+    fontSize: hp('2%'),
     fontWeight: 'bold',
     alignItems: 'center',
   },
