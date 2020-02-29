@@ -63,7 +63,7 @@ class DevicedataScreen extends Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
+      if (value != null) {
         var data = JSON.parse(value);
         this.setState({ token: data.token });
         if (this.state.token != '') {
