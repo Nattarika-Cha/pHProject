@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, AsyncStorage, Alert } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import firebase from 'react-native-firebase';
+import { withNavigation } from 'react-navigation';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class LoginScreen extends Component {
     this.state = {
       username: '',
       password: '',
+      device_token: ''
     };
   }
 
@@ -17,14 +19,11 @@ class LoginScreen extends Component {
     this.focusListener.remove();
   }
 
-  static navigationOptions = {
-    title: 'Login',
-  };
-
   onButtonLogin() {
     axios.post('http://165.22.250.24:3030/user/login', {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      device_token: this.state.device_token
     })
       .then((response) => {
         if (response.data === 'Email not exists' || response.data === 'Wrong password') {
@@ -97,8 +96,25 @@ class LoginScreen extends Component {
     this.focusListener = navigation.addListener('didFocus', () => {
       this.setState({
         username: '',
-        password: ''
+        password: '',
+        // device_token: ''
       });
+      firebase.messaging().getToken()
+        .then(fcmToken => {
+          if (fcmToken) {
+            console.log("if  : " + fcmToken);
+            this.setState({
+              device_token: fcmToken
+            });
+            // user has a device token
+          } else {
+            console.log("else: " + fcmToken);
+            this.setState({
+              device_token: fcmToken
+            });
+            // user doesn't have a device token yet
+          }
+        });
     });
   }
 
@@ -170,11 +186,11 @@ class LoginScreen extends Component {
               <Text style={styles.label2}>สร้างบัญชีใหม่</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center',alignItems:'center', padding: 5, marginLeft: wp('12%'), width: wp('75%'),marginTop:hp('10%')}}>
-          <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
-                  source={require('../img/i.png')}></Image>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5, marginLeft: wp('12%'), width: wp('75%'), marginTop: hp('10%') }}>
+            <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
+              source={require('../img/i.png')}></Image>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
-            
+
               <Text style={styles.label2}>ช่วยเหลือ</Text>
             </TouchableOpacity>
           </View>
