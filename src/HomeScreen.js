@@ -7,7 +7,10 @@ import axios from 'axios';
 
 import ShowdeviceHome from './ShowdeviceHome';
 import ShowmapHome from './ShowmapHome';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import firebase from 'react-native-firebase';
+import { RNNotificationBanner } from 'react-native-notification-banner';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 8;
@@ -17,15 +20,6 @@ const CARD_WIDTH = CARD_HEIGHT - 70;
 var status = 0;
 var pop = [];
 class HomeScreen extends React.Component {
-  componentWillMount() {
-    this.index = 0;
-    this.animation = new Animated.Value(0);
-  }
-
-  componentWillUnmount() {
-    this.focusListener.remove();
-  }
-
   constructor(props) {
     super(props);
     pop = this.props;
@@ -42,6 +36,51 @@ class HomeScreen extends React.Component {
       fname: '',
       lname: '',
     };
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this._retrieveData();
+      this.createNotificationListeners();
+    });
+    this.createNotificationListeners();
+  }
+
+  componentWillMount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+    this.notificationListener();
+  }
+
+  async createNotificationListeners() {
+    this.notificationListener = firebase.notifications().onNotification((notification) => {
+      const { title, body } = notification;
+      this.notification(title, body);
+    });
+    this.messageListener = firebase.messaging().onMessage((message) => {
+      //process data message
+      console.log(JSON.stringify(message));
+    });
+  }
+
+  notification(title, body) {
+    let glass = <Icon name="bell" size={24} color="#FFFFFF" family={"FontAwesome"} />;
+    RNNotificationBanner.Show({ title: title, subTitle: body, withIcon: true, icon: glass })
+  }
+
+  showAlert(title, body) {
+    Alert.alert(
+      title, body,
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
   }
 
   _retrieveData = async () => {
@@ -92,18 +131,11 @@ class HomeScreen extends React.Component {
     }
   };
 
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.focusListener = navigation.addListener('didFocus', () => {
-        this._retrieveData();
-    });
-  }
-
   deviceList() {
     // console.log(this.state.Device);
-      return this.state.Device.map(function (object, i) {
-        return <ShowdeviceHome obj={object} key={i} pop={pop} />
-      });
+    return this.state.Device.map(function (object, i) {
+      return <ShowdeviceHome obj={object} key={i} pop={pop} />
+    });
   }
 
   mapList() {
@@ -115,9 +147,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ faex: 1, flexDirection: 'row',  paddingLeft: 0,  alignItems: 'center',justifyContent: 'flex-end',  height: hp('9%'),backgroundColor:'#FFFFFF' }}>
-        <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
-              source={require('../img/logo.png')}></Image>
+        <View style={{ faex: 1, flexDirection: 'row', paddingLeft: 0, alignItems: 'center', justifyContent: 'flex-end', height: hp('9%'), backgroundColor: '#FFFFFF' }}>
+          <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
+            source={require('../img/logo.png')}></Image>
         </View>
         {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
           <Text style={{ fontSize: 16, marginTop: 12, marginBottom: 15, marginLeft: 25 }}>{this.state.fname} {this.state.lname}</Text>
@@ -127,14 +159,14 @@ class HomeScreen extends React.Component {
             <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5 }}>35°c</Text>
           </View>
         </View> */}
-        <View style={{faex: 1,flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
-        <View style={{ faex: 1,flexDirection: 'row',marginTop: hp('1%'),  width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5, borderRadius: 1,alignItems: 'center',justifyContent: 'center' }}>
-          <MapView
-            ref={map => this.map = map}
-            initialRegion={this.state.region}
-            style={styles.maphight} >
-              
-            {/* <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
+        <View style={{ faex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ faex: 1, flexDirection: 'row', marginTop: hp('1%'), width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5, borderRadius: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <MapView
+              ref={map => this.map = map}
+              initialRegion={this.state.region}
+              style={styles.maphight} >
+
+              {/* <MapView.Marker coordinate={{ latitude: 13.819378, longitude: 100.5143527 }}>
               <Animated.View style={[styles.ring]} />
               <View style={styles.marker} />
             </MapView.Marker>
@@ -142,14 +174,14 @@ class HomeScreen extends React.Component {
               <Animated.View style={[styles.ring]} />
               <View style={styles.marker} />
             </MapView.Marker> */}
-            {this.mapList()}
-            <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
-              source={require('../img/logo.png')}></Image>
-          </MapView>
+              {this.mapList()}
+              <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
+                source={require('../img/logo.png')}></Image>
+            </MapView>
+          </View>
         </View>
-        </View>
-        
-        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10 ,width: wp('100%'), height: hp('27%')}}>
+
+        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10, width: wp('100%'), height: hp('27%') }}>
           <Animated.ScrollView
             horizontal
             scrollEventThrottle={1}

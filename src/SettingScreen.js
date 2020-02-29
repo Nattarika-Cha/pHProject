@@ -9,7 +9,7 @@ class SettingScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      soundValue: '' ,
+      // soundValue: '' ,
       messegeValue: '',
       gpsValue: '',
       token : '',
@@ -20,23 +20,22 @@ class SettingScreen extends Component {
     this.focusListener.remove();
   }
 
-  soundValue = value => {
-    this.setState({ soundValue: value });
-    this.onSubmit();
-  };
+  // soundValue = value => {
+  //   this.setState({ soundValue: value });
+  //   this.onSubmit();
+  // };
 
   messegeValue = value => {
       this.setState({ messegeValue: value });
-      this.onSubmit();
+      // this.onSubmit();
   };
 
   gpsValue = value => {
     this.setState({ gpsValue: value });
-    this.onSubmit();
+    // this.onSubmit();
   };
 
   _retrieveData = async () => {
-    var device = [];
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
@@ -55,7 +54,7 @@ class SettingScreen extends Component {
               const setting = response.data;
               console.log(setting);
               this.setState({ 
-                soundValue: setting.sound ,
+                // soundValue: setting.sound ,
                 messegeValue: setting.messege ,
                 gpsValue: setting.gps 
                });
@@ -87,7 +86,7 @@ class SettingScreen extends Component {
 
   onSubmit() {
     axios.post('http://165.22.250.24:3030/setting/add_setting', {
-        sound: this.state.soundValue,
+        // sound: this.state.soundValue,
         messege: this.state.messegeValue,
         gps: this.state.gpsValue,
         token: this.state.token,
@@ -113,6 +112,7 @@ class SettingScreen extends Component {
   }
 
   render() {
+    this.onSubmit();
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
@@ -127,7 +127,7 @@ class SettingScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ตั้งค่า</Text>
             </View>
-            <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            {/* <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/sound.png')}></Image>
               <Text style={styles.header3}> เสียงการแจ้งเตือน </Text>
@@ -137,7 +137,7 @@ class SettingScreen extends Component {
                   value={this.state.soundValue}
                 />
               </View>
-            </View>
+            </View> */}
             <View style={{ flexDirection: 'row', width: 300, height: 64, borderRadius: 6, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
               <Image style={{ padding: 5, width: 35, height: 35, resizeMode: 'contain', margin: 16, }}
                 source={require('../img/noti.png')}></Image>
