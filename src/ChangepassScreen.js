@@ -24,7 +24,7 @@ class ChangepassScreen extends Component {
         status += 1;
         try {
             const value = await AsyncStorage.getItem('user');
-            if (value !== null) {
+            if (value != null) {
                 var data = JSON.parse(value);
                 this.setState({ username: data.username });
                 if (this.state.username != '') {

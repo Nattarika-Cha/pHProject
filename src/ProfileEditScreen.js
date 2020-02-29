@@ -28,7 +28,7 @@ class ProfileEditScreen extends Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
+      if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
         this.setState({ username: data.username });

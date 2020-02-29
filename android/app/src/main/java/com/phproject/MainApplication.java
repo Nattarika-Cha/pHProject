@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -14,6 +15,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; //add
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           // new RNCameraKitPackage();
           // return Arrays.<ReactPackage>asList(
           //   new MainReactPackage(),
+            new RNFirebasePackage();
           //   // ...
           //   // Add this line:
           //   new RNNotificationsPackage(MainApplication.this)
@@ -39,6 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new RNFirebaseMessagingPackage());
+          packages.add(new RNFirebaseNotificationsPackage()); //add
           return packages;
         }
 
