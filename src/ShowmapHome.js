@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, Dimensions, Animated, TouchableOpacity, 
 import MapView from "react-native-maps";
 import axios from 'axios';
 import { withNavigation } from 'react-navigation';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 // import { navigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window");
@@ -74,10 +75,12 @@ class ShowmapHome extends Component {
             clearInterval(this.intervalId);
         });
         return (
-            <MapView.Marker key={this.props.key} 
+            <MapView.Marker key={this.props.key}             
                 coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
-                image={require('../img/devce.png')}
-                title={this.props.obj.serialDevice}>      
+                // image={require('../img/devce.png')} 
+                title={this.props.obj.serialDevice}>  
+                 <Image style={{ width: wp("10%"), height: hp("6%"),}}
+                  source={require('../img/devce.png')}></Image>    
                 {/* <View style={sty/les.marker} /> */}
             </MapView.Marker>
         );

@@ -13,6 +13,7 @@ export default createMaterialBottomTabNavigator(
     Home: {
       screen: MapHomeScreen,
       navigationOptions: {
+        
         tabBarLabel: '',
         tabBarIcon: ({ tintColor }) => (
           <View >
@@ -57,8 +58,8 @@ export default createMaterialBottomTabNavigator(
   },
   {
     activeColor: '#000000',
-    activeTincolor: '#000000',
-    inactiveColor: '#000000',
+    activeTincolor: '#ffc13d',
+    inactiveColor: '#d0e6a5',
     barStyle: { backgroundColor: '#FFFFFF' },
   }
 );

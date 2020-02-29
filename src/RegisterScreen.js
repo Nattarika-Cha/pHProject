@@ -179,7 +179,7 @@ export default class RegisterScreen extends Component {
                 borderRadius: 30,
                 margin: 7,
                 paddingLeft: wp('1%'),
-                width: wp('70%'),
+                width: wp('75%'),
                 borderColor: '#000000',
                 borderWidth: 1
               }}>
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
     margin: 7,
-    width: wp('70%'),
+    width: wp('75%'),
     borderColor: '#000000',
     borderWidth: 1
   },
@@ -269,12 +269,12 @@ const styles = StyleSheet.create({
     marginTop: hp('0.5%'),
     marginLeft: wp('2%')
   },
-  // inputBorder: {
-  //   borderRadius: 4,
-  //   borderWidth: 0.5,
-  //   borderColor: '#d6d7da',
-  //   height: 40,
-  // },
+  inputBorder: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    height: 40,
+  },
   buttonContainer: {
     margin: 10
   },
@@ -286,16 +286,17 @@ const styles = StyleSheet.create({
   txt: {
     backgroundColor: "#FFFFFF",
     padding: 7,
-    height: 33,
+    height: hp('5%'),
+    width: wp('70%'),
+
     margin: 7,
     borderRadius: 20,
   },
   buttonContainer: {
     margin: 10,
-    height: 50,
+    height: hp('8%'),
     width: wp('50%'),
     color: "#5BB95A"
-
   },
 });
 
