@@ -556,17 +556,7 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-<<<<<<< HEAD
-                  <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
-                    image={require('../img/devce.png')}
-                    title={this.props.navigation.state.params.serialDevice}>
-                    <View style={styles.marker} />
-                    <Image style={{ width: wp("10%"), height: hp("6%"),}}
-                  source={require('../img/devce.png')}></Image>  
-                  </MapView.Marker>
-=======
                   {this.showGPS()}
->>>>>>> 07253c849d85beca4b93309c336960c6c470b088
                 </MapView>
               </View>
             </View>
