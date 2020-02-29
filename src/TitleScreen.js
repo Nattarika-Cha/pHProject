@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage ,Image} from 'react-native';
 import { withNavigation } from 'react-navigation';
+
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 var nav;
 
 class TitleScreen extends Component {
@@ -51,8 +53,9 @@ class TitleScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text> TitleScreen </Text>
+      <View style={{ flex: 1, flexDirection: 'row', width: wp('95%'), backgroundColor: '#FFFFFF',  alignItems: 'center', justifyContent: 'center' }}>
+       <Image style={{ width: 300, height:300,}}
+                  source={require('../img/icon_app.png')}></Image>  
       </View>
     );
   }
