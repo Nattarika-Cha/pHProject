@@ -10,8 +10,8 @@ class SettingScreen extends Component {
     super(props);
     this.state = { 
       // soundValue: '' ,
-      messegeValue: false,
-      gpsValue: false,
+      messegeValue: true,
+      gpsValue: true,
       token : '',
     };
   }
