@@ -393,9 +393,9 @@ class DevicedataScreen extends Component {
   showGPS() {
     if (this.state.gps == true) {
       return <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
-        image={require('../img/devce.png')}
         title={this.props.navigation.state.params.serialDevice}>
-        <View style={styles.marker} />
+        <Image style={{ width: wp("10%"), height: hp("5%"), }} source={require('../img/devce.png')}></Image>
+        {/* <View style={styles.marker} /> */}
       </MapView.Marker>
     }
   }
