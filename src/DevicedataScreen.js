@@ -110,6 +110,9 @@ class DevicedataScreen extends Component {
                 num = 0;
                 this.Humidity_analyze();
                 this.pH_analyze();
+                // console.log("Pump  " + pump);
+                // console.log("Old   " + old_status_pump);
+                // console.log("Conut " + count_status_pump)
                 if(pump == '2' && old_status_pump == data_senser.data.pump && count_status_pump != 60) 
                 {
                   count_status_pump = count_status_pump + 1;
@@ -327,10 +330,11 @@ class DevicedataScreen extends Component {
     })
       .then(response => {
         // console.log(response.data.substring(1, 4));
-        // if(response.data.status != 'QUEUED')
-        // {
-        //   pump = old_status_pump;
-        // }
+        console.log(response.data.status)
+        if(response.data.status != 'QUEUED')
+        {
+          pump = old_status_pump;
+        }
         //this.status_pump();
         // console.log(response)
       })

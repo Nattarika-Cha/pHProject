@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "328692637320",
+    "firebase_url": "https://phprojectnoti.firebaseio.com",
+    "project_id": "phprojectnoti",
+    "storage_bucket": "phprojectnoti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328692637320:android:0bf28298e2f167abd7c93d",
+        "android_client_info": {
+          "package_name": "com.phproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328692637320-0v6ir9ni62aqaa0b7qtd7v4dou0kqmn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeNfYmTOLiyrKH-z_7ml0MjuKeFUSDVhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328692637320-0v6ir9ni62aqaa0b7qtd7v4dou0kqmn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
