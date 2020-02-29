@@ -22,7 +22,7 @@ class test extends Component {
     //console.log("test");
     try {
       const value = await AsyncStorage.getItem('user');
-      if (value !== null) {
+      if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
         //console.log(data.token);
