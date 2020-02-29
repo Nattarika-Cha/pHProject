@@ -35,6 +35,7 @@ class HomeScreen extends React.Component {
       token: '',
       fname: '',
       lname: '',
+      gps: true
     };
   }
 
@@ -109,6 +110,21 @@ class HomeScreen extends React.Component {
             .catch(function (error) {
               // console.log(error);
             })
+
+          axios.get('http://165.22.250.24:3030/setting/get_setting', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const setting = response.data;
+              this.setState({
+                gps: setting.gps
+              });
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
         } else {
           if (status == 2) {
             status = 0;
@@ -139,9 +155,11 @@ class HomeScreen extends React.Component {
   }
 
   mapList() {
-    return this.state.Device.map(function (object, i) {
-      return <ShowmapHome obj={object} key={i} pop={pop} />
-    });
+    if (this.state.gps == true) {
+      return this.state.Device.map(function (object, i) {
+        return <ShowmapHome obj={object} key={i} pop={pop} />
+      });
+    }
   }
 
   render() {

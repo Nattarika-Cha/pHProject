@@ -52,6 +52,7 @@ class DevicedataScreen extends Component {
       text_status_ph: '',
       text_status_hm: '',
       status_pump: '',
+      gps: true
     };
   }
 
@@ -91,6 +92,22 @@ class DevicedataScreen extends Component {
             .catch(function (error) {
               // console.log(error);
             })
+
+          axios.get('http://165.22.250.24:3030/setting/get_setting', {
+            params: {
+              token: this.state.token
+            }
+          })
+            .then(response => {
+              const setting = response.data;
+              this.setState({
+                gps: setting.gps
+              });
+            })
+            .catch(function (error) {
+              // console.log(error);
+            })
+
           this.intervalId = setInterval(() => {
             axios.get('http://165.22.250.24:3030/senser/data_senser', {
               params: {
@@ -113,8 +130,7 @@ class DevicedataScreen extends Component {
                 // console.log("Pump  " + pump);
                 // console.log("Old   " + old_status_pump);
                 // console.log("Conut " + count_status_pump)
-                if(pump == '2' && old_status_pump == data_senser.data.pump && count_status_pump != 60) 
-                {
+                if (pump == '2' && old_status_pump == data_senser.data.pump && count_status_pump != 60) {
                   count_status_pump = count_status_pump + 1;
                 } else {
                   this.status_pump();
@@ -314,9 +330,9 @@ class DevicedataScreen extends Component {
   }
 
   pump() {
-    if(this.state.pump == '0')
+    if (this.state.pump == '0')
       var status = '1111';
-    else if(this.state.pump == '1')
+    else if (this.state.pump == '1')
       var status = '0000'
     pump = '2';
     this.setState({
@@ -331,8 +347,7 @@ class DevicedataScreen extends Component {
       .then(response => {
         // console.log(response.data.substring(1, 4));
         console.log(response.data.status)
-        if(response.data.status != 'QUEUED')
-        {
+        if (response.data.status != 'QUEUED') {
           pump = old_status_pump;
         }
         //this.status_pump();
@@ -344,14 +359,14 @@ class DevicedataScreen extends Component {
   }
 
   status_pump() {
-    if(this.state.pump == '0') {
+    if (this.state.pump == '0') {
       pump = '0';
       old_status_pump = '0';
       this.setState({
         status_pump: require('../img/off.png')
       });
     }
-    else if(this.state.pump == '1') {
+    else if (this.state.pump == '1') {
       pump = '1';
       old_status_pump = '1';
       this.setState({
@@ -375,6 +390,15 @@ class DevicedataScreen extends Component {
   //     }
   //   }, 1000);
   // }
+  showGPS() {
+    if (this.state.gps == true) {
+      return <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
+        title={this.props.navigation.state.params.serialDevice}>
+        <Image style={{ width: wp("10%"), height: hp("5%"), }} source={require('../img/devce.png')}></Image>
+        {/* <View style={styles.marker} /> */}
+      </MapView.Marker>
+    }
+  }
 
   render() {
     const { navigation } = this.props;
@@ -532,11 +556,7 @@ class DevicedataScreen extends Component {
                   ref={map => this.map = map}
                   initialRegion={this.state.region}
                   style={styles.maphight}>
-                  <MapView.Marker coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
-                    image={require('../img/devce.png')}
-                    title={this.props.navigation.state.params.serialDevice}>
-                    <View style={styles.marker} />
-                  </MapView.Marker>
+                  {this.showGPS()}
                 </MapView>
               </View>
             </View>
