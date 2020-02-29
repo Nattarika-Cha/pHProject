@@ -13,7 +13,8 @@ class ProfileScreen extends Component {
       fname: '',
       lname: '',
       gender: '',
-      image: ''
+      image: '',
+      token: ''
     };
   }
 
@@ -35,7 +36,18 @@ class ProfileScreen extends Component {
 
   clearAsyncStorage = async () => {
     AsyncStorage.clear();
-    this.props.navigation.navigate('Login');
+    axios.post('http://165.22.250.24:3030/user/logout', {
+        token: this.state.token,
+    })
+      .then((response) => {
+        if (response.data == "Logout success") {
+          this.props.navigation.navigate('Login');
+        } else {
+            console.log("Error");
+        }
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   _retrieveData = async () => {
@@ -44,7 +56,7 @@ class ProfileScreen extends Component {
       const value = await AsyncStorage.getItem('user');
       if (value != null) {
         var data = JSON.parse(value);
-        this.setState({ username: data.username });
+        this.setState({ username: data.username, token: data.token });
         if (this.state.username != '') {
           status = 0;
           axios.get('http://165.22.250.24:3030/user/pro', {
