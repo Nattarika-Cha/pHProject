@@ -321,7 +321,7 @@ class DevicedataScreen extends Component {
     pump = '2';
     this.setState({
       pump: '2',
-      status_pump: require('../img/wt.png')
+      status_pump: require('../img/w-w.png')
     });
     axios.post('http://165.22.250.24:3030/senser/pump', {
       devive_EUI: this.props.navigation.state.params.devive_EUI,
@@ -348,19 +348,19 @@ class DevicedataScreen extends Component {
       pump = '0';
       old_status_pump = '0';
       this.setState({
-        status_pump: require('../img/off.png')
+        status_pump: require('../img/w-off.png')
       });
     }
     else if(this.state.pump == '1') {
       pump = '1';
       old_status_pump = '1';
       this.setState({
-        status_pump: require('../img/on.png')
+        status_pump: require('../img/w-on.png')
       });
     } else {
       pump = '2';
       this.setState({
-        status_pump: require('../img/wt.png')
+        status_pump: require('../img/w-w.png')
       });
     }
   }
@@ -536,6 +536,8 @@ class DevicedataScreen extends Component {
                     image={require('../img/devce.png')}
                     title={this.props.navigation.state.params.serialDevice}>
                     <View style={styles.marker} />
+                    <Image style={{ width: wp("10%"), height: hp("6%"),}}
+                  source={require('../img/devce.png')}></Image>  
                   </MapView.Marker>
                 </MapView>
               </View>
