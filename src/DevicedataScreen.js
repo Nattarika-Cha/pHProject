@@ -52,7 +52,8 @@ class DevicedataScreen extends Component {
       text_status_ph: '',
       text_status_hm: '',
       status_pump: '',
-      gps: true
+      gps: true,
+      status_buttom_pump: 'auto'
     };
   }
 
@@ -337,7 +338,8 @@ class DevicedataScreen extends Component {
     pump = '2';
     this.setState({
       pump: '2',
-      status_pump: require('../img/w-w.png')
+      status_pump: require('../img/w-w.png'),
+      status_buttom_pump: 'none'
     });
     axios.post('http://165.22.250.24:3030/senser/pump', {
       devive_EUI: this.props.navigation.state.params.devive_EUI,
@@ -363,19 +365,22 @@ class DevicedataScreen extends Component {
       pump = '0';
       old_status_pump = '0';
       this.setState({
-        status_pump: require('../img/w-off.png')
+        status_pump: require('../img/w-off.png'),
+        status_buttom_pump: 'auto'
       });
     }
     else if (this.state.pump == '1') {
       pump = '1';
       old_status_pump = '1';
       this.setState({
-        status_pump: require('../img/w-on.png')
+        status_pump: require('../img/w-on.png'),
+        status_buttom_pump: 'auto'
       });
     } else {
       pump = '2';
       this.setState({
-        status_pump: require('../img/w-w.png')
+        status_pump: require('../img/w-w.png'),
+        status_buttom_pump: 'none'
       });
     }
   }
@@ -518,9 +523,11 @@ class DevicedataScreen extends Component {
               </View>
               <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                 {/* {this.Humidity_analyze()} */}
-                <TouchableOpacity onPress={this.pump.bind(this)}>
-                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.status_pump}></Image>
-                </TouchableOpacity>
+                <View pointerEvents={this.state.status_buttom_pump}>
+                  <TouchableOpacity onPress={this.pump.bind(this)}>
+                    <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.status_pump}></Image>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 

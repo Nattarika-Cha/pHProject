@@ -19,7 +19,7 @@ class TitleScreen extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     nav = this.props
-    console.log(nav);
+    // console.log(nav);
     this.focusListener = navigation.addListener('didFocus', () => {
       setTimeout(async function () {
           // status += 1;
