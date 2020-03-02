@@ -165,8 +165,8 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ faex: 1, flexDirection: 'row', paddingLeft: 0, alignItems: 'center', justifyContent: 'flex-end', height: hp('9%'), backgroundColor: '#FFFFFF' }}>
-          <Image style={{ height: hp('6%'), width: wp('50%'), resizeMode: 'contain', }}
+        <View style={{ faex: 1, flexDirection: 'row', paddingLeft: 0, alignItems: 'center', justifyContent: 'flex-end', height: hp('7%'), backgroundColor: '#FFFFFF' }}>
+          <Image style={{ height: hp('5%'), width: wp('40%'), resizeMode: 'contain', }}
             source={require('../img/logo.png')}></Image>
         </View>
         {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
@@ -178,7 +178,14 @@ class HomeScreen extends React.Component {
           </View>
         </View> */}
         <View style={{ faex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ faex: 1, flexDirection: 'row', marginTop: hp('1%'), width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5, borderRadius: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ faex: 1, flexDirection: 'row', marginTop: hp('1%'), width: wp('95%'), backgroundColor: '#FFFFFF', paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5, borderRadius: 1, alignItems: 'center', justifyContent: 'center',shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.20,
+              shadowRadius: 1.41,
+              elevation: 1, }}>
             <MapView
               ref={map => this.map = map}
               initialRegion={this.state.region}

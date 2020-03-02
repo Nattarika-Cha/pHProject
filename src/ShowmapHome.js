@@ -79,7 +79,7 @@ class ShowmapHome extends Component {
                 coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
                 // image={require('../img/devce.png')} 
                 title={this.props.obj.serialDevice}>  
-                 <Image style={{ width: wp("10%"), height: hp("5%"),}}
+                 <Image style={{ width: wp("10%"), height: hp("6%"),}}
                   source={require('../img/devce.png')}></Image>    
                 {/* <View style={sty/les.marker} /> */}
             </MapView.Marker>

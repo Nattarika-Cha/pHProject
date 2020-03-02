@@ -127,17 +127,22 @@ class ShowdeviceHome extends Component {
 
                     </View>
 
-                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-
+                    <View style={{
+                        faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                        borderWidth: 1,
+                        borderRadius: wp('3%'),height:('35%'),margin:('5%'),paddingLeft:('10%'),paddingEnd:('10%')
+                    }}>
                         <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
                             source={require('../img/h3.png')}></Image>
-                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5, marginTop: wp('1.5%') }}>:</Text>
+                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('1.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
                     </View>
-                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
+                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start',borderColor: '#c2c9c9',
+    borderWidth: 1,
+    borderRadius:wp('3%'),height:('35%'),margin:('5%'),paddingLeft:('10%'),paddingEnd:('10%')}}>
                         <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
                             source={require('../img/h2.png')}></Image>
-                        <Text style={{ fontSize: 20, color: '#000000', paddingLeft: 5, marginTop: wp('1.5%') }}>:</Text>
+                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('1.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
                         {/* {this.Humidity_analyze()} */}
                     </View>
@@ -166,22 +171,23 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         justifyContent: 'flex-start',
         flexDirection: 'column',
+        
 
 
     },
     cardtitle: {
-        fontSize: 18,
+        fontSize: hp('2.8%'),
 
         fontWeight: "bold",
         marginTop: wp('1.7%')
     },
     cardDescription: {
         fontSize: 18,
-        color: "#444",
+        fontSize: hp('2.8%'),
         marginTop: wp('1.9%')
     },
     header: {
-        fontSize: 15,
+        fontSize: hp('2.5%'),
         color: '#5BB95A',
         fontWeight: 'bold',
 

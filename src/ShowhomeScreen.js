@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 class ShowhomeScreen extends Component {
     constructor(props) {
@@ -68,13 +69,13 @@ class ShowhomeScreen extends Component {
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                 <Image style={{ width: 30, height: 30, resizeMode: 'contain', }}
                   source={require('../img/ph.png')}></Image>
-                <Text style={{ fontSize: 17, color: '#000000', paddingLeft: 5 }}>:</Text> 
+                <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: widthPercentageToDP('10%') }}>:</Text> 
               <Text numberOfLines={1} style={styles.cardtitle}>{marker.Humidity}</Text>
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
                 <Image style={{ width: 30, height: 30, resizeMode: 'contain', }}
                   source={require('../img/h2.png')}></Image>
-                <Text style={{ fontSize: 17, color: '#000000', paddingLeft: 5 }}>:</Text>
+                <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: widthPercentageToDP('10%') }}>:</Text>
               <Text numberOfLines={1} style={styles.cardDescription}>{marker.pH}</Text>
             </View>
           </View>

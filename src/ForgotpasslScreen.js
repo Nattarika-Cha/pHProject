@@ -68,7 +68,7 @@ class ForgotpasslScreen extends Component {
                 margin: 5,
                 width: wp('80%')
               }}>
-                <Image style={{padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%')}} source={require('../img/email-icon.png')}></Image>
+                <Image style={{padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%'),marginLeft:('5%')}} source={require('../img/email-icon.png')}></Image>
                 <TextInput
                   style={{ backgroundColor: "#FFFFFF", height: hp('6%'), padding: 10, fontSize: hp('2.5%') }}
                   placeholder="กรุณากรอกอีเมล์"
@@ -88,7 +88,7 @@ class ForgotpasslScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: hp('3%'),
+    fontSize: hp('2.5%'),
 
     fontWeight: 'bold',
 
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   header3: {
-    fontSize: 18,
+    fontSize: hp('2.8%'),
 
     fontWeight: 'bold',
     paddingVertical: 14,
@@ -131,7 +131,14 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonContainer: {
-    margin: 10
+    flex: 1,
+    margin: 10,
+    fontSize: hp('2.5%'),
+    width: wp('75%'),
+    height:hp('8%'),
+    marginLeft: wp('12%'),
+    fontWeight: 'bold'
+
   },
   alternativeLayoutButtonContainer: {
     margin: 20,
