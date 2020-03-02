@@ -178,7 +178,7 @@ class LoginScreen extends Component {
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 5, marginLeft: wp('12%'), width: wp('75%'), marginTop: hp('10%') }}>
             <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
               source={require('../img/i.png')}></Image>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Manual1')}>
 
               <Text style={styles.label2}>ช่วยเหลือ</Text>
             </TouchableOpacity>

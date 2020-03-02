@@ -18,6 +18,7 @@ import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
 import SettingScreen from './SettingScreen';
 import ManualScreen from './ManualScreen';
+import Manual1Screen from './Manual1Screen';
 import CameraScreen from './CameraScreen'
 import ForgotpasslScreen from './ForgotpasslScreen';
 import TestnotiScreen from './TestnotiScreen';
@@ -107,6 +108,12 @@ const RootStack = createStackNavigator({
   },
   Manual: {
     screen: ManualScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Manual1: {
+    screen: Manual1Screen,
     navigationOptions: {
       header: null,
     },
