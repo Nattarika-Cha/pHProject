@@ -67,33 +67,6 @@ class DeviceScreen extends Component {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       this._retrieveData();
-      // if (this.state.token != '') {
-      //   status = 0;
-      //   axios.get('http://165.22.250.24:3030/device/device_list', {
-      //     params: {
-      //       token: this.state.token
-      //     }
-      //   })
-      //     .then(response => {
-      //       const Device = response.data;
-      //       this.setState({ Device });
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     })
-      // } else {
-      //   if (status == 5) {
-      //     status = 0;
-      //     Alert.alert(
-      //       'Error',
-      //       'หมดอายุเข้าใช้งาน',
-      //       [
-      //         { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-      //       ],
-      //       { cancelable: false }
-      //     )
-      //   }
-      // }
     });
   }
 

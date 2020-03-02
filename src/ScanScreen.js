@@ -5,28 +5,65 @@ import QRCodeScanner from "react-native-qrcode-scanner";
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from "react-native-animatable";
 import axios from 'axios';
+import { withNavigation } from 'react-navigation';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-var token = '';
+// var token = '';
+var status = 0;
 
 console.disableYellowBox = true;
 
-class test extends Component {
+class ScanScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = { token: '' };
   }
 
+  // _retrieveData = async () => {
+  //   //console.log("test");
+  //   status += 1;
+  //   try {
+  //     const value = await AsyncStorage.getItem('user');
+  //     if (value != null) {
+  //       // We have data!!
+  //       var data = JSON.parse(value);
+  //       //console.log(data.token);
+  //       token = data.token;
+  //     }
+  //   } catch (error) {
+  //     // Error retrieving data
+  //     console.log(error);
+  //   }
+  // };
+
   _retrieveData = async () => {
-    //console.log("test");
+    console.log(status)
+    status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
       if (value != null) {
         // We have data!!
+        console.log(value)
         var data = JSON.parse(value);
         //console.log(data.token);
-        token = data.token;
+        if (data.token != '') {
+          status = 0;
+          this.setState({ token: data.token });
+        } else {
+          if (status == 2) {
+            status = 0;
+            Alert.alert(
+              'Error',
+              'หมดอายุเข้าใช้งาน',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+              ],
+              { cancelable: false }
+            )
+          }
+        }
       }
     } catch (error) {
       // Error retrieving data
@@ -35,12 +72,11 @@ class test extends Component {
   };
 
   onSuccess(e) {
-    //console.log(token);
-    this._retrieveData();
-    if (token != '') {
+    console.log(this.state.token)
+    if (this.state.token != '') {
       axios.post('http://165.22.250.24:3030/device/select', {
         serialQR: e.data,
-        token: token
+        token: this.state.token
       })
         .then((response) => {
           // console.log(response.data);
@@ -77,6 +113,18 @@ class test extends Component {
         { cancelable: false }
       )
     }
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this._retrieveData();
+    });
+    this._retrieveData();
   }
 
   makeSlideOutTranslation(translationType, fromValue) {
@@ -217,4 +265,4 @@ const styles = {
   }
 };
 
-export default test;
+export default withNavigation(ScanScreen);
