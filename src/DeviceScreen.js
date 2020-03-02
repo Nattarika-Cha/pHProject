@@ -9,10 +9,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 // var token = '';
 var status = 0;
-
+var pop = [];
 class DeviceScreen extends Component {
   constructor(props) {
     super(props);
+    pop = this.props;
     this.state = { Device: [], token: '' };
   }
 
@@ -99,7 +100,7 @@ class DeviceScreen extends Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      return <ShowdeviceScreen obj={object} key={i} />
+      return <ShowdeviceScreen obj={object} key={i} pop={pop}/>
     });
   }
 
@@ -120,7 +121,7 @@ class DeviceScreen extends Component {
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
           <View style={{ flexDirection: "row-reverse", padding: 10 }}>
             <TouchableOpacity >
-              <Text style={{ fontSize: 17, color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ เพิ่มอุปกรณ์</Text>
+              <Text style={{ fontSize: hp('2.5%'), color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ เพิ่มอุปกรณ์</Text>
             </TouchableOpacity>
           </View>
         </View>

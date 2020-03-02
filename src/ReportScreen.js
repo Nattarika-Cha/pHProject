@@ -403,7 +403,7 @@ class ReportScreen extends Component {
           </View>
 
           <DatePicker
-            style={{ width: wp('50%'), }}
+            style={{ width: 200, }}
             date={this.state.date}
             mode="date"
             placeholder="เลือกวันที่"
@@ -459,7 +459,15 @@ class ReportScreen extends Component {
               style={{
                 marginVertical: 8,
                 borderRadius: 16,
-                color: '#000000'
+                color: '#000000',
+                shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 1,
+            },
+            shadowOpacity: 0.20,
+            shadowRadius: 1.41,
+            elevation: 2,
               }}
             />
           </View>
@@ -491,7 +499,15 @@ class ReportScreen extends Component {
               bezier
               style={{
                 marginVertical: 8,
-                borderRadius: 16
+                borderRadius: 16,
+                shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 1,
+            },
+            shadowOpacity: 0.20,
+            shadowRadius: 1.41,
+            elevation: 2,
               }}
             />
           </View>
@@ -559,7 +575,7 @@ const styles = StyleSheet.create({
     paddingLeft: wp('1%'),
 
     width: wp('35%'),
-    height: hp('6%'),
+    height: 45,
     borderColor: '#000000',
     borderWidth: 1,
     fontSize: 15,

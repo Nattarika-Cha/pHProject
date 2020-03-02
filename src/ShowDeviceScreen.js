@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 class ShowdeviceScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { };
+      }
 
     deviceList() {
         if (this.props.obj.status == 'ON') {
@@ -17,41 +21,55 @@ class ShowdeviceScreen extends Component {
                 source={require('../img/off.png')}></Image>
         }
     }
+    gotopage() {
+        clearInterval(this.intervalId);
+        this.props.pop.navigation.navigate('Devicedata', {
+            serialDevice: this.props.obj.serialDevice,
+            devive_EUI: this.props.obj.devive_EUI,
+            port: this.props.obj.port
+        })
+    }
+
+    _onClick = () => {
+        props.onClick && props.onClick()
+    }
 
     render() {
         return (
             <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
-                <View style={{
-                    flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#FFFFFF',
-                    margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
-                    shadowColor: "#000",
-                    shadowOffset: {
-                        width: 0,
-                        height: 1,
-                    },
-                    shadowOpacity: 0.20,
-                    shadowRadius: 1.41,
-                    elevation: 2,
-                }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: wp('80%'), }}>
-                        <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-                            <Image style={{ padding: 5, width: wp('15%'), height: hp('10%'), resizeMode: 'contain', margin: 2,  }}
-                                source={require('../img/devce.png')}></Image>
-                            <View style={{ flexDirection: 'column', faex: 1, marginLeft: wp('5%') }}>
-                                <Text style={styles.headerDevice}>{this.props.obj.serialDevice}</Text>
-                                {/* <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
+                <TouchableOpacity onPress={this.gotopage.bind(this)}>
+                    <View style={{
+                        flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#FFFFFF',
+                        margin: 5, justifyContent: 'flex-start', alignItems: 'center', borderWidth: 1, borderColor: '#E5E5E5',
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 1,
+                        },
+                        shadowOpacity: 0.20,
+                        shadowRadius: 1.41,
+                        elevation: 2,
+                    }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: wp('80%'), }}>
+                            <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                                <Image style={{ padding: 5, width: wp('15%'), height: hp('10%'), resizeMode: 'contain', margin: 2, }}
+                                    source={require('../img/devce.png')}></Image>
+                                <View style={{ flexDirection: 'column', faex: 1, marginLeft: wp('5%') }}>
+                                    <Text style={styles.headerDevice}>{this.props.obj.serialDevice}</Text>
+                                    {/* <Image style={{ padding: 5, width: 43, height: 21, resizeMode: 'contain', marginTop: 10, }}
                         source={require('../img/on.png')}></Image> */}
-                                {this.deviceList()}
-                                {/* <Text>{this.props.obj.status}</Text> */}
-                                {/* <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5, marginTop: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    {this.deviceList()}
+                                    {/* <Text>{this.props.obj.status}</Text> */}
+                                    {/* <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 5, marginTop: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Image style={{ padding: 5, width: 25, height: 25, resizeMode: 'contain', }}
                                         source={require('../img/can.png')}></Image>
                                     <Text style={styles.txtcanON}>ลดน้ำเมื่อ 3ชม. 5นาที</Text>
                                 </View> */}
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </View>
             // <View style={styles.box}>
             //     <Image style={{ padding: 10, width: 40, height: 40, resizeMode: 'contain', margin: 10, }}
@@ -82,7 +100,7 @@ const styles = StyleSheet.create({
         color: '#b7b7b7',
         alignItems: 'center',
         marginLeft: wp('1%')
-    
+
     },
 });
 

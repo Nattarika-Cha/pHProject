@@ -421,7 +421,7 @@ class DevicedataScreen extends Component {
           </View>
           <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
           <TouchableOpacity >
-            <Text style={{ fontSize: 16, color: '#00000', margin: 10, marginTop: hp('2.5%'), fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>ตั้งค่า</Text>
+            <Text style={{ fontSize: hp('2.5%'), color: '#00000', margin: 10, marginTop: hp('2.5%'), fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>ตั้งค่า</Text>
           </TouchableOpacity>
         </View>
 
@@ -592,19 +592,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   txtcanON: {
-    fontSize: 15,
+    fontSize: hp('2%'),
     color: '#51B1FB',
     alignItems: 'center',
     marginLeft: 10
   },
   txtcanOFF: {
-    fontSize: 15,
+    fontSize: hp('2%'),
     color: '#b7b7b7',
     alignItems: 'center',
     marginLeft: 10
   },
   txtTitle: {
-    fontSize: 15,
+    fontSize: hp('2%'),
     color: '#000000',
   },
   maphight: {
@@ -614,7 +614,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   txtHea: {
-    fontSize: 16,
+    fontSize: hp('2.2%'),
     color: '#000000',
 
   },
@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   txtHea2: {
-    fontSize: 16,
+    fontSize: hp('2.2%'),
     color: '#5BB95A',
     fontWeight: 'bold',
     marginTop: 5,
