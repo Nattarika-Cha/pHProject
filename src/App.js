@@ -166,7 +166,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Title' });
+}, { initialRouteName: 'Login' });
 
 class App extends Component {
   constructor(props) {

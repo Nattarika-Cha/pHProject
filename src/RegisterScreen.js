@@ -142,7 +142,7 @@ export default class RegisterScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
-            <View style={{ width:  wp("27%"), height:  hp("16%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
+            <View style={{ width:  wp("27%"), height:  hp("16%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
             {this.renderFileUri()}             
               <View style={{
                 position: 'absolute', width:  wp("6.5%"), height:  hp("4%"), borderRadius: 20
@@ -181,7 +181,8 @@ export default class RegisterScreen extends Component {
                 paddingLeft: wp('1%'),
                 width: wp('75%'),
                 borderColor: '#000000',
-                borderWidth: 1
+                borderWidth: 1,
+                height:hp('8%'),
               }}>
                 <RNPickerSelect
                   onValueChange={(gender) => this.setState({ gender })}
@@ -254,11 +255,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'center',
     backgroundColor: "#FFFFFF",
-    borderRadius: 30,
+   
     margin: 7,
+    height:hp('8%'),
     width: wp('75%'),
     borderColor: '#000000',
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: wp('30%'),
   },
   container: {
     flex: 1,

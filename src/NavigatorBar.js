@@ -7,7 +7,7 @@ import DeviceScreen from './DeviceScreen'
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
 import MapHomeScreen from './HomeScreen'
-import { FormatSize } from 'material-ui-icons';
+
 
 export default createMaterialBottomTabNavigator(
   {
@@ -62,6 +62,7 @@ export default createMaterialBottomTabNavigator(
     activeTincolor: '#ffc13d',
     inactiveColor: '#d0e6a5',
     barStyle: { backgroundColor: '#FFFFFF' },
-    borderbottomendradius:"20"
+    borderbottomendradius:"20",
+    // fontSize: hp('50%')
   }
 );
