@@ -8,7 +8,6 @@ import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
 import MapHomeScreen from './HomeScreen'
 
-
 export default createMaterialBottomTabNavigator(
   {
     Home: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+// import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 class ShowhomeScreen extends Component {
     constructor(props) {
