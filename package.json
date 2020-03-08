@@ -38,6 +38,7 @@
     "react-native-elements": "^1.2.7",
     "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-header": "^1.0.0",
     "react-native-image-picker": "^2.3.1",
     "react-native-maps": "^0.26.1",
     "react-native-material-bottom-navigation": "^1.0.5",
