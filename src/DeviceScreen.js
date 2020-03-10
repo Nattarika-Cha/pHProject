@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
+
+
 import axios from 'axios';
+import {
+  MenuContext,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
 import ShowdeviceScreen from './ShowdeviceScreen';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -100,18 +109,20 @@ class DeviceScreen extends Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      return <ShowdeviceScreen obj={object} key={i} pop={pop}/>
+      return <ShowdeviceScreen obj={object} key={i} pop={pop} />
     });
   }
 
   render() {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
+
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
-        <Text style={styles.header}>อุปกรณ์</Text>
+
+          <Text style={styles.header}>อุปกรณ์</Text>
         </View>
-      
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, marginTop: 2 }}>
+
+        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, }}>
           {/* <Button>Device</Button> */}
           {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
@@ -119,15 +130,58 @@ class DeviceScreen extends Component {
           </View> */}
         </View>
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ flexDirection: "row-reverse", padding: 10 }}>
-            <TouchableOpacity >
+          <View style={{ flex: 1, padding: 10, }}>
+            {/* <MenuContext style={styles.container}>
+            <View>
+              <Menu>
+                <MenuTrigger >
+                <Text style={{ fontSize: hp('2.5%'),color: '#3ED400' }}>+ เพิ่มอุปกรณ์</Text>
+                </MenuTrigger>
+                <MenuOptions>
+                <MenuOption onSelect={() => alert(`Save`)} text="กรอกรหัสเครื่อง" />
+              <MenuOption onSelect={() => alert(`Delete`)}>
+                <Text>แสกน QR-Code</Text>
+              </MenuOption>
+             
+                </MenuOptions>
+              </Menu>
+            </View>
+          </MenuContext> */}
+
+            {/* <TouchableOpacity >
               <Text style={{ fontSize: hp('2.5%'), color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ เพิ่มอุปกรณ์</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
 
-        <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+
+
           {this.deviceList()}
+          <View>
+            < MenuContext style={styles.container}>
+              <View>
+                <Menu>
+                  <MenuTrigger >
+                    <Text style={{ fontSize: hp('2.5%'), color: '#3ED400' }}>+ เพิ่มอุปกรณ์</Text>
+                  </MenuTrigger>
+                  <MenuOptions>
+                    <MenuOption >
+                      <TouchableOpacity >
+                        <Text onPress={() => this.props.navigation.navigate('AddDeviceScreen')}>กรอกรหัสอุปกรณ์</Text>
+                      </TouchableOpacity>
+                    </MenuOption>
+                    <MenuOption >
+                      <TouchableOpacity >
+                        <Text onPress={() => this.props.navigation.navigate('Scan')}>แสกน QR-Code</Text>
+                      </TouchableOpacity>
+                    </MenuOption>
+
+                  </MenuOptions>
+                </Menu>
+              </View>
+            </MenuContext>
+          </View>
         </View>
       </ScrollView>
     );
@@ -137,7 +191,7 @@ class DeviceScreen extends Component {
 
 const styles = StyleSheet.create({
   header: {
-      fontSize: hp('3%'),
+    fontSize: hp('3%'),
     color: '#5BB95A',
     fontWeight: 'bold',
     paddingVertical: 14,
@@ -172,10 +226,10 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 1
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  // },
   inputContainer: {
     marginRight: 20,
     marginTop: 5,
@@ -220,7 +274,17 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderRadius: 10,
     backgroundColor: '#ffffff'
-  }
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    // alignItems: 'flex-end',
+    justifyContent: 'center',
+    // height:100,
+    marginBottom: 100,
+    // backgroundColor: '#ecf0f1',
+    width: 230
+  },
 });
 
 export default withNavigation(DeviceScreen);

@@ -26,7 +26,8 @@ import ShowreportScreen from './ShowreportScreen';
 import ChangepassScreen from './ChangepassScreen';
 import ConfirmationScreen from './ConfirmationScreen';
 import ChangeForgetPassScreen from './ChangeForgetPassScreen'; 
-
+import AdddeviceScreen from './AdddeviceScreen';
+import PlantScreen from './PlantScreen';
 const RootStack = createStackNavigator({
   Login: {
     screen: LoginScreen,
@@ -166,7 +167,19 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Title' });
+  AddDeviceScreen: {
+    screen: AdddeviceScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Plant: {
+    screen: PlantScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+}, { initialRouteName: 'Plant' });
 
 class App extends Component {
   constructor(props) {
