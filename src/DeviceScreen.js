@@ -168,12 +168,12 @@ class DeviceScreen extends Component {
                   <MenuOptions>
                     <MenuOption >
                       <TouchableOpacity >
-                        <Text onPress={() => this.props.navigation.navigate('AddDeviceScreen')}>กรอกรหัสอุปกรณ์</Text>
+                        <Text style={{ fontSize: hp('2.5%'),paddingLeft:6}} onPress={() => this.props.navigation.navigate('AddDeviceScreen')}>กรอกรหัสอุปกรณ์</Text>
                       </TouchableOpacity>
                     </MenuOption>
                     <MenuOption >
                       <TouchableOpacity >
-                        <Text onPress={() => this.props.navigation.navigate('Scan')}>แสกน QR-Code</Text>
+                        <Text style={{ fontSize: hp('2.5%'), borderTopColor:'#000000',borderTopWidth:1,padding:6 }} onPress={() => this.props.navigation.navigate('Scan')}>แสกน QR-Code</Text>
                       </TouchableOpacity>
                     </MenuOption>
 

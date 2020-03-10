@@ -179,7 +179,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Plant' });
+}, { initialRouteName: 'Title' });
 
 class App extends Component {
   constructor(props) {
