@@ -53,7 +53,7 @@ class TitleScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: wp('95%'), backgroundColor: '#FFFFFF',  alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, flexDirection: 'row', width: wp('100%'), backgroundColor: '#FFFFFF',  alignItems: 'center', justifyContent: 'center' }}>
        <Image style={{ width: 300, height:300,}}
                   source={require('../img/icon_app.png')}></Image>  
       </View>

@@ -132,8 +132,8 @@ class ProfileScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 40 }}>
-          <View style={{ width: wp("28%"), height: hp("17%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ width: wp("28%"), height: hp("17%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
+          <View style={{ width: wp("33%"), height: hp("17%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <Image style={{ width: wp("33%"), height: hp("17%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
               source={{ uri: this.state.image }}>
             </Image>
           </View>

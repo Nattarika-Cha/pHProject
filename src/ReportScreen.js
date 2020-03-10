@@ -349,7 +349,7 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ height: hp('50%'), alignItems: 'center' }}>
+        <View style={{ alignItems: 'center' }}>
           {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกเดือน :
@@ -429,9 +429,11 @@ class ReportScreen extends Component {
           />
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
           </View>
+        </View>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }} >
           <View>
             {this.showdata()}
-            <Text style={styles.header2}>ค่า pH</Text>
+            <Text style={styles.header2}>ค่า pH ดิน</Text>
             <LineChart
               data={graph}
               width={wp('90%')} // from react-native
@@ -461,17 +463,56 @@ class ReportScreen extends Component {
                 borderRadius: 16,
                 color: '#000000',
                 shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 2,
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 2,
               }}
             />
           </View>
 
+          <View>
+            <Text style={styles.header2}>ค่า pH ในน้ำ</Text>
+            <LineChart
+              data={graph1}
+              width={wp('90%')} // from react-native
+              height={hp('35%')}
+              yAxisLabel=""
+              yAxisSuffix=""
+              chartConfig={{
+                backgroundColor: "#baf1e4",
+                backgroundGradientFrom: "#baf1e4",
+                backgroundGradientTo: "#baf1e4",
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                },
+                propsForDots: {
+                  r: "1",
+                  strokeWidth: "2",
+                  stroke: "#1b4721"
+                }
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 2,
+              }}
+            />
+          </View>
           <View>
             <Text style={styles.header2}>ค่าความชื้น</Text>
             <LineChart
@@ -501,19 +542,19 @@ class ReportScreen extends Component {
                 marginVertical: 8,
                 borderRadius: 16,
                 shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 2,
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 2,
               }}
             />
           </View>
         </View>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: hp('56%') }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
           <View style={{ width: wp('90%'), flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
             <Text style={styles.header2}>
               ประวัติ

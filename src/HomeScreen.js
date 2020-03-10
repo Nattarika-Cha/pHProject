@@ -206,7 +206,7 @@ class HomeScreen extends React.Component {
           </View>
         </View>
 
-        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10, width: wp('100%'), height: hp('27%') }}>
+        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10, width: wp('100%'), height: hp('28%') }}>
           <Animated.ScrollView
             horizontal
             scrollEventThrottle={1}
