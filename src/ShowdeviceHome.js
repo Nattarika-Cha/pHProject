@@ -176,18 +176,18 @@ const styles = StyleSheet.create({
 
     },
     cardtitle: {
-        fontSize: hp('2.8%'),
+        fontSize: hp('2%'),
 
         fontWeight: "bold",
-        marginTop: wp('1.7%')
+        marginTop: wp('3.5%')
     },
     cardDescription: {
-        fontSize: 18,
-        fontSize: hp('2.8%'),
-        marginTop: wp('1.9%')
+        
+        fontSize: hp('2%'),
+        marginTop: wp('3.6%')
     },
     header: {
-        fontSize: hp('2.5%'),
+        fontSize: hp('2%'),
         color: '#5BB95A',
         fontWeight: 'bold',
 

@@ -112,7 +112,7 @@ class LoginScreen extends Component {
     return (
       <ImageBackground style={styles.container2} source={require('../img/bg_login.jpg')}>
         <ScrollView styl={{ faex: 1, justifyContent: 'flex-start', alignContent: 'center', alignItems: 'canter' }}>
-          <View style={{ height: hp('25%') }}></View>
+          <View style={{ height: hp('20%') }}></View>
           <View style={{
             faex: 1, flexDirection: 'column',
             padding: 40,

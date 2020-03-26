@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage ,} from 'react-native';
+import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage, } from 'react-native';
 import axios from 'axios';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 class ChangeForgetPassScreen extends Component {
     constructor(props) {
@@ -116,56 +116,63 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingVertical: 14,
         alignItems: 'center',
-      },
-      txtinput: {
+    },
+    txtinput: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignContent: 'center',
         backgroundColor: "#FFFFFF",
-        borderRadius: 30,
+        borderRadius: 6,
         margin: 7,
         width: wp('75%'),
-        borderColor: '#000000',
-        borderWidth: 1
-      },
-      container: {
+        height: hp('6%'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 1,
+    },
+    container: {
         flex: 1,
         justifyContent: 'center',
-      },
-      inputContainer: {
+    },
+    inputContainer: {
         marginRight: wp('2%'),
         marginTop: hp('0.5%'),
         marginLeft: wp('2%')
-      },
-      inputBorder: {
+    },
+    inputBorder: {
         borderRadius: 4,
         borderWidth: 0.5,
         borderColor: '#d6d7da',
         height: 40,
-      },
-      buttonContainer: {
+    },
+    buttonContainer: {
         margin: 10
-      },
-      alternativeLayoutButtonContainer: {
+    },
+    alternativeLayoutButtonContainer: {
         margin: 20,
         flexDirection: 'row',
         justifyContent: 'space-between'
-      },
-      txt: {
+    },
+    txt: {
         backgroundColor: "#FFFFFF",
         padding: 7,
         height: hp('5%'),
         width: wp('70%'),
-    
+
         margin: 7,
         borderRadius: 20,
-      },
-      buttonContainer: {
+    },
+    buttonContainer: {
         margin: 10,
         height: hp('8%'),
         width: wp('50%'),
         color: "#5BB95A"
-      },
+    },
 });
 
 export default ChangeForgetPassScreen;

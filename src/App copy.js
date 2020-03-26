@@ -25,15 +25,10 @@ import TestnotiScreen from './TestnotiScreen';
 import ShowreportScreen from './ShowreportScreen';
 import ChangepassScreen from './ChangepassScreen';
 import ConfirmationScreen from './ConfirmationScreen';
-import ChangeForgetPassScreen from './ChangeForgetPassScreen';
+import ChangeForgetPassScreen from './ChangeForgetPassScreen'; 
 import AdddeviceScreen from './AdddeviceScreen';
 import PlantScreen from './PlantScreen';
 import AddButton from './AddButton'
-import MapHomeScreen from './HomeScreen'
-
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-
-import { FontAwesome5, } from "@expo/vector-icons";
 
 const RootStack = createStackNavigator({
   Login: {
@@ -194,77 +189,12 @@ const RootStack = createStackNavigator({
   },
 }, { initialRouteName: 'Title' });
 
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Home: {
-//       screen: MapHomeScreen,
-//       navigationOptions: {
-
-//         tabBarLabel: '',
-//         tabBarIcon: ({ tintColor }) => (
-//           <View >
-
-//             <Image isFocused={tintColor} source={require('../img/Path8.png')} />
-//           </View>),
-//       }
-//     },
-//     Device: {
-//       screen: DeviceScreen,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <View>
-
-//             <Image source={require('../img/router_3.png')} />
-//           </View>),
-//       }, 
-//     },
-//     Add: {
-//       screen: () => null,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <AddButton/>
-//           ),
-
-//       }
-//     },
-//     Report: {
-//       screen: ReportScreen,
-//       navigationOptions: {
-//         // tabBarLabel: 'Report',
-//         tabBarIcon: ({ tintColor }) => (
-//           <View>
-
-//             <Image source={require('../img/Path360.png')} />
-//           </View>),
-//       }, initialRouteName: 'Report'
-//     },
-//     Profile: {
-//       screen: ProfileScreen,
-//       navigationOptions: {
-//         // tabBarLabel: 'Report',o
-//         tabBarIcon: ({ tintColor }) => (
-//           <View>
-
-//             <Image source={require('../img/Path6.png')} />
-//           </View>),
-//       }, initialRouteName: 'Profile'
-//     },
-    
-//   },
-//   {
-//     tabBarOptions:{
-//       showLabel:false
-//     }
-//   }
-// )
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
-
 
   render() {
     return (
