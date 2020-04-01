@@ -122,43 +122,26 @@ class DeviceScreen extends Component {
           <Text style={styles.header}>อุปกรณ์</Text>
         </View>
 
-        <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, }}>
-          {/* <Button>Device</Button> */}
-          {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
+        {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10, }}>
+        
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-end', }}>
             <Image style={{ padding: 10, width: 25, height: 25, resizeMode: 'contain', margin: 10, }}
               source={require('../img/noti.png')}></Image>
-          </View> */}
-        </View>
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
-          <View style={{ flex: 1, padding: 10, }}>
-            {/* <MenuContext style={styles.container}>
-            <View>
-              <Menu>
-                <MenuTrigger >
-                <Text style={{ fontSize: hp('2.5%'),color: '#3ED400' }}>+ เพิ่มอุปกรณ์</Text>
-                </MenuTrigger>
-                <MenuOptions>
-                <MenuOption onSelect={() => alert(`Save`)} text="กรอกรหัสเครื่อง" />
-              <MenuOption onSelect={() => alert(`Delete`)}>
-                <Text>แสกน QR-Code</Text>
-              </MenuOption>
-             
-                </MenuOptions>
-              </Menu>
-            </View>
-          </MenuContext> */}
-
-            {/* <TouchableOpacity >
-              <Text style={{ fontSize: hp('2.5%'), color: '#3ED400' }} onPress={() => this.props.navigation.navigate('Scan')}>+ เพิ่มอุปกรณ์</Text>
-            </TouchableOpacity> */}
           </View>
-        </View>
+        </View> */}
+        {/* <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>
+          <View style={{ flex: 1, padding: 10, }}>
+          
+          </View>
+        </View> */}
 
         <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
 
 
           {this.deviceList()}
-          <View>
+          
+        </View>
+        <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
             < MenuContext style={styles.container}>
               <View>
                 <Menu>
@@ -168,12 +151,12 @@ class DeviceScreen extends Component {
                   <MenuOptions>
                     <MenuOption >
                       <TouchableOpacity >
-                        <Text style={{ fontSize: hp('2.5%'),paddingLeft:6}} onPress={() => this.props.navigation.navigate('AddDeviceScreen')}>กรอกรหัสอุปกรณ์</Text>
+                        <Text style={{ fontSize: hp('2.3%'),paddingLeft:6}} onPress={() => this.props.navigation.navigate('AddDeviceScreen')}>กรอกรหัสอุปกรณ์</Text>
                       </TouchableOpacity>
                     </MenuOption>
                     <MenuOption >
                       <TouchableOpacity >
-                        <Text style={{ fontSize: hp('2.5%'), borderTopColor:'#000000',borderTopWidth:1,padding:6 }} onPress={() => this.props.navigation.navigate('Scan')}>แสกน QR-Code</Text>
+                        <Text style={{ fontSize: hp('2.3%'), borderTopColor:'#000000',borderTopWidth:1,padding:6 }} onPress={() => this.props.navigation.navigate('Scan')}>แสกน QR-Code</Text>
                       </TouchableOpacity>
                     </MenuOption>
 
@@ -182,7 +165,6 @@ class DeviceScreen extends Component {
               </View>
             </MenuContext>
           </View>
-        </View>
       </ScrollView>
     );
   }

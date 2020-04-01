@@ -38,11 +38,19 @@ class AdddeviceScreen extends Component {
                 alignContent: 'center',
                 backgroundColor: "#FFFFFF", borderRadius: 5,
                 margin: 5,
-                width: wp('80%')
+                width: wp('80%'),
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 1,
               }}>
                 
                 <TextInput
-                  style={{ backgroundColor: "#FFFFFF", height: hp('6%'), padding: 10, fontSize: hp('2.5%') ,width: wp('75%') }}
+                  style={{ backgroundColor: "#FFFFFF", height: hp('6%'), padding: 10, fontSize: hp('2.5%') ,width: wp('75%'), marginLeft:5}}
                   placeholder="กรอกรหัสอุปกรณ์"
 
                 />
