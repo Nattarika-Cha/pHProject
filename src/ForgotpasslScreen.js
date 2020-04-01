@@ -66,9 +66,17 @@ class ForgotpasslScreen extends Component {
                 alignContent: 'center',
                 backgroundColor: "#FFFFFF", borderRadius: 5,
                 margin: 5,
-                width: wp('80%')
+                width: wp('80%'),
+                shadowColor: "#000",
+                     shadowOffset: {
+                       width: 0,
+                       height: 1,
+                     },
+                     shadowOpacity: 0.20,
+                     shadowRadius: 1.41,
+                     elevation: 1,
               }}>
-                <Image style={{padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('1.5%'),marginLeft:('5%')}} source={require('../img/email-icon.png')}></Image>
+                <Image style={{padding: 10, width: wp('5%'), height: hp('3.5%'), resizeMode: 'contain', margin: 10, marginTop: hp('2%'),marginLeft:('5%')}} source={require('../img/email-icon.png')}></Image>
                 <TextInput
                   style={{ backgroundColor: "#FFFFFF", height: hp('6%'), padding: 10, fontSize: hp('2.5%'),flexDirection: 'row',
                   justifyContent: 'flex-start',
@@ -76,16 +84,9 @@ class ForgotpasslScreen extends Component {
                   backgroundColor: "#FFFFFF",
                   borderRadius: 6,
                   margin: 7,
-                  width: wp('75%'),
+                  width: wp('60%'),
                      height: hp('6%'),
-                     shadowColor: "#000",
-                     shadowOffset: {
-                       width: 0,
-                       height: 1,
-                     },
-                     shadowOpacity: 0.20,
-                     shadowRadius: 1.41,
-                     elevation: 1, }}
+                      }}
                   placeholder="กรุณากรอกอีเมล์"
                   onChangeText={(email) => this.setState({ email })}
                 />

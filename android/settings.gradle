@@ -8,8 +8,4 @@ include ':react-native-maps'
 project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/lib/android')
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
-// include ':rncamerakit'
-// project(':rncamerakit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera-kit/android/')
-// include ':react-native-notifications'
-// project(':react-native-notifications').projectDir = new File(rootProject.projectDir, '../../../node_modules/react-native-notifications/lib/android/app')
 include ':app'

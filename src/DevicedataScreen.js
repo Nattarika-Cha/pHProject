@@ -427,11 +427,8 @@ class DevicedataScreen extends Component {
 
 
         <View style={{ justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center', marginTop: 10 }}>
-          <View style={{
-            flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#FFFBE9',
-            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',
-            shadowColor: "#000",
-            shadowOffset: {
+          <View style={{ flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#FFFBE9',
+            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start', shadowColor: "#000", shadowOffset: {
               width: 0,
               height: 1,
             },
@@ -444,7 +441,57 @@ class DevicedataScreen extends Component {
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
                   <Image style={{ padding: 5, width: wp('8%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
                     source={require('../img/h3.png')}></Image>
-                  <Text style={styles.txtHea}> pH</Text>
+                  <Text style={styles.txtHea}> pH ในดิน</Text>
+                </View>
+                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                  {/* {this.pH_analyze()} */}
+                  <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.text_status_ph}></Image>
+                </View>
+              </View>
+              <View style={{
+                flexDirection: 'row', justifyContent: 'flex-start', width: wp('80%'), marginLeft: 25, marginBottom: 10
+              }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('37%'), borderEndWidth: 1, borderEndColor: '#000000', marginEnd: wp('5%') }}>
+                  <Text style={styles.txtTitle}>ค่าตั้งต้น</Text>
+                  <Text style={styles.txtData}>{this.state.ph_low} - {this.state.ph_hight}</Text>
+                </View>
+                <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('37%'), marginBottom: hp('1%') }}>
+                  <Text style={styles.txtTitle}>ค่าที่ได้</Text>
+                  <Text style={styles.txtData}>{this.state.pH}</Text>
+                </View>
+              </View>
+            </View>
+            <Text style={styles.txtHea2}> การวิเคราะห์  </Text>
+
+            <ScrollView>
+              <View style={{ height: hp('15%'), marginLeft: wp('6'), marginRight: wp('5%') }}>
+                {/* {this.pH_analyze()} */}
+
+                <Text>{this.state.text_analyze_ph}</Text>
+                <Text>{this.state.text_analyze_ph1}</Text>
+                <Text>{this.state.text_analyze_ph2}</Text>
+                <Text>{this.state.text_analyze_ph3}</Text>
+                <Text>{this.state.text_analyze_ph4}</Text>
+
+              </View>
+            </ScrollView>
+
+          </View>
+          <View style={{ flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#baf1e4',
+            margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start', shadowColor: "#000", shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.20,
+            shadowRadius: 1.41,
+            elevation: 2,
+          }}>
+            <View style={{ flexDirection: 'column', justifyContent: 'flex-start', width: wp('80%'), alignItems: 'flex-start', }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), }}>
+                <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+                  <Image style={{ padding: 5, width: wp('8%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
+                    source={require('../img/w-ph2.png')}></Image>
+                  <Text style={styles.txtHea}> pH ในน้ำ</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                   {/* {this.pH_analyze()} */}

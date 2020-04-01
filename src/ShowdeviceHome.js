@@ -130,19 +130,32 @@ class ShowdeviceHome extends Component {
                     <View style={{
                         faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
                         borderWidth: 1,
-                        borderRadius: wp('3%'),height:('35%'),margin:('5%'),paddingLeft:('10%'),paddingEnd:('10%')
+                        borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
                     }}>
-                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
+                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain',marginTop: wp('-1.5%') }}
                             source={require('../img/h3.png')}></Image>
-                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('1.5%') }}>:</Text>
+                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
                     </View>
-                    <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start',borderColor: '#c2c9c9',
-    borderWidth: 1,
-    borderRadius:wp('3%'),height:('35%'),margin:('5%'),paddingLeft:('10%'),paddingEnd:('10%')}}>
-                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', }}
+                    <View style={{
+                        faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                        borderWidth: 1,
+                        borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
+                    }}>
+                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain',marginTop: wp('-1.5%') }}
                             source={require('../img/h2.png')}></Image>
-                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('1.5%') }}>:</Text>
+                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
+                        <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
+                        {/* {this.Humidity_analyze()} */}
+                    </View>
+                    <View style={{
+                        faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                        borderWidth: 1,
+                        borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
+                    }}>
+                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain',marginTop: wp('-1.5%')}}
+                            source={require('../img/w-ph2.png')}></Image>
+                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
                         {/* {this.Humidity_analyze()} */}
                     </View>
@@ -157,7 +170,7 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         backgroundColor: "#FFF",
-        marginHorizontal: 10,
+        marginHorizontal: 5,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -171,7 +184,7 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         justifyContent: 'flex-start',
         flexDirection: 'column',
-        
+
 
 
     },
@@ -179,12 +192,12 @@ const styles = StyleSheet.create({
         fontSize: hp('2%'),
 
         fontWeight: "bold",
-        marginTop: wp('3.5%')
+        marginTop: wp('2%')
     },
     cardDescription: {
-        
+
         fontSize: hp('2%'),
-        marginTop: wp('3.6%')
+        marginTop: wp('2%')
     },
     header: {
         fontSize: hp('2%'),

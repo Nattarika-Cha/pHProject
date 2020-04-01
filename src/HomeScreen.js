@@ -13,8 +13,8 @@ import { RNNotificationBanner } from 'react-native-notification-banner';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = height / 8;
-const CARD_WIDTH = CARD_HEIGHT - 70;
+const CARD_HEIGHT = height / 30;
+const CARD_WIDTH = CARD_HEIGHT - 100;
 
 //var token = '';
 var status = 0;

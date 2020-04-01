@@ -21,7 +21,7 @@ export default createBottomTabNavigator(
         tabBarLabel: 'หน้าแรก',
         tabBarIcon: ({ tintColor }) => (
           <View >            
-            <Image isFocused={tintColor} source={require('../img/Path8.png')} />
+            <Image isFocused={tintColor} source={require('../img/home.png')} style={{ width: 25, height: 25,}} />
           </View>),
       }
     },
@@ -31,8 +31,7 @@ export default createBottomTabNavigator(
         tabBarLabel: 'อุปกรณ์',
         tabBarIcon: ({ tintColor }) => (
           <View>
-           
-            <Image source={require('../img/router_3.png')} />
+           <Image source={require('../img/devicei.png')}  style={{ width: 25, height: 25,}} />
           </View>),
       }, 
     },
@@ -41,9 +40,21 @@ export default createBottomTabNavigator(
         // screen:() => null,
         navigationOptions: {
           tabBarLabel: ' ',
-          tabBarIcon: <View>
-<AddButton/>
-          </View> 
+          tabBarIcon: ({ tintColor }) => (
+            <View>
+              <Image source={require('../img/plus.png')}   style={{ width: 65, height: 65,shadowColor: "#5BB95A",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 4, }} />
+            </View>),
+//           tabBarIcon: <View              >
+// <Image source={require('../img/plus.png')}   style={{ width: 50, height: 50, }} />
+
+//           </View> 
           
              },
             //  tabBarOptions:{
@@ -57,7 +68,7 @@ export default createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <View>
            
-            <Image source={require('../img/Path360.png')} />
+            <Image source={require('../img/report.png')}   style={{ width: 25, height: 25,}}/>
           </View>),
       }, initialRouteName: 'Report'
     },
@@ -68,7 +79,7 @@ export default createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <View>
             
-            <Image source={require('../img/Path6.png')} />
+            <Image source={require('../img/pro.png')}  style={{ width: 25, height: 25,}}/>
           </View>),
       }, initialRouteName: 'Profile'
     },

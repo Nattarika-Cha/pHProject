@@ -230,7 +230,13 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:10.0.1'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     
-    
+    compile(project(':react-native-firebase')) {
+    transitive = false
+  }
+
+  // Firebase dependencies
+  compile "com.google.android.gms:play-services-base:11.8.0"
+  compile "com.google.firebase:firebase-core:11.8.0"
     
     //compile (project(':rncamerakit'))
 }
