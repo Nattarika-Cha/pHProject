@@ -31,7 +31,7 @@ export default createBottomTabNavigator(
         tabBarLabel: 'อุปกรณ์',
         tabBarIcon: ({ tintColor }) => (
           <View>
-           <Image source={require('../img/devicei.png')}  style={{ width: 25, height: 25,}} />
+           <Image source={require('../img/devicei.png')}  style={{ width: 31, height: 31,}} />
           </View>),
       }, 
     },

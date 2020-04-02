@@ -117,7 +117,7 @@ class DeviceScreen extends Component {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7}}>
 
           <Text style={styles.header}>อุปกรณ์</Text>
         </View>
@@ -135,14 +135,15 @@ class DeviceScreen extends Component {
           </View>
         </View> */}
         
-        <View style={{ marginTop: hp('1%'),flex:1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', }}>
+        <View style={{ marginTop: hp('1%'),flex:1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center',}}>
               <View style={{faex:1, flexDirection: 'row',
                 justifyContent: 'center',
                 alignContent: 'center',
                 backgroundColor: "#FFFFFF", borderRadius: 5,
                 margin: 5,
+                marginLeft:12,
                 height: hp('6%'),
-                width: wp('80%'),
+                width: wp('72%'),
                 shadowColor: "#000",
                      shadowOffset: {
                        width: 0,
@@ -161,7 +162,7 @@ class DeviceScreen extends Component {
                   backgroundColor: "#FFFFFF",
                   borderRadius: 6,
                   margin: 7,
-                  width: wp('55%'),
+                  width: wp('50%'),
                      height: hp('5%'),
                       }}
                   placeholder="กรุณากรอกอีเมล์"
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 18,
     width: 41,
-    height:15,
+    height:20,
     marginLeft: 5,
     fontWeight: 'bold'
 
