@@ -225,7 +225,7 @@ export default class RegisterScreen extends Component {
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
-                  placeholder="ยืนยัน รหัสผ่าน"
+                  placeholder="ยืนยันรหัสผ่าน"
                   secureTextEntry={true}
                   onChangeText={(Cpassword) => this.setState({ Cpassword })}
                   value={this.state.Cpassword}

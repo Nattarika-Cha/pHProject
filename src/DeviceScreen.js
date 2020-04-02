@@ -23,7 +23,9 @@ class DeviceScreen extends Component {
   constructor(props) {
     super(props);
     pop = this.props;
-    this.state = { Device: [], token: '' };
+    this.state = { 
+      Device: [], 
+      token: '' };
   }
 
   componentWillUnmount() {
