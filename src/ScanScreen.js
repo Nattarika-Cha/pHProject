@@ -19,13 +19,13 @@ class test extends Component {
   }
 
   _retrieveData = async () => {
-    //console.log("test");
     try {
       const value = await AsyncStorage.getItem('user');
+      
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
-        //console.log(data.token);
+        // console.log(data.token);
         token = data.token;
       }
     } catch (error) {
@@ -35,18 +35,19 @@ class test extends Component {
   };
 
   onSuccess(e) {
-    //console.log(token);
     this._retrieveData();
+    console.log(token);
     if (token != '') {
       axios.post('http://165.22.250.24:3030/device/select', {
         serialQR: e.data,
-        token: token
+        token: token,
+        plant:plant,
       })
         .then((response) => {
           // console.log(response.data);
           if (response.data == "Not Device") {
             Alert.alert(
-              'Error',
+              'Error',...
               'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
               [
                 { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },

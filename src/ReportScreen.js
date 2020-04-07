@@ -381,7 +381,7 @@ class ReportScreen extends Component {
             </View>
           </View> */}
 
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
             <Text style={styles.txtname}>
               เลือกจำนวนวัน :
             </Text>
@@ -422,7 +422,8 @@ class ReportScreen extends Component {
               },
               dateInput: {
                 marginLeft: 36,
-                borderRadius: 10, borderColor: '#878787', borderWidth: 1,
+                borderRadius: 10, borderColor: '#b6b6b6', borderWidth: 1,
+                
               }
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
@@ -617,7 +618,7 @@ const styles = StyleSheet.create({
 
     width: wp('35%'),
     height: 45,
-    borderColor: '#000000',
+    borderColor: '#b6b6b6',
     borderWidth: 1,
     fontSize: 15,
   },

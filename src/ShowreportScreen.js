@@ -30,38 +30,38 @@ class ShowreportScreen extends Component {
         elevation: 2,
         backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center'
       }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('80%'), borderRadius: 6, backgroundColor: '#FFFFFF', }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('88%'), borderRadius: 6, backgroundColor: '#FFFFFF', }}>
           {/* <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                         <Image style={{ padding: 5, width: 20, height: 20, resizeMode: 'contain', margin: 2, }}
                         source={require('../img/sunc.png')}></Image>
                         <Text style={styles.header3}> ปรกติ/ไม่ปรกติ </Text>
                     </View> */}
           {/* {this.statusList()} */}
-          <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          <View style={{ flexDirection: 'row', faex: 1, backgroundColor: '#FFFFFF', margin: 6, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
             <Text style={styles.header3}>{moment(this.props.date).format('DD MMMM YYYY')}</Text>
           </View>
         </View>
-        <View style={{ flexDirection: 'column', justifyContent: 'space-between', width: wp('80%'), }}>
-          <View style={{ flexDirection: 'row', width: wp('37%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-            <Image style={{ padding: 5, width: wp('12%'), height: hp('6%'), resizeMode: 'contain', margin: 2, }}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('88%')}}>
+          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
               source={require('../img/hum.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 20 }}>
+            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
               <Text style={styles.header3}>ความชื้น</Text>
               <Text style={styles.txtdata}>{parseFloat(this.props.hm).toFixed(2)}%</Text>
             </View>
           </View>
-          <View style={{ flexDirection: 'row', width: wp('37%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-            <Image style={{ padding: 5, width: wp('12%'), height: hp('6%'), resizeMode: 'contain', margin: 2, }}
+          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems:'center' }}>
+            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
               source={require('../img/ph2.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 20 }}>
+            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
               <Text style={styles.header3}>pH ดิน</Text>
               <Text style={styles.txtdata}>{parseFloat(this.props.ph).toFixed(2)}</Text>
             </View>
           </View>
-          <View style={{ flexDirection: 'row', width: wp('37%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-            <Image style={{ padding: 5, width: wp('12%'), height: hp('6%'), resizeMode: 'contain', margin: 2, }}
+          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems:'center' }}>
+            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
               source={require('../img/w-ph.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 20 }}>
+            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5}}>
               <Text style={styles.header3}>pH น้ำ</Text>
               <Text style={styles.txtdata}>{parseFloat(this.props.ph).toFixed(2)}</Text>
             </View>

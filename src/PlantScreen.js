@@ -12,12 +12,10 @@ class PlantScreen extends Component {
       pomelo: '1',
       lemon: '2',
     };
-
     this.onPlant = this.onPlant.bind(this);
   }
 
   onPlant(Plant){
-    //onPress={() => this.props.navigation.navigate('Home')}
     this._storeData(Plant);
   }
 
@@ -43,7 +41,7 @@ class PlantScreen extends Component {
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start',  }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Device')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
               <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
                 source={require('../img/back.png')}></Image>
             </TouchableOpacity>
@@ -75,8 +73,8 @@ class PlantScreen extends Component {
                 elevation: 6,
               }}>
                 <Image style={{ padding: 5, width: wp('20%'), height: hp('10%'), resizeMode: 'contain', margin: 10, }}
-                  source={require('../img/orange.jpg')}></Image>
-                <Text style={styles.header3}> สวนส้ม </Text>
+                  source={require('../img/orange2.jpg')}></Image>
+                <Text style={styles.header3}> สวนส้มโอ </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.onPlant(this.state.lemon)}>
