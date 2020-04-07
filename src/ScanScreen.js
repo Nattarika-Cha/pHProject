@@ -192,6 +192,7 @@ const styles = {
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
     backgroundColor: overlayColor,
+    
     justifyContent: "flex-start",
     alignItems: "flex-start"
   },

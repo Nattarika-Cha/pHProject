@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Linking, AppRegistry, Image, FontSize, ScrollView, Alert, AsyncStorage,Button } from 'react-native';
+
 import { withNavigation } from 'react-navigation';
 
 
@@ -117,7 +117,7 @@ class DeviceScreen extends Component {
     return (
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7}}>
 
           <Text style={styles.header}>อุปกรณ์</Text>
         </View>
@@ -134,6 +134,49 @@ class DeviceScreen extends Component {
           
           </View>
         </View> */}
+        
+        <View style={{ marginTop: hp('1%'),flex:1, flexDirection: 'row', justifyContent: 'center', alignContent: 'center',}}>
+              <View style={{faex:1, flexDirection: 'row',
+                justifyContent: 'center',
+                alignContent: 'center',
+                backgroundColor: "#FFFFFF", borderRadius: 5,
+                margin: 5,
+                marginLeft:12,
+                height: hp('6%'),
+                width: wp('72%'),
+                shadowColor: "#000",
+                     shadowOffset: {
+                       width: 0,
+                       height: 1,
+                     },
+                     shadowOpacity: 0.20,
+                     shadowRadius: 1.41,
+                     elevation: 2,
+                     
+              }}>
+                
+                <TextInput
+                  style={{ backgroundColor: "#FFFFFF",  padding: 10, fontSize: hp('2.2%'),flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  alignContent: 'center',
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 6,
+                  margin: 7,
+                  width: wp('50%'),
+                     height: hp('5%'),
+                      }}
+                  placeholder="กรุณากรอกอีเมล์"
+                 
+                />
+                <TouchableOpacity  onPress={() => this.props.navigation.navigate('Scan')}>
+                <Image style={{padding: 10, width: wp('10%'), height: hp('7%'), resizeMode: 'contain',top:-5,marginLeft: wp('5%'),marginRight:wp('1%')}}   source={require('../img/scan-iconn.png')}></Image>
+                </TouchableOpacity>
+                
+              </View>
+              <View style={styles.buttonContainer}>
+              <Button title="เพิ่ม" color="#5BB95A" />
+            </View>
+            </View>
 
         <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -141,7 +184,7 @@ class DeviceScreen extends Component {
           {this.deviceList()}
           
         </View>
-        <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+        {/* <View style={{ flex: 1, justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
             < MenuContext style={styles.container}>
               <View>
                 <Menu>
@@ -164,7 +207,7 @@ class DeviceScreen extends Component {
                 </Menu>
               </View>
             </MenuContext>
-          </View>
+          </View> */}
       </ScrollView>
     );
   }
@@ -224,7 +267,14 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonContainer: {
-    margin: 10
+    
+    margin: 10,
+    fontSize: 18,
+    width: 41,
+    height:20,
+    marginLeft: 5,
+    fontWeight: 'bold'
+
   },
   alternativeLayoutButtonContainer: {
     margin: 20,
@@ -238,13 +288,9 @@ const styles = StyleSheet.create({
     margin: 7,
     borderRadius: 20,
   },
-  buttonContainer: {
-    margin: 10,
-    height: 50,
-    width: 200,
-    color: "#5BB95A"
+  
 
-  },
+ 
   box: {
     paddingLeft: 10,
     paddingRight: 10,

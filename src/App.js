@@ -28,7 +28,7 @@ import ConfirmationScreen from './ConfirmationScreen';
 import ChangeForgetPassScreen from './ChangeForgetPassScreen';
 import AdddeviceScreen from './AdddeviceScreen';
 import PlantScreen from './PlantScreen';
-import AddButton from './AddButton'
+
 import MapHomeScreen from './HomeScreen'
 
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -186,12 +186,7 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  Add: {
-    screen: AddButton,
-    navigationOptions: {
-      header: null,
-    },
-  },
+  
 }, { initialRouteName: 'Title' });
 
 // const TabNavigator = createBottomTabNavigator(

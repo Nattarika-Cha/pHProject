@@ -8,7 +8,7 @@ import DeviceScreen from './DeviceScreen'
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
 import MapHomeScreen from './HomeScreen'
-import AddButton from './AddButton'
+
 import AdddeviceScreen from './AdddeviceScreen';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
@@ -31,7 +31,7 @@ export default createBottomTabNavigator(
         tabBarLabel: 'อุปกรณ์',
         tabBarIcon: ({ tintColor }) => (
           <View>
-           <Image source={require('../img/devicei.png')}  style={{ width: 25, height: 25,}} />
+           <Image source={require('../img/devicei.png')}  style={{ width: 31, height: 31,}} />
           </View>),
       }, 
     },
