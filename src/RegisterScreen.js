@@ -19,7 +19,8 @@ export default class RegisterScreen extends Component {
       Cpassword: '',
       fileUri: '',
       email: '',
-      check_text:''
+      check_text:'',
+      
     };
   }
 

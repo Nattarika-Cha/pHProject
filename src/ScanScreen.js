@@ -16,15 +16,22 @@ console.disableYellowBox = true;
 class test extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      plant: '',
+    };
   }
 
   _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem('user');
-      
+      const plant = await AsyncStorage.getItem('plant');
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
+        var data_plant = JSON.parse(plant);
+        this.setState({ 
+          plant: data_plant
+        });
         // console.log(data.token);
         token = data.token;
       }
@@ -41,7 +48,7 @@ class test extends Component {
       axios.post('http://165.22.250.24:3030/device/select', {
         serialQR: e.data,
         token: token,
-        plant:plant,
+        plant: this.state.plant,
       })
         .then((response) => {
           // console.log(response.data);
@@ -193,6 +200,7 @@ const styles = {
     height: SCREEN_WIDTH,
     width: SCREEN_WIDTH,
     backgroundColor: overlayColor,
+    
     justifyContent: "flex-start",
     alignItems: "flex-start"
   },

@@ -185,7 +185,8 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-}, { initialRouteName: 'Login' });
+  
+}, { initialRouteName: 'Title' });
 
 // const TabNavigator = createBottomTabNavigator(
 //   {
