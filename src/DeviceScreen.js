@@ -23,7 +23,12 @@ class DeviceScreen extends Component {
   constructor(props) {
     super(props);
     pop = this.props;
-    this.state = { Device: [], token: '' };
+    this.state = { 
+      Device: [], 
+      token: '',
+      plant: '',
+      serialQR: ''
+    };
   }
 
   componentWillUnmount() {
@@ -34,19 +39,25 @@ class DeviceScreen extends Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
+      const plant = await AsyncStorage.getItem('plant');
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
-        //console.log(data.token);
-        this.setState({ token: data.token });
+        var data_plant = JSON.parse(plant);
+        this.setState({ 
+            token: data.token,
+            plant: data_plant
+          });
         if (this.state.token != '') {
           status = 0;
           axios.get('http://165.22.250.24:3030/device/device_list', {
             params: {
-              token: this.state.token
+              token: this.state.token,
+              plant: this.state.plant
             }
           })
             .then(response => {
+              console.log(response.data, " response.data")
               const Device = response.data;
               this.setState({ Device });
             })
@@ -72,6 +83,54 @@ class DeviceScreen extends Component {
       console.log(error);
     }
   };
+
+  onAdddevice(){
+    // this._retrieveData();
+    // console.log(token);
+    if (this.state.token != '') {
+      axios.post('http://165.22.250.24:3030/device/select', {
+        serialQR: this.state.serialQR,
+        token: this.state.token,
+        plant: this.state.plant
+      })
+        .then((response) => {
+          // console.log(response.data);
+          if (response.data == "Not Device") {
+            Alert.alert(
+              'Error',...
+              'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false }
+            )
+          } else {
+            Alert.alert(
+              'Success',
+              response.data.serialDevice,
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false },
+            );
+          }
+          //console.log(response.data);
+        }, (error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert(
+        'Error',
+        'หมดอายุเข้าใช้งาน',
+        [
+          { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+        ],
+        { cancelable: false }
+      )
+    }
+  }
+
+  
 
   componentDidMount() {
     const { navigation } = this.props;
@@ -109,6 +168,7 @@ class DeviceScreen extends Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
+      console.log(object, " object")
       return <ShowdeviceScreen obj={object} key={i} pop={pop} />
     });
   }
@@ -165,8 +225,9 @@ class DeviceScreen extends Component {
                   width: wp('50%'),
                      height: hp('5%'),
                       }}
-                  placeholder="กรุณากรอกอีเมล์"
-                 
+                  placeholder="รหัสอุปกรณ์"
+                  onChangeText={(serialQR) => this.setState({ serialQR })}
+                  value={this.state.serialQR}
                 />
                 <TouchableOpacity  onPress={() => this.props.navigation.navigate('Scan')}>
                 <Image style={{padding: 10, width: wp('10%'), height: hp('7%'), resizeMode: 'contain',top:-5,marginLeft: wp('5%'),marginRight:wp('1%')}}   source={require('../img/scan-iconn.png')}></Image>
@@ -174,7 +235,7 @@ class DeviceScreen extends Component {
                 
               </View>
               <View style={styles.buttonContainer}>
-              <Button title="เพิ่ม" color="#5BB95A" />
+              <Button title="เพิ่ม" color="#5BB95A" onPress={this.onAdddevice.bind(this)} />
             </View>
             </View>
 

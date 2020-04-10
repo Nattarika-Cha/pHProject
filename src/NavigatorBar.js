@@ -8,7 +8,6 @@ import DeviceScreen from './DeviceScreen'
 import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
 import MapHomeScreen from './HomeScreen'
-
 import AdddeviceScreen from './AdddeviceScreen';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 

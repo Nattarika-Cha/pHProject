@@ -35,7 +35,8 @@ class HomeScreen extends React.Component {
       token: '',
       fname: '',
       lname: '',
-      gps: true
+      gps: true,
+      plant: ''
     };
   }
 
@@ -88,19 +89,23 @@ class HomeScreen extends React.Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
+      const plant = await AsyncStorage.getItem('plant');
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
+        var data_plant = JSON.parse(plant);
         this.setState({
           token: data.token,
           fname: data.fname,
-          lname: data.lname
+          lname: data.lname,
+          plant: data_plant
         });
         if (this.state.token != '') {
           status = 0;
           axios.get('http://165.22.250.24:3030/device/device_list', {
             params: {
-              token: this.state.token
+              token: this.state.token,
+              plant: this.state.plant
             }
           })
             .then(response => {

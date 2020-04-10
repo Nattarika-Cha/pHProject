@@ -67,7 +67,7 @@ class LoginScreen extends Component {
   _storeData = async (user) => {
     try {
       await AsyncStorage.setItem('user', JSON.stringify(user));
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('Plant');
     } catch (error) {
       Alert.alert(
         'Error',

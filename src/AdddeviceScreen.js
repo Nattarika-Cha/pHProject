@@ -1,12 +1,83 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableOpacity,  Image, FontSize, Dimensions, ScrollView,Button } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity,  Image, FontSize, Dimensions, ScrollView, Button, Alert, AsyncStorage } from 'react-native';
 import { withNavigation } from 'react-navigation';
-
+import axios from 'axios';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 var nav;
 
+var plant = '';
+var token = '';
 class AdddeviceScreen extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      plant: '',
+      token: ''
+    }
+  }
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user');
+      
+      if (value != null) {
+        // We have data!!
+        var data = JSON.parse(value);
+        console.log(data.plant);
+        // plant = data.plant;
+        token = data.token;
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  onSuccess(e) {
+    this._retrieveData();
+    if (token != '') {
+      axios.post('http://165.22.250.24:3030/device/select', {
+        serialQR: e.data,
+        // plant: plant,
+        token: token,
+      })
+        .then((response) => {
+          // console.log(response.data);
+          if (response.data == "Not Device") {
+            Alert.alert(
+              'Error',...
+              'ไม่มีอุปกรณ์นี้หรืออุปกรณ์นี้ถูกใช้งานแล้วโปรดติดต่อเจ้าหน้าที่',
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false }
+            )
+          } else {
+            Alert.alert(
+              'Success',
+              response.data.serialDevice,
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('Device') },
+              ],
+              { cancelable: false },
+            );
+          }
+          //console.log(response.data);
+        }, (error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert(
+        'Error',
+        'หมดอายุเข้าใช้งาน',
+        [
+          { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+        ],
+        { cancelable: false }
+      )
+    }
+  }
 
   render() {
     return (
@@ -61,7 +132,7 @@ class AdddeviceScreen extends Component {
 
           </View>
           <View style={styles.buttonContainer}>
-                                <Button title="ยืนยัน" color="#5BB95A" />
+                                <Button title="ยืนยัน" color="#5BB95A" onPress={this.onSuccess.bind(this)}/>
                             </View>
         </View>
       </ScrollView>
