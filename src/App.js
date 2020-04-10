@@ -28,7 +28,7 @@ import ConfirmationScreen from './ConfirmationScreen';
 import ChangeForgetPassScreen from './ChangeForgetPassScreen';
 import AdddeviceScreen from './AdddeviceScreen';
 import PlantScreen from './PlantScreen';
-
+import PlantScreen2 from './PlantScreen2';
 import MapHomeScreen from './HomeScreen'
 
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -182,6 +182,12 @@ const RootStack = createStackNavigator({
   },
   Plant: {
     screen: PlantScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Plant2: {
+    screen: PlantScreen2,
     navigationOptions: {
       header: null,
     },
