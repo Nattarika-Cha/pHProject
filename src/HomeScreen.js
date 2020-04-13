@@ -171,8 +171,11 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ faex: 1, flexDirection: 'row', paddingLeft: 0, alignItems: 'center', justifyContent: 'flex-end', height: hp('7%'), backgroundColor: '#FFFFFF' }}>
-          <Image style={{ height: hp('5%'), width: wp('40%'), resizeMode: 'contain', }}
+          
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Plant2')}>
+        <Image style={{ height: hp('5%'), width: wp('40%'), resizeMode: 'contain', }}
             source={require('../img/logo.png')}></Image>
+            </TouchableOpacity>
         </View>
         {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
           <Text style={{ fontSize: 16, marginTop: 12, marginBottom: 15, marginLeft: 25 }}>{this.state.fname} {this.state.lname}</Text>
