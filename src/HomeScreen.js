@@ -11,10 +11,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import firebase from 'react-native-firebase';
 import { RNNotificationBanner } from 'react-native-notification-banner';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import FooterBar from './FooterBar';
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = height / 8;
-const CARD_WIDTH = CARD_HEIGHT - 70;
+const CARD_HEIGHT = height / 30;
+const CARD_WIDTH = CARD_HEIGHT - 100;
 
 //var token = '';
 var status = 0;
@@ -35,7 +36,8 @@ class HomeScreen extends React.Component {
       token: '',
       fname: '',
       lname: '',
-      gps: true
+      gps: true,
+      plant: ''
     };
   }
 
@@ -65,7 +67,7 @@ class HomeScreen extends React.Component {
     });
     this.messageListener = firebase.messaging().onMessage((message) => {
       //process data message
-      console.log(JSON.stringify(message));
+      //console.log(JSON.stringify(message));
     });
   }
 
@@ -88,22 +90,27 @@ class HomeScreen extends React.Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
+      const plant = await AsyncStorage.getItem('plant');
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
+        var data_plant = JSON.parse(plant);
         this.setState({
           token: data.token,
           fname: data.fname,
-          lname: data.lname
+          lname: data.lname,
+          plant: data_plant
         });
         if (this.state.token != '') {
           status = 0;
           axios.get('http://165.22.250.24:3030/device/device_list', {
             params: {
-              token: this.state.token
+              token: this.state.token,
+              plant: this.state.plant
             }
           })
             .then(response => {
+              console.log(response.data , " device_list")
               const Device = response.data;
               this.setState({ Device: Device });
             })
@@ -166,8 +173,11 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ faex: 1, flexDirection: 'row', paddingLeft: 0, alignItems: 'center', justifyContent: 'flex-end', height: hp('7%'), backgroundColor: '#FFFFFF' }}>
-          <Image style={{ height: hp('5%'), width: wp('40%'), resizeMode: 'contain', }}
+          
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Plant2')}>
+        <Image style={{ height: hp('5%'), width: wp('40%'), resizeMode: 'contain', }}
             source={require('../img/logo.png')}></Image>
+            </TouchableOpacity>
         </View>
         {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 5, alignItems: 'flex-start', backgroundColor: '#e7ede6', height: 50 }}>
           <Text style={{ fontSize: 16, marginTop: 12, marginBottom: 15, marginLeft: 25 }}>{this.state.fname} {this.state.lname}</Text>
@@ -206,7 +216,7 @@ class HomeScreen extends React.Component {
           </View>
         </View>
 
-        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10, width: wp('100%'), height: hp('27%') }}>
+        <View style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 15, borderRadius: 10, width: wp('100%'), height: hp('28%') }}>
           <Animated.ScrollView
             horizontal
             scrollEventThrottle={1}
@@ -230,6 +240,7 @@ class HomeScreen extends React.Component {
             {this.deviceList()}
           </Animated.ScrollView>
         </View>
+        <FooterBar pop={this.props}></FooterBar>
       </View>
     );
   }

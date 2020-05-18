@@ -19,7 +19,8 @@ export default class RegisterScreen extends Component {
       Cpassword: '',
       fileUri: '',
       email: '',
-      check_text:''
+      check_text:'',
+      
     };
   }
 
@@ -118,20 +119,20 @@ export default class RegisterScreen extends Component {
     if (this.state.fileUri) {
       return <Image
         source={{ uri: this.state.fileUri }}
-        style={{width:  wp("27%"), height:  hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{width:  wp("34%"), height:  hp("16%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin:10 , justifyContent:'center', alignItems:'center'}}
       />
     } else {
       return <Image
         source={require('../img/user.png')}
-        style={{width:  wp("20%"), height:  hp("13%"), borderRadius: 60, backgroundColor: '#ffffff',margin:10 , justifyContent:'center', alignItems:'center'}}
+        style={{width:  wp("30%"), height:  hp("14.5%"), borderRadius: 60, backgroundColor: '#ffffff',margin:10 , justifyContent:'center', alignItems:'center'}}
       />
     }
   }
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: '#fafafa' }}>
-        <View style={{ flex: 1, backgroundColor: '#FAFaFa', flexDirection: 'column', justifyContent: 'flex-start', }}>          
+      <ScrollView style={{ backgroundColor: '#dddddd' }}>
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', }}>          
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                 <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'),marginLeft:hp('2%') }}
@@ -142,11 +143,11 @@ export default class RegisterScreen extends Component {
             <View style={{ faex: 1, justifyContent: 'center', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>ลงทะเบียน</Text>
             </View>
-            <View style={{ width:  wp("27%"), height:  hp("16%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
+            <View style={{ width:  wp("34%"), height:  hp("16%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A',margin: 5 , justifyContent:'center', alignItems:'center'}}>
             {this.renderFileUri()}             
               <View style={{
-                position: 'absolute', width:  wp("6.5%"), height:  hp("4%"), borderRadius: 20
-                , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 70,
+                position: 'absolute', width:  wp("7%"), height:  hp("3.5%"), borderRadius: 20
+                , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 85,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
                 <TouchableOpacity onPress={this.chooseImage}>
@@ -176,13 +177,19 @@ export default class RegisterScreen extends Component {
                 justifyContent: 'flex-end',
                 alignContent: 'center',
                 backgroundColor: "#FFFFFF",
-                borderRadius: 30,
+                borderRadius: 5,
                 margin: 7,
                 paddingLeft: wp('1%'),
                 width: wp('75%'),
-                borderColor: '#000000',
-                borderWidth: 1,
-                height:hp('8%'),
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 1,
+                height:hp('6%'),
               }}>
                 <RNPickerSelect
                   onValueChange={(gender) => this.setState({ gender })}
@@ -225,7 +232,7 @@ export default class RegisterScreen extends Component {
               <View style={styles.txtinput}>
                 <TextInput
                   style={styles.txt}
-                  placeholder="ยืนยัน รหัสผ่าน"
+                  placeholder="ยืนยันรหัสผ่าน"
                   secureTextEntry={true}
                   onChangeText={(Cpassword) => this.setState({ Cpassword })}
                   value={this.state.Cpassword}
@@ -255,13 +262,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'center',
     backgroundColor: "#FFFFFF",
-   
+    borderRadius: 6,
     margin: 7,
     height:hp('8%'),
     width: wp('75%'),
-    borderColor: '#000000',
-    borderWidth: 1,
-    borderRadius: wp('30%'),
+       height: hp('6%'),
+       shadowColor: "#000",
+       shadowOffset: {
+         width: 0,
+         height: 1,
+       },
+       shadowOpacity: 0.20,
+       shadowRadius: 1.41,
+       elevation: 1,
   },
   container: {
     flex: 1,
@@ -293,6 +306,7 @@ const styles = StyleSheet.create({
     width: wp('70%'),
 
     margin: 7,
+    marginTop:4,
     borderRadius: 20,
   },
   buttonContainer: {

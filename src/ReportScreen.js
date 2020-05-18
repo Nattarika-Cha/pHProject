@@ -13,10 +13,13 @@ import DatePicker from 'react-native-datepicker'
 var moment = require('moment');
 var PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var WPH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var PH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var WPH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var WPH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var graph = {
   labels: [],
   datasets: [
@@ -35,12 +38,22 @@ var graph1 = {
   ]
 };
 
+var graph2 = {
+  labels: [],
+  datasets: [
+    {
+      data: WPH_DATA
+    }
+  ]
+};
+
 var num = 0;
 var device_select = '';
 var date = '';
 var qty_day = '';
 var date_lable = [];
 var date_lable2 = [];
+var senser_type = '1';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -69,7 +82,8 @@ class ReportScreen extends Component {
       end: '',
       day: '',
       date: '',
-      qty_day: ''
+      qty_day: '',
+      plant: ''
     };
   }
 
@@ -81,28 +95,34 @@ class ReportScreen extends Component {
     status += 1;
     try {
       const value = await AsyncStorage.getItem('user');
+      const plant = await AsyncStorage.getItem('plant');
       if (value != null) {
         // We have data!!
         var data = JSON.parse(value);
+        var data_plant = JSON.parse(plant);
         this.setState({
           token: data.token,
           fname: data.fname,
           lname: data.lname,
           device_select: '',
           date: '',
-          qty_day: ''
+          qty_day: '',
+          plant: data_plant
           // Month: '',
           // Year: ''
         });
         if (this.state.token != '') {
+          device_senser = [];
           status = 0;
           axios.get('http://165.22.250.24:3030/device/device_list', {
             params: {
-              token: this.state.token
+              token: this.state.token,
+              plant: this.state.plant
             }
           })
             .then(response => {
               const Device = response.data;
+              //console.log(Device , " Device")
               this.setState({ Device: Device });
               for (let i = 0; i < this.state.Device.length; i++) {
                 device_senser[i] = { label: this.state.Device[i].serialDevice, value: this.state.Device[i].serialDevice };
@@ -145,10 +165,13 @@ class ReportScreen extends Component {
   cls_data() {
     PH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     HM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    WPH = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     PH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     HM_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    WPH_NUM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     PH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     HM_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    WPH_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     graph = {
       labels: [],
       datasets: [
@@ -166,9 +189,20 @@ class ReportScreen extends Component {
         }
       ]
     };
+
+    graph2 = {
+      labels: [],
+      datasets: [
+        {
+          data: WPH_DATA
+        }
+      ]
+    };
     num = 0;
     date_lable = [];
     date_lable2 = [];
+    senser_type = '1';
+    
   }
 
   showdata() {
@@ -196,10 +230,13 @@ class ReportScreen extends Component {
         }
         PH = [0, 0, 0, 0, 0, 0, 0];
         HM = [0, 0, 0, 0, 0, 0, 0];
+        WPH = [0, 0, 0, 0, 0, 0, 0];
         PH_NUM = [0, 0, 0, 0, 0, 0, 0];
         HM_NUM = [0, 0, 0, 0, 0, 0, 0];
+        WPH_NUM = [0, 0, 0, 0, 0, 0, 0];
         PH_DATA = [0, 0, 0, 0, 0, 0, 0];
         HM_DATA = [0, 0, 0, 0, 0, 0, 0];
+        WPH_DATA = [0, 0, 0, 0, 0, 0, 0];
       } else if (this.state.qty_day == '14') {
         var end = moment(this.state.date).subtract(1, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
         var start = moment(this.state.date).subtract(15, 'days').format('YYYY-MM-DD') + "T17:00:00Z";
@@ -212,6 +249,12 @@ class ReportScreen extends Component {
         start: start,
         end: end
       });
+
+      for (let i = 0; i < this.state.Device.length; i++) {
+        if (this.state.device_select === this.state.Device[i].serialDevice) {
+          senser_type = this.state.Device[i].senser_type;
+        }
+      }
 
       // console.log(this.state.device_select);
       // console.log(this.state.start);
@@ -248,6 +291,9 @@ class ReportScreen extends Component {
             HM[row] += parseFloat(this.state.Report[i].moisture);
             HM_NUM[row] += 1;
             HM_DATA[row] = HM[row] / HM_NUM[row];
+            WPH[row] += parseFloat(this.state.Report[i].WaterpH);
+            WPH_NUM[row] += 1;
+            WPH_DATA[row] = WPH[row] / WPH_NUM[row];
           }
 
           // console.log(date_lable)
@@ -265,6 +311,15 @@ class ReportScreen extends Component {
             datasets: [
               {
                 data: HM_DATA
+              }
+            ]
+          }
+
+          graph2 = {
+            labels: date_lable2,
+            datasets: [
+              {
+                data: WPH_DATA
               }
             ]
           }
@@ -318,7 +373,7 @@ class ReportScreen extends Component {
         return this.state.day.map(function (object, i) {
           // console.log("i: " + i);
           // return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} day={i + 1} month={month} year={year} />
-          return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} date={date_lable[i]} />
+          return <ShowreportScreen ph={PH_DATA[i]} hm={HM_DATA[i]} wph={WPH_DATA[i]} senser_type={senser_type} date={date_lable[i]} />
         });
       }
 
@@ -349,7 +404,7 @@ class ReportScreen extends Component {
           </View>
         </View>
 
-        <View style={{ height: hp('50%'), alignItems: 'center' }}>
+        <View style={{ alignItems: 'center' }}>
           {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
             <Text style={styles.txtname}>
               เลือกเดือน :
@@ -381,7 +436,7 @@ class ReportScreen extends Component {
             </View>
           </View> */}
 
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
             <Text style={styles.txtname}>
               เลือกจำนวนวัน :
             </Text>
@@ -422,98 +477,145 @@ class ReportScreen extends Component {
               },
               dateInput: {
                 marginLeft: 36,
-                borderRadius: 10, borderColor: '#878787', borderWidth: 1,
+                borderRadius: 10, borderColor: '#b6b6b6', borderWidth: 1,
               }
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
           </View>
-          <View>
-            {this.showdata()}
-            <Text style={styles.header2}>ค่า pH</Text>
-            <LineChart
-              data={graph}
-              width={wp('90%')} // from react-native
-              height={hp('35%')}
-              yAxisLabel=""
-              yAxisSuffix=""
-              chartConfig={{
-                backgroundColor: "#000000",
-                backgroundGradientFrom: "#fae389",
-                backgroundGradientTo: "#fae389",
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                style: {
-                  borderRadius: 16,
-                  color: '#000000'
-                },
-                propsForDots: {
-                  r: "1",
-                  strokeWidth: "2",
-                  stroke: "#000000"
-                }
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                color: '#000000',
-                shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 2,
-              }}
-            />
-          </View>
-
-          <View>
-            <Text style={styles.header2}>ค่าความชื้น</Text>
-            <LineChart
-              data={graph1}
-              width={wp('90%')} // from react-native
-              height={hp('35%')}
-              yAxisLabel=""
-              yAxisSuffix=""
-              chartConfig={{
-                backgroundColor: "#bedafa",
-                backgroundGradientFrom: "#bedafa",
-                backgroundGradientTo: "#bedafa",
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                style: {
-                  borderRadius: 16
-                },
-                propsForDots: {
-                  r: "1",
-                  strokeWidth: "2",
-                  stroke: "#1b4721"
-                }
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-                shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 1,
-            },
-            shadowOpacity: 0.20,
-            shadowRadius: 1.41,
-            elevation: 2,
-              }}
-            />
-          </View>
         </View>
+        {senser_type === "1" ?
+          <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }} >
+            <View>
+              {this.showdata()}
+              <Text style={styles.header2}>ค่า pH ดิน</Text>
+              <LineChart
+                data={graph}
+                width={wp('90%')} // from react-native
+                height={hp('35%')}
+                yAxisLabel=""
+                yAxisSuffix=""
+                chartConfig={{
+                  backgroundColor: "#000000",
+                  backgroundGradientFrom: "#fae389",
+                  backgroundGradientTo: "#fae389",
+                  decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
+                    color: '#000000'
+                  },
+                  propsForDots: {
+                    r: "1",
+                    strokeWidth: "2",
+                    stroke: "#000000"
+                  }
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  color: '#000000',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.20,
+                  shadowRadius: 1.41,
+                  elevation: 2,
+                }}
+              />
+            </View>
 
-        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: hp('56%') }}>
+            <View>
+              <Text style={styles.header2}>ค่าความชื้น</Text>
+              <LineChart
+                data={graph1}
+                width={wp('90%')} // from react-native
+                height={hp('35%')}
+                yAxisLabel=""
+                yAxisSuffix=""
+                chartConfig={{
+                  backgroundColor: "#bedafa",
+                  backgroundGradientFrom: "#bedafa",
+                  backgroundGradientTo: "#bedafa",
+                  decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                  style: {
+                    borderRadius: 16
+                  },
+                  propsForDots: {
+                    r: "1",
+                    strokeWidth: "2",
+                    stroke: "#1b4721"
+                  }
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.20,
+                  shadowRadius: 1.41,
+                  elevation: 2,
+                }}
+              />
+            </View>
+          </View>
+          :
+          <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }} >
+            <View>
+              {this.showdata()}
+              <Text style={styles.header2}>ค่า pH ในน้ำ</Text>
+              <LineChart
+                data={graph2}
+                width={wp('90%')} // from react-native
+                height={hp('35%')}
+                yAxisLabel=""
+                yAxisSuffix=""
+                chartConfig={{
+                  backgroundColor: "#baf1e4",
+                  backgroundGradientFrom: "#baf1e4",
+                  backgroundGradientTo: "#baf1e4",
+                  decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 255) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                  style: {
+                    borderRadius: 16
+                  },
+                  propsForDots: {
+                    r: "1",
+                    strokeWidth: "2",
+                    stroke: "#1b4721"
+                  }
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.20,
+                  shadowRadius: 1.41,
+                  elevation: 2,
+                }}
+              />
+            </View>
+          </View>
+        }
+
+        <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
           <View style={{ width: wp('90%'), flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
             <Text style={styles.header2}>
               ประวัติ
@@ -576,7 +678,7 @@ const styles = StyleSheet.create({
 
     width: wp('35%'),
     height: 45,
-    borderColor: '#000000',
+    borderColor: '#b6b6b6',
     borderWidth: 1,
     fontSize: 15,
   },

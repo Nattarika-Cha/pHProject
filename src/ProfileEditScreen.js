@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage, Handle, Header ,Title} from 'react-native';
+import { Dimensions, SafeAreaView, Text, TextInput, View, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, FontSize, ScrollView, StatusBar, Alert, AsyncStorage, Handle, Header, Title } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
@@ -40,7 +40,7 @@ class ProfileEditScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({
                 fname: response.data.fname,
                 lname: response.data.lname,
@@ -164,12 +164,12 @@ class ProfileEditScreen extends Component {
     if (this.state.fileUri) {
       return <Image
         source={{ uri: this.state.fileUri }}
-        style={{ width: wp("27%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
+        style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
       />
     } else {
       return <Image
         source={require('../img/us.png')}
-        style={{ width: wp("27%"), height: hp("17%"), borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
+        style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}
       />
     }
   }
@@ -185,16 +185,16 @@ class ProfileEditScreen extends Component {
                 source={require('../img/back.png')} ></Image>
             </TouchableOpacity>
           </View>
-                
+
 
           <View style={{ flex: 1, backgroundColor: 'FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <View style={{ faex: 1, justifyContent: 'center', backgroundColor: '#FAFAFA', alignItems: 'center', padding: 5 }}>
               <Text style={styles.header}>แก้ไขข้อมูลส่วนตัว</Text>
             </View>
-            <View style={{ width: wp("25%"), height: hp("15%"), borderRadius: wp('60%'), backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: 120, height: 120, borderRadius: 60, backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#5BB95A', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
               {this.renderFileUri()}
               <View style={{
-                position: 'absolute', width: wp("6.5%"), height: hp("4%"), borderRadius: 20
+                position: 'absolute', width: wp("6.5"), height: hp("3.6%"), borderRadius: 20
                 , backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center', right: 0, top: 80,
                 borderWidth: 1, borderColor: '#5BB95A'
               }}>
@@ -225,13 +225,19 @@ class ProfileEditScreen extends Component {
                 justifyContent: 'flex-end',
                 alignContent: 'center',
                 backgroundColor: "#FFFFFF",
-                borderRadius: 30,
+                borderRadius: 5,
                 margin: 7,
                 paddingLeft: wp('1%'),
                 width: wp('75%'),
-                borderColor: '#000000',
-                borderWidth: 1,
-                height:hp('8%'),
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.20,
+                shadowRadius: 1.41,
+                elevation: 1,
+                height: hp('6%'),
               }}>
                 <RNPickerSelect
                   onValueChange={(gender) => this.setState({ gender })}
@@ -257,24 +263,6 @@ class ProfileEditScreen extends Component {
                   editable={false}
                 />
               </View>
-              {/* <View style={styles.txtinput}>
-                <TextInput
-                  style={styles.txt}
-                  placeholder="รหัสผ่าน"
-                  secureTextEntry={true}
-                  onChangeText={(password) => this.setState({ password })}
-                  value={this.state.password}
-                />
-              </View>
-              <View style={styles.txtinput}>
-                <TextInput
-                  style={styles.txt}
-                  placeholder="ยืนยันรหัสผ่าน"
-                  secureTextEntry={true}
-                  onChangeText={(Cpassword) => this.setState({ Cpassword })}
-                  value={this.state.Cpassword}
-                />
-              </View> */}
               <View style={styles.buttonContainer}>
                 <Button title="ยืนยัน" color="#5BB95A" onPress={this.onSubmit.bind(this)} />
               </View>
@@ -299,12 +287,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'center',
     backgroundColor: "#FFFFFF",
-    borderRadius: wp('30%'),
+    borderRadius: 6,
     margin: 7,
     width: wp('75%'),
-    borderColor: '#000000',
-    borderWidth: 1,
-    height:hp('8%'),
+       height: hp('6%'),
+       shadowColor: "#000",
+       shadowOffset: {
+         width: 0,
+         height: 1,
+       },
+       shadowOpacity: 0.20,
+       shadowRadius: 1.41,
+       elevation: 1,
   },
   container: {
     flex: 1,
@@ -336,6 +330,7 @@ const styles = StyleSheet.create({
     width: wp('70%'),
 
     margin: 7,
+    marginTop:5,
     borderRadius: 20,
   },
   buttonContainer: {

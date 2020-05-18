@@ -23,11 +23,21 @@ class ShowdeviceScreen extends Component {
     }
     gotopage() {
         clearInterval(this.intervalId);
-        this.props.pop.navigation.navigate('Devicedata', {
-            serialDevice: this.props.obj.serialDevice,
-            devive_EUI: this.props.obj.devive_EUI,
-            port: this.props.obj.port
-        })
+        if (this.props.obj.senser_type === "1") {
+            this.props.pop.navigation.navigate('Devicedata', {
+                serialDevice: this.props.obj.serialDevice,
+                devive_EUI: this.props.obj.devive_EUI,
+                port: this.props.obj.port,
+                //senser_type: this.props.obj.senser_type
+            })
+        } else if (this.props.obj.senser_type === "2") {
+            this.props.pop.navigation.navigate('DevicedataWater', {
+                serialDevice: this.props.obj.serialDevice,
+                devive_EUI: this.props.obj.devive_EUI,
+                port: this.props.obj.port,
+                //senser_type: this.props.obj.senser_type
+            })
+        }
     }
 
     _onClick = () => {

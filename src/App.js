@@ -5,7 +5,10 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
+//import HomeScreen from './Bar/NavigatorBar';
 import HomeScreen from './NavigatorBar';
+//import HomeScreen from './FooterBar';
+//import HomeScreen from './HomeScreen';
 import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
@@ -13,6 +16,7 @@ import ProfileEditScreen from './ProfileEditScreen';
 import EditdeviceScreen from './EditdeviceScreen';
 import ScanScreen from './ScanScreen';
 import DevicedataScreen from './DevicedataScreen';
+import DevicedataWaterScreen from './DevicedataWaterScreen';
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
@@ -25,7 +29,16 @@ import TestnotiScreen from './TestnotiScreen';
 import ShowreportScreen from './ShowreportScreen';
 import ChangepassScreen from './ChangepassScreen';
 import ConfirmationScreen from './ConfirmationScreen';
-import ChangeForgetPassScreen from './ChangeForgetPassScreen'; 
+import ChangeForgetPassScreen from './ChangeForgetPassScreen';
+import AdddeviceScreen from './AdddeviceScreen';
+import PlantScreen from './PlantScreen';
+import FooterBar from './FooterBar';
+import PlantScreen2 from './PlantScreen2';
+import MapHomeScreen from './HomeScreen'
+
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
+import { FontAwesome5, } from "@expo/vector-icons";
 
 const RootStack = createStackNavigator({
   Login: {
@@ -36,6 +49,12 @@ const RootStack = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  FooterBar: {
+    screen: FooterBar,
     navigationOptions: {
       header: null,
     },
@@ -84,6 +103,12 @@ const RootStack = createStackNavigator({
   },
   Devicedata: {
     screen: DevicedataScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  DevicedataWater: {
+    screen: DevicedataWaterScreen,
     navigationOptions: {
       header: null,
     },
@@ -166,8 +191,88 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
+  AddDeviceScreen: {
+    screen: AdddeviceScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Plant: {
+    screen: PlantScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Plant2: {
+    screen: PlantScreen2,
+    navigationOptions: {
+      header: null,
+    },
+  },
 }, { initialRouteName: 'Title' });
 
+// const TabNavigator = createBottomTabNavigator(
+//   {
+//     Home: {
+//       screen: MapHomeScreen,
+//       navigationOptions: {
+
+//         tabBarLabel: '',
+//         tabBarIcon: ({ tintColor }) => (
+//           <View >
+
+//             <Image isFocused={tintColor} source={require('../img/Path8.png')} />
+//           </View>),
+//       }
+//     },
+//     Device: {
+//       screen: DeviceScreen,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <View>
+
+//             <Image source={require('../img/router_3.png')} />
+//           </View>),
+//       }, 
+//     },
+//     Add: {
+//       screen: () => null,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <AddButton/>
+//           ),
+
+//       }
+//     },
+//     Report: {
+//       screen: ReportScreen,
+//       navigationOptions: {
+//         // tabBarLabel: 'Report',
+//         tabBarIcon: ({ tintColor }) => (
+//           <View>
+
+//             <Image source={require('../img/Path360.png')} />
+//           </View>),
+//       }, initialRouteName: 'Report'
+//     },
+//     Profile: {
+//       screen: ProfileScreen,
+//       navigationOptions: {
+//         // tabBarLabel: 'Report',o
+//         tabBarIcon: ({ tintColor }) => (
+//           <View>
+
+//             <Image source={require('../img/Path6.png')} />
+//           </View>),
+//       }, initialRouteName: 'Profile'
+//     },
+//   },
+//   {
+//     tabBarOptions:{
+//       showLabel:false
+//     }
+//   }
+// )
 class App extends Component {
   constructor(props) {
     super(props);
@@ -175,11 +280,13 @@ class App extends Component {
     };
   }
 
+
+
   render() {
     return (
       // <RootStack></RootStack>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-
+        {/* <RootStack></RootStack> */}
       </View>
     );
   }

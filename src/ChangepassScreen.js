@@ -51,75 +51,75 @@ class ChangepassScreen extends Component {
     };
 
     onSubmit() {
-        if(this.state.passwordOld == '' || this.state.passwordNew == ''){
+        if (this.state.passwordOld == '' || this.state.passwordNew == '') {
             Alert.alert(
                 'โปรดกรอกข้อมูล',
                 'โปรดกรอกข้อมูลให้ครบถ้วน',
-                [
-                  { text: 'OK'},
-                ],
-                { cancelable: false }
-              )
-        }else{
-        if (this.state.passwordNew == this.state.CpasswordNew) {
-            axios.post('http://165.22.250.24:3030/user/change_pass', {
-                username: this.state.username,
-                passwordOld: this.state.passwordOld,
-                passwordNew: this.state.passwordNew,
-            })
-                .then((response) => {
-                    if (response.data == "Email not exists") {
-                        Alert.alert(
-                            'Error',
-                            'เกิดข้อผิดพลาด กรุณาเข้าสู่ระบบใหม่',
-                            [
-                                { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
-                            ],
-                            { cancelable: false }
-                        )
-                    } else if (response.data == "Wrong password") {
-                        Alert.alert(
-                            'Error',
-                            'Password ไม่ถูกต้อง',
-                            [
-                                { text: 'OK' },
-                            ],
-                            { cancelable: false }
-                        )
-                    } else if (response.data == "unable edit password to database") {
-                        Alert.alert(
-                            'Error',
-                            'เกิดข้อผิดพลาด กรุณาลองใหม่',
-                            [
-                                { text: 'OK' },
-                            ],
-                            { cancelable: false }
-                        )
-                    } else if (response.data == "Edit password success") {
-                        Alert.alert(
-                            'Success',
-                            'เปลี่ยนรหัสผ่านสำเร็จ',
-                            [
-                                { text: 'OK', onPress: () => this.props.navigation.navigate('Profile') },
-                            ],
-                            { cancelable: false }
-                        )
-                    }
-                    //console.log(response.data);
-                }, (error) => {
-                    console.log(error);
-                });
-        } else {
-            Alert.alert(
-                'Error',
-                'Password ไม่ตรงกัน',
                 [
                     { text: 'OK' },
                 ],
                 { cancelable: false }
             )
+        } else {
+            if (this.state.passwordNew == this.state.CpasswordNew) {
+                axios.post('http://165.22.250.24:3030/user/change_pass', {
+                    username: this.state.username,
+                    passwordOld: this.state.passwordOld,
+                    passwordNew: this.state.passwordNew,
+                })
+                    .then((response) => {
+                        if (response.data == "Email not exists") {
+                            Alert.alert(
+                                'Error',
+                                'เกิดข้อผิดพลาด กรุณาเข้าสู่ระบบใหม่',
+                                [
+                                    { text: 'OK', onPress: () => this.props.navigation.navigate('Login') },
+                                ],
+                                { cancelable: false }
+                            )
+                        } else if (response.data == "Wrong password") {
+                            Alert.alert(
+                                'Error',
+                                'Password ไม่ถูกต้อง',
+                                [
+                                    { text: 'OK' },
+                                ],
+                                { cancelable: false }
+                            )
+                        } else if (response.data == "unable edit password to database") {
+                            Alert.alert(
+                                'Error',
+                                'เกิดข้อผิดพลาด กรุณาลองใหม่',
+                                [
+                                    { text: 'OK' },
+                                ],
+                                { cancelable: false }
+                            )
+                        } else if (response.data == "Edit password success") {
+                            Alert.alert(
+                                'Success',
+                                'เปลี่ยนรหัสผ่านสำเร็จ',
+                                [
+                                    { text: 'OK', onPress: () => this.props.navigation.navigate('Profile') },
+                                ],
+                                { cancelable: false }
+                            )
+                        }
+                        //console.log(response.data);
+                    }, (error) => {
+                        console.log(error);
+                    });
+            } else {
+                Alert.alert(
+                    'Error',
+                    'Password ไม่ตรงกัน',
+                    [
+                        { text: 'OK' },
+                    ],
+                    { cancelable: false }
+                )
+            }
         }
-    }
     }
 
     componentDidMount() { //
@@ -202,11 +202,18 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignContent: 'center',
         backgroundColor: "#FFFFFF",
-        borderRadius: 30,
+        borderRadius: 6,
         margin: 7,
         width: wp('75%'),
-        borderColor: '#000000',
-        borderWidth: 1
+        height: hp('6%'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
     },
     container: {
         flex: 1,
@@ -234,7 +241,9 @@ const styles = StyleSheet.create({
     txt: {
         backgroundColor: "#FFFFFF",
         padding: 7,
-        height: 33,
+        height: hp('5%'),
+        width: wp('70%'),
+        marginTop:5,
         margin: 7,
         borderRadius: 20,
     },

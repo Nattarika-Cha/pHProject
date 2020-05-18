@@ -159,7 +159,7 @@ class EditdeviceScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({ 
                 name: response.data.name,
                 age: response.data.age,
@@ -312,10 +312,10 @@ class EditdeviceScreen extends Component {
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',  }}>
               <Text style={{fontSize: hp('2.5%'),
-    color: '#000000',
-    fontWeight: 'bold',
-    marginRight: wp('2%'),
-    marginLeft: wp('12%'),}}>
+                color: '#000000',
+                fontWeight: 'bold',
+                marginRight: wp('2%'),
+                marginLeft: wp('12%'),}}>
                 อายุ :
             </Text>
               <TextInput
@@ -342,10 +342,10 @@ class EditdeviceScreen extends Component {
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', }}>
               <Text style={{fontSize: hp('2.5%'),
-    color: '#000000',
-    fontWeight: 'bold',
-    marginRight: wp('2%'),
-    marginLeft: wp('10%'),}}>
+                color: '#000000',
+                fontWeight: 'bold',
+                marginRight: wp('2%'),
+                marginLeft: wp('10%'),}}>
                 พื้นที่ :
             </Text>
               <TextInput
@@ -431,10 +431,10 @@ class EditdeviceScreen extends Component {
             </View>
             <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
               <Text style={{fontSize: hp('2.5%'),
-    color: '#000000',
-    fontWeight: 'bold',
-    marginRight: wp('2%'),
-    marginLeft: wp('2%'),}}>
+                  color: '#000000',
+                  fontWeight: 'bold',
+                  marginRight: wp('2%'),
+                  marginLeft: wp('2%'),}}>
               ความชื้น :
             </Text>
               <View style={{  width:wp('50%'), height: hp('6.5%'),  borderRadius: 10, borderWidth: 1, borderColor: '#000000', paddingLeft: 10, }}>
