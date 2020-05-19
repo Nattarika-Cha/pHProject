@@ -57,7 +57,6 @@ class DeviceScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data, " response.data")
               const Device = response.data;
               this.setState({ Device });
             })
@@ -168,7 +167,6 @@ class DeviceScreen extends Component {
 
   deviceList() {
     return this.state.Device.map(function (object, i) {
-      console.log(object, " object")
       return <ShowdeviceScreen obj={object} key={i} pop={pop} />
     });
   }

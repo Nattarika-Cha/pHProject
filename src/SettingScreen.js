@@ -52,7 +52,7 @@ class SettingScreen extends Component {
           })
             .then(response => {
               const setting = response.data;
-              console.log(setting);
+              //console.log(setting);
               this.setState({ 
                 // soundValue: setting.sound ,
                 messegeValue: setting.messege ,

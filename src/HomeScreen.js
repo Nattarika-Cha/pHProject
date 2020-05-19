@@ -11,6 +11,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import firebase from 'react-native-firebase';
 import { RNNotificationBanner } from 'react-native-notification-banner';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import FooterBar from './FooterBar';
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 30;
@@ -66,7 +67,7 @@ class HomeScreen extends React.Component {
     });
     this.messageListener = firebase.messaging().onMessage((message) => {
       //process data message
-      console.log(JSON.stringify(message));
+      //console.log(JSON.stringify(message));
     });
   }
 
@@ -109,6 +110,7 @@ class HomeScreen extends React.Component {
             }
           })
             .then(response => {
+              console.log(response.data , " device_list")
               const Device = response.data;
               this.setState({ Device: Device });
             })
@@ -238,6 +240,7 @@ class HomeScreen extends React.Component {
             {this.deviceList()}
           </Animated.ScrollView>
         </View>
+        <FooterBar pop={this.props}></FooterBar>
       </View>
     );
   }

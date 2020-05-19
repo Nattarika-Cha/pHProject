@@ -4,15 +4,44 @@ import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-class PlantScreen extends Component {
+class PlantScreen2 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // plant: '',
+      pomelo: '1',
+      lemon: '2',
+    };
+    this.onPlant = this.onPlant.bind(this);
+  }
 
+  onPlant(Plant) {
+    this._storeData(Plant);
+  }
+
+  _storeData = async (plant) => {
+    console.log("plant = ", plant);
+    try {
+      await AsyncStorage.setItem('plant', JSON.stringify(plant));
+      this.props.navigation.navigate('Home');
+    } catch (error) {
+      Alert.alert(
+        'Error',
+        'เข้าสู่ระบบผิดพลาด กรุณาลองใหม่อีกครั้ง',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+    }
+  };
 
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start',  }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
               <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
                 source={require('../img/back.png')}></Image>
             </TouchableOpacity>
@@ -30,7 +59,7 @@ class PlantScreen extends Component {
             <Text style={styles.header}>เลือกชนิดพืช</Text>
           </View>
           <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => this.onPlant(this.state.pomelo)}>
               <View style={{
                 flexDirection: 'row', width: wp('70%'), height: hp('14%'), borderRadius: 6, backgroundColor: '#f2dc99', margin: 10, justifyContent: 'flex-start', alignItems: 'center'
                 , shadowColor: "#000",
@@ -48,7 +77,7 @@ class PlantScreen extends Component {
                 <Text style={styles.header3}> สวนส้มโอ </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() => this.onPlant(this.state.lemon)}>
               <View style={{
                 flexDirection: 'row', width: wp('70%'), height: hp('14%'), borderRadius: 6, backgroundColor: '#d0e6a5', margin: 10, justifyContent: 'flex-start', alignItems: 'center',
                 shadowColor: "#000",
@@ -58,7 +87,6 @@ class PlantScreen extends Component {
                 },
                 shadowOpacity: 0.34,
                 shadowRadius: 6.27,
-
                 elevation: 6,
               }}>
                 <Image style={{ padding: 5, width: wp('20%'), height: hp('10%'), resizeMode: 'contain', margin: 10 }}
@@ -68,10 +96,9 @@ class PlantScreen extends Component {
             </TouchableOpacity>
 
           </View>
-           <View style={styles.buttonContainer}>
-                                <Button title="ยืนยัน" color="#5BB95A" />
-                            </View>
-        
+          {/* <View style={styles.buttonContainer}>
+                <Button title="ยืนยัน" color="#5BB95A" />
+            </View> */}
         </View>
 
 
@@ -166,5 +193,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(PlantScreen);
-
+export default withNavigation(PlantScreen2);

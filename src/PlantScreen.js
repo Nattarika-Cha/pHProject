@@ -20,7 +20,6 @@ class PlantScreen extends Component {
   }
 
   _storeData = async (plant) => {
-    console.log(plant)
     try {
       await AsyncStorage.setItem('plant', JSON.stringify(plant));
       this.props.navigation.navigate('Home');

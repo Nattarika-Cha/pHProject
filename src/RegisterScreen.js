@@ -264,6 +264,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 6,
     margin: 7,
+    height:hp('8%'),
     width: wp('75%'),
        height: hp('6%'),
        shadowColor: "#000",

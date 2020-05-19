@@ -40,7 +40,7 @@ class ProfileEditScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({
                 fname: response.data.fname,
                 lname: response.data.lname,

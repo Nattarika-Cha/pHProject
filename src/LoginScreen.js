@@ -91,13 +91,13 @@ class LoginScreen extends Component {
       firebase.messaging().getToken()
         .then(fcmToken => {
           if (fcmToken) {
-            console.log("if  : " + fcmToken);
+            //console.log("if  : " + fcmToken);
             this.setState({
               device_token: fcmToken
             });
             // user has a device token
           } else {
-            console.log("else: " + fcmToken);
+            //console.log("else: " + fcmToken);
             this.setState({
               device_token: fcmToken
             });

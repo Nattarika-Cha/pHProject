@@ -5,7 +5,11 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
+// import HomeScreen from './Bar/NavigatorBar';
+// import HomeScreen from './NavigatorBar2';
 import HomeScreen from './NavigatorBar';
+//import HomeScreen from './FooterBar';
+//import HomeScreen from './HomeScreen';
 import DeviceScreen from './DeviceScreen';
 import ReportScreen from './ReportScreen';
 import ProfileScreen from './ProfileScreen';
@@ -13,6 +17,7 @@ import ProfileEditScreen from './ProfileEditScreen';
 import EditdeviceScreen from './EditdeviceScreen';
 import ScanScreen from './ScanScreen';
 import DevicedataScreen from './DevicedataScreen';
+import DevicedataWaterScreen from './DevicedataWaterScreen';
 import TitleScreen from './TitleScreen';
 import ShowdeviceScreen from './ShowdeviceScreen';
 import TestScreen from './TestScreen';
@@ -28,6 +33,7 @@ import ConfirmationScreen from './ConfirmationScreen';
 import ChangeForgetPassScreen from './ChangeForgetPassScreen';
 import AdddeviceScreen from './AdddeviceScreen';
 import PlantScreen from './PlantScreen';
+import FooterBar from './FooterBar';
 import PlantScreen2 from './PlantScreen2';
 import MapHomeScreen from './HomeScreen'
 
@@ -44,6 +50,12 @@ const RootStack = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  FooterBar: {
+    screen: FooterBar,
     navigationOptions: {
       header: null,
     },
@@ -92,6 +104,12 @@ const RootStack = createStackNavigator({
   },
   Devicedata: {
     screen: DevicedataScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  DevicedataWater: {
+    screen: DevicedataWaterScreen,
     navigationOptions: {
       header: null,
     },
@@ -192,7 +210,6 @@ const RootStack = createStackNavigator({
       header: null,
     },
   },
-  
 }, { initialRouteName: 'Title' });
 
 // const TabNavigator = createBottomTabNavigator(
@@ -250,7 +267,6 @@ const RootStack = createStackNavigator({
 //           </View>),
 //       }, initialRouteName: 'Profile'
 //     },
-    
 //   },
 //   {
 //     tabBarOptions:{
@@ -271,7 +287,7 @@ class App extends Component {
     return (
       // <RootStack></RootStack>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-
+        {/* <RootStack></RootStack> */}
       </View>
     );
   }

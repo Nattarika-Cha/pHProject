@@ -39,6 +39,7 @@ class DevicedataScreen extends Component {
       longitude: 0.0,
       Humidity: '',
       pH: '',
+      waterpH: '',
       pump: '',
       date: '',
       area_analyze: '',
@@ -122,6 +123,7 @@ class DevicedataScreen extends Component {
                   longitude: parseFloat(data_senser.data.longitude),
                   Humidity: data_senser.data.moisture,
                   pH: data_senser.data.pH,
+                  waterpH: data_senser.data.WaterpH,
                   pump: data_senser.data.pump,
                   date: data_senser.data.date
                 });
@@ -348,7 +350,7 @@ class DevicedataScreen extends Component {
     })
       .then(response => {
         // console.log(response.data.substring(1, 4));
-        console.log(response.data.status)
+        //console.log(response.data.status)
         if (response.data.status != 'QUEUED') {
           pump = old_status_pump;
         }
@@ -477,7 +479,7 @@ class DevicedataScreen extends Component {
             </ScrollView>
 
           </View>
-          <View style={{ flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#baf1e4',
+          {/* <View style={{ flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#baf1e4',
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start', shadowColor: "#000", shadowOffset: {
               width: 0,
               height: 1,
@@ -494,7 +496,6 @@ class DevicedataScreen extends Component {
                   <Text style={styles.txtHea}> pH ในน้ำ</Text>
                 </View>
                 <View style={{ flexDirection: 'row', faex: 1, margin: 10, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                  {/* {this.pH_analyze()} */}
                   <Image style={{ padding: 5, width: wp('13%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }} source={this.state.text_status_ph}></Image>
                 </View>
               </View>
@@ -515,7 +516,6 @@ class DevicedataScreen extends Component {
 
             <ScrollView>
               <View style={{ height: hp('15%'), marginLeft: wp('6'), marginRight: wp('5%') }}>
-                {/* {this.pH_analyze()} */}
 
                 <Text>{this.state.text_analyze_ph}</Text>
                 <Text>{this.state.text_analyze_ph1}</Text>
@@ -526,7 +526,7 @@ class DevicedataScreen extends Component {
               </View>
             </ScrollView>
 
-          </View>
+          </View> */}
           <View style={{
             flexDirection: 'column', width: wp('85%'), borderRadius: 6, backgroundColor: '#E0F3FF',
             margin: 5, justifyContent: 'flex-start', alignItems: 'flex-start',

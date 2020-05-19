@@ -43,7 +43,6 @@ class test extends Component {
 
   onSuccess(e) {
     this._retrieveData();
-    console.log(token);
     if (token != '') {
       axios.post('http://165.22.250.24:3030/device/select', {
         serialQR: e.data,

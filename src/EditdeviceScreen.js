@@ -159,7 +159,7 @@ class EditdeviceScreen extends Component {
             }
           })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({ 
                 name: response.data.name,
                 age: response.data.age,

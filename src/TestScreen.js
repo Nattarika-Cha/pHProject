@@ -10,7 +10,7 @@ class TestScreen extends Component {
 
   render() {
     const { region } = this.props;
-    console.log(region);
+    //console.log(region);
 
     return (
       <View style ={styles.container}>

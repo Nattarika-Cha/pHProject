@@ -18,7 +18,7 @@ class CameraScreen extends Component {
     const options = { quality: 0.5 , mirrorImage:true };
     const data = await camera.takePictureAsync(options);
     //  eslint-disable-next-line
-    console.log(data);
+    //console.log(data);
   };
 
   render() {

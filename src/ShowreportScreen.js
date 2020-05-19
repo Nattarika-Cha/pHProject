@@ -17,6 +17,7 @@ class ShowreportScreen extends Component {
   //   }
   // }
   render() {
+    //console.log(this.props.wph, " this.props.wph");
     return (
       <View style={{
         flexDirection: 'column', width: wp('90%'), borderRadius: 6, borderColor: '#FAFAFA ',
@@ -41,32 +42,37 @@ class ShowreportScreen extends Component {
             <Text style={styles.header3}>{moment(this.props.date).format('DD MMMM YYYY')}</Text>
           </View>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('88%')}}>
-          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
-              source={require('../img/hum.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-              <Text style={styles.header3}>ความชื้น</Text>
-              <Text style={styles.txtdata}>{parseFloat(this.props.hm).toFixed(2)}%</Text>
+        {this.props.senser_type === "1" ?
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('88%') }}>
+            <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
+                source={require('../img/hum.png')}></Image>
+              <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
+                <Text style={styles.header3}>ความชื้น</Text>
+                <Text style={styles.txtdata}>{parseFloat(this.props.hm).toFixed(2)}%</Text>
+              </View>
+            </View>
+            <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
+                source={require('../img/ph2.png')}></Image>
+              <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
+                <Text style={styles.header3}>pH ดิน</Text>
+                <Text style={styles.txtdata}>{parseFloat(this.props.ph).toFixed(2)}</Text>
+              </View>
             </View>
           </View>
-          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems:'center' }}>
-            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
-              source={require('../img/ph2.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
-              <Text style={styles.header3}>pH ดิน</Text>
-              <Text style={styles.txtdata}>{parseFloat(this.props.ph).toFixed(2)}</Text>
+          :
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('88%') }}>
+            <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems: 'center' }}>
+              <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
+                source={require('../img/w-ph.png')}></Image>
+              <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5 }}>
+                <Text style={styles.header3}>pH น้ำ</Text>
+                <Text style={styles.txtdata}>{parseFloat(this.props.wph).toFixed(2)}</Text>
+              </View>
             </View>
           </View>
-          <View style={{ flexDirection: 'row', width: wp('24%'), backgroundColor: '#FFFFFF', margin: 10, justifyContent: 'flex-start', alignItems:'center' }}>
-            <Image style={{ padding: 5, width: wp('10%'), height: hp('4%'), resizeMode: 'contain', margin: 2, }}
-              source={require('../img/w-ph.png')}></Image>
-            <View style={{ flexDirection: 'column', faex: 1, marginLeft: 5}}>
-              <Text style={styles.header3}>pH น้ำ</Text>
-              <Text style={styles.txtdata}>{parseFloat(this.props.ph).toFixed(2)}</Text>
-            </View>
-          </View>
-        </View>
+        }
       </View>
     );
   }

@@ -18,6 +18,7 @@ class ShowdeviceHome extends Component {
         this.state = {
             Humidity: '',
             pH: '',
+            waterpH: '',
             serialDevice: '',
             date: ''
         };
@@ -40,11 +41,12 @@ class ShowdeviceHome extends Component {
                     }
                 })
                     .then(data_senser => {
-                        // console.log(this.intervalID);
+                        //console.log(data_senser.data.moisture , " 1.data_senser.data.moisture");
                         // console.log("device: " + data_senser.data);
                         this.setState({
                             Humidity: data_senser.data.moisture,
                             pH: data_senser.data.pH,
+                            waterpH: data_senser.data.WaterpH,
                             serialDevice: serialDevice,
                             date: data_senser.data.date
                         });
@@ -65,9 +67,11 @@ class ShowdeviceHome extends Component {
                 .then(data_senser => {
                     // console.log(this.intervalID);
                     // console.log("device: " + data_senser.data);
+                    //console.log(data_senser.data.moisture , " 2.data_senser.data.moisture");
                     this.setState({
                         Humidity: data_senser.data.moisture,
                         pH: data_senser.data.pH,
+                        waterpH: data_senser.data.WaterpH,
                         serialDevice: serialDevice,
                         date: data_senser.data.date
                     });
@@ -83,11 +87,22 @@ class ShowdeviceHome extends Component {
         //console.log(this.props.obj.serialDevice);
         // console.log(intervalId);
         clearInterval(this.intervalId);
-        this.props.pop.navigation.navigate('Devicedata', {
-            serialDevice: this.props.obj.serialDevice,
-            devive_EUI: this.props.obj.devive_EUI,
-            port: this.props.obj.port
-        })
+        if (this.props.obj.senser_type === "1") {
+            this.props.pop.navigation.navigate('Devicedata', {
+                serialDevice: this.props.obj.serialDevice,
+                devive_EUI: this.props.obj.devive_EUI,
+                port: this.props.obj.port,
+                //senser_type: this.props.obj.senser_type
+            })
+        } else if (this.props.obj.senser_type === "2") {
+            this.props.pop.navigation.navigate('DevicedataWater', {
+                serialDevice: this.props.obj.serialDevice,
+                devive_EUI: this.props.obj.devive_EUI,
+                port: this.props.obj.port,
+                //senser_type: this.props.obj.senser_type
+            })
+        }
+
     }
 
     _onClick = () => {
@@ -115,40 +130,33 @@ class ShowdeviceHome extends Component {
         });
         return (
             <TouchableOpacity onPress={this.gotopage.bind(this)}>
-                <View style={styles.card}>
-                    {/* <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, alignItems: 'flex-start' }}>
-                        <Image style={{ width: 20, height: 20, resizeMode: 'contain', }}
-                            source={require('../img/h1.png')}></Image>
-                        <Text style={{ fontSize: 15, color: '#000000', paddingLeft: 5 }}>:</Text>
-                        <Text numberOfLines={1} style={styles.cardtitle}>{this.props.obj.Humidity} </Text>
-                    </View> */}
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={styles.header}>{this.props.obj.serialDevice}</Text>
+                {this.props.obj.senser_type === "1" ?
+                    <View style={styles.card}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.header}>{this.props.obj.serialDevice}</Text>
 
-                    </View>
-
-                    <View style={{
-                        faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
-                        borderWidth: 1,
-                        borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
-                    }}>
-                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain',marginTop: wp('-1.5%') }}
-                            source={require('../img/h3.png')}></Image>
-                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
-                        <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
-                    </View>
-                    <View style={{
-                        faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
-                        borderWidth: 1,
-                        borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
-                    }}>
-                        <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain',marginTop: wp('-1.5%') }}
-                            source={require('../img/h2.png')}></Image>
-                        <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
-                        <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
-                        {/* {this.Humidity_analyze()} */}
-                    </View>
-                    <View style={{
+                        </View>
+                        <View style={{
+                            faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                            borderWidth: 1,
+                            borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
+                        }}>
+                            <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', marginTop: wp('-1.5%') }}
+                                source={require('../img/h3.png')}></Image>
+                            <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
+                            <Text numberOfLines={1} style={styles.cardtitle}> {this.state.pH}</Text>
+                        </View>
+                        <View style={{
+                            faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                            borderWidth: 1,
+                            borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
+                        }}>
+                            <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', marginTop: wp('-1.5%') }}
+                                source={require('../img/h2.png')}></Image>
+                            <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
+                            <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
+                        </View>
+                        {/* <View style={{
                         faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
                         borderWidth: 1,
                         borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
@@ -157,9 +165,27 @@ class ShowdeviceHome extends Component {
                             source={require('../img/w-ph2.png')}></Image>
                         <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
                         <Text numberOfLines={1} style={styles.cardDescription}> {this.state.Humidity}</Text>
-                        {/* {this.Humidity_analyze()} */}
+                    </View>  */}
                     </View>
-                </View>
+                    :
+                    // waterPH
+                    <View style={styles.card}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.header}>{this.props.obj.serialDevice}</Text>
+
+                        </View>
+                        <View style={{
+                            faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', borderColor: '#c2c9c9',
+                            borderWidth: 1,
+                            borderRadius: wp('3%'), height: ('27%'), margin: ('2%'), paddingLeft: ('10%'), paddingEnd: ('10%')
+                        }}>
+                            <Image style={{ width: wp('6%'), height: hp('6%'), resizeMode: 'contain', marginTop: wp('-1.5%') }}
+                                source={require('../img/w-ph2.png')}></Image>
+                            <Text style={{ fontSize: hp('3%'), color: '#000000', paddingLeft: wp('2%'), marginTop: wp('0.5%') }}>:</Text>
+                            <Text numberOfLines={1} style={styles.cardDescription}> {this.state.waterpH}</Text>
+                        </View>
+                    </View>
+                }
             </TouchableOpacity>
         );
     }
@@ -184,9 +210,6 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         justifyContent: 'flex-start',
         flexDirection: 'column',
-
-
-
     },
     cardtitle: {
         fontSize: hp('2%'),
