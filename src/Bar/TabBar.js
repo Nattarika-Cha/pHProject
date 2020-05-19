@@ -75,7 +75,7 @@ const Styles = StyleSheet.create({
     height: 53,
     borderWidth: 1,
     borderRadius: 1,
-    borderColor: '#EEEEEE',
+    //borderColor: '#EEEEEE',
     shadowOffset: { width: 5, height: 10 },
     shadowOpacity: 0.75,
     elevation: 1
@@ -94,7 +94,7 @@ const Styles = StyleSheet.create({
   spotLightInner: {
     width: 48,
     height: 48,
-    backgroundColor: '#ee0000',
+    //backgroundColor: '#ee0000',
     borderRadius: 24
   },
   scaler: {

@@ -5,7 +5,8 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
-//import HomeScreen from './Bar/NavigatorBar';
+// import HomeScreen from './Bar/NavigatorBar';
+// import HomeScreen from './NavigatorBar2';
 import HomeScreen from './NavigatorBar';
 //import HomeScreen from './FooterBar';
 //import HomeScreen from './HomeScreen';

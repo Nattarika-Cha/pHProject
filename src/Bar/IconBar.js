@@ -13,10 +13,10 @@ const IconBar = ({ name, style, size }) => {
       img = require('../../img/Path8.png');
       break;
     case 'Device':
-      img = require('../../img/router_2.png');
+      img = require('../../img/router_3.png');
       break;
     case 'DeviceActive':
-      img = require('../../img/router_3.png');
+      img = require('../../img/router_2.png');
       break;
     case 'Scan':
       img = require('../../img/sc.png');
@@ -40,21 +40,7 @@ const IconBar = ({ name, style, size }) => {
       img = require('../../img/Path8.png');
   }
 
-  //console.log(img);
   return (
-    // //<View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'grey', }}>
-    //   //<View style={{ position: 'absolute', alignSelf: 'center', backgroundColor: 'grey', width: 70, height: 70, borderRadius: 35, bottom: 35, zIndex: 10 }}>
-    //     <TouchableWithoutFeedback>
-    //       {/* <View style={[styles.button, styles.actionBtn]}> */}
-    //         <Image style={{ width: size, height: size }}
-    //           resizeMode="contain"
-    //           //isFocused={tintColor}
-    //           source={img} />
-    //       {/* </View> */}
-    //     </TouchableWithoutFeedback>
-    //   //</View>
-    // //</View>
-
     <Image
       source={img}
       style={[{ width: size, height: size }, style]}
@@ -70,14 +56,14 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'blue'
+      //backgroundColor: 'red'
   },
   button: {
       width: 30,
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      shadowColor: 'grey',
+      //shadowColor: 'grey',
       shadowOpacity: 0.1,
       shadowOffset: { x: 2, y: 0 },
       shadowRadius: 2,
@@ -92,11 +78,11 @@ const styles = StyleSheet.create({
   },
   actionBtn: {
 
-      backgroundColor: '#1E90FF',
+      //backgroundColor: '#1E90FF',
       textShadowOffset: { width: 5, height: 5 },
       textShadowRadius: 10,
       borderWidth: 2,
-      borderColor: '#fff'
+      //borderColor: '#fff'
 
 
   }

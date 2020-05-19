@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, TouchableWithoutFeedback, TouchableOpacity ,StyleSheet , Text} from 'react-native';
+import { View, Image, TouchableWithoutFeedback, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import IconBar from './IconBar'
@@ -18,7 +18,7 @@ export default createMaterialBottomTabNavigator(
         Home: {
             screen: MapHomeScreen,
             navigationOptions: () => {
-            // navigationOptions: {
+                // navigationOptions: {
                 // return {
                 // tabBarLabel: '',
                 // tabBarIcon: ({ tintColor }) => (
@@ -48,7 +48,7 @@ export default createMaterialBottomTabNavigator(
                 return {
                     tabBarIcon: ({ tintColor }) => {
                         var soureImge
-                        if (tintColor == '#CBCBCB') {
+                        if (tintColor == '#ffffff') {
                             soureImge = 'Home'
                         } else {
                             soureImge = 'HomeActive'
@@ -65,12 +65,12 @@ export default createMaterialBottomTabNavigator(
                 return {
                     tabBarIcon: ({ tintColor }) => {
                         var soureImge
-                        if (tintColor == '#CBCBCB') {
+                        if (tintColor == '#ffffff') {
                             soureImge = 'Device'
                         } else {
                             soureImge = 'DeviceActive'
                         }
-                        return <IconBar name={soureImge} size={26} color={tintColor} />
+                        return <IconBar name={soureImge} size={40} color={tintColor} />
                     }
                 }
             }
@@ -81,7 +81,7 @@ export default createMaterialBottomTabNavigator(
                 return {
                     tabBarIcon: ({ tintColor }) => {
                         var soureImge
-                        if (tintColor == '#CBCBCB') {
+                        if (tintColor == '#ffffff') {
                             soureImge = 'Scan'
                         } else {
                             soureImge = 'ScanActive'
@@ -97,7 +97,7 @@ export default createMaterialBottomTabNavigator(
                 return {
                     tabBarIcon: ({ tintColor }) => {
                         var soureImge
-                        if (tintColor == '#CBCBCB') {
+                        if (tintColor == '#ffffff') {
                             soureImge = 'Report'
                         } else {
                             soureImge = 'ReportActive'
@@ -113,49 +113,56 @@ export default createMaterialBottomTabNavigator(
                 return {
                     tabBarIcon: ({ tintColor }) => {
                         var soureImge
-                        if (tintColor == '#CBCBCB') {
+                        console.log(tintColor, " tintColor")
+                        if (tintColor == '#ffffff') {
                             soureImge = 'Profile'
                         } else {
                             soureImge = 'ProfileActive'
                         }
                         return <IconBar name={soureImge} size={26} color={tintColor} />
-                    }
+                    },
+
                 }
             }
         },
     },
     {
-        initialRouteName: 'Home', // initialization page
-        // barStyle: { 
-        //     position: 'absolute', 
-        //     backgroundColor: 'white', 
-        //     border: 2, 
-        //     radius: 3, 
-        //     shadowOpacity: 0.3, 
-        //     shadowRadius: 3, 
-        //     shadowOffset: { height: 3, width: 3 }, 
-        //     x: 0, 
-        //     y: 0, 
-        //     // style: { marginVertical: 5 }, 
-        //     bottom: 0, 
-        //     width: '100%', 
-        //     height: 70, 
-        //     // flexDirection: 'row', 
-        //     justifyContent: 'space-between', 
-        //     // paddingVertical: 10, 
-        //     // paddingHorizontal: 25 
-        // },
-        tabBarComponent: navigationBar,
-        tabBarOptions: {
-            activeTintColor: '#F34C56',
-            inactiveTintColor: '#CBCBCB'
-        },
-        // tabBarPosition: 'bottom',
-        // activeColor: '#000000',
-        // activeTincolor: '#ffc13d',
-        // inactiveColor: '#d0e6a5',
-        // barStyle: { backgroundColor: '#FFFFFF' },
-        // fontSize: hp('50%')
+        navigationOptions: {
+            initialRouteName: 'Home', // initialization page
+            // barStyle: { 
+            //     position: 'absolute', 
+            //     backgroundColor: 'white', 
+            //     border: 2, 
+            //     radius: 3, 
+            //     shadowOpacity: 0.3, 
+            //     shadowRadius: 3, 
+            //     shadowOffset: { height: 3, width: 3 }, 
+            //     x: 0, 
+            //     y: 0, 
+            //     // style: { marginVertical: 5 }, 
+            //     bottom: 0, 
+            //     width: '100%', 
+            //     height: 70, 
+            //     // flexDirection: 'row', 
+            //     justifyContent: 'space-between', 
+            //     // paddingVertical: 10, 
+            //     // paddingHorizontal: 25 
+            // },
+            tabBarComponent: TabBar,
+            tabBarOptions: {
+                activeTintColor: '#F34C56',
+                inactiveTintColor: '#CBCBCB',
+                style: {
+                    backgroundColor: 'darkcerulean',
+                },
+            },
+            // tabBarPosition: 'bottom',
+            // activeColor: '#000000',
+            // activeTincolor: '#ffc13d',
+            // inactiveColor: '#d0e6a5',
+            // barStyle: { backgroundColor: '#FFFFFF' },
+            // fontSize: hp('50%')
+        }
     }
 );
 
@@ -165,14 +172,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue'
+        //backgroundColor: 'red'
     },
     button: {
         width: 60,
         height: 60,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: 'grey',
+        //shadowColor: 'grey',
         shadowOpacity: 0.1,
         shadowOffset: { x: 2, y: 0 },
         shadowRadius: 2,
@@ -187,11 +194,11 @@ const styles = StyleSheet.create({
     },
     actionBtn: {
 
-        backgroundColor: '#1E90FF',
+        //backgroundColor: '#ffffff',
         textShadowOffset: { width: 5, height: 5 },
         textShadowRadius: 10,
         borderWidth: 2,
-        borderColor: '#fff'
+        //borderColor: '#fff'
 
 
     }

@@ -90,14 +90,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue'
+        //backgroundColor: 'blue'
     },
     button: {
         width: 60,
         height: 60,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: 'grey',
+        //shadowColor: 'grey',
         shadowOpacity: 0.1,
         shadowOffset: { x: 2, y: 0 },
         shadowRadius: 2,
@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
     },
     actionBtn: {
 
-        backgroundColor: '#1E90FF',
+        //backgroundColor: '#1E90FF',
         textShadowOffset: { width: 5, height: 5 },
         textShadowRadius: 10,
         borderWidth: 2,
-        borderColor: '#fff'
+        //borderColor: '#fff'
 
 
     }
