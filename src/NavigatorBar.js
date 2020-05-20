@@ -9,6 +9,7 @@ import ReportScreen from './ReportScreen'
 import ProfileScreen from './ProfileScreen'
 import MapHomeScreen from './HomeScreen'
 import AdddeviceScreen from './AdddeviceScreen';
+import ScanScreen from './ScanScreen'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default createBottomTabNavigator(
@@ -61,7 +62,7 @@ export default createBottomTabNavigator(
       },
     },
     Add: {
-      screen: AdddeviceScreen,
+      screen: ScanScreen,
       // screen:() => null,
       navigationOptions: {
         tabBarLabel: ' ',

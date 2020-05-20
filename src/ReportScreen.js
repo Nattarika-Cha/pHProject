@@ -385,11 +385,30 @@ class ReportScreen extends Component {
       <ScrollView style={{ flex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', }}>
         <View style={{ faex: 1, backgroundColor: '#FAFAFA', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 7 }}>
           <Text style={styles.header}>รายงาน</Text>
-          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10 }}>
+          <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 10, }}>
             <Text style={styles.txtname}>
               เลือกอุปกรณ์ :
             </Text>
-            <View style={styles.select}>
+            <View style={{ justifyContent: 'flex-end',
+    alignContent: 'center',
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    paddingLeft: wp('1%'),
+
+    width: wp('35%'),
+    height: 45,
+    borderColor: '#b6b6b6',
+    borderWidth: 0.2,
+    fontSize: 15,
+    marginLeft:12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,}}>
               <RNPickerSelect
                 onValueChange={(device_select) => this.setState({ device_select })}
                 title="อุปกรณ์"
@@ -477,8 +496,17 @@ class ReportScreen extends Component {
               },
               dateInput: {
                 marginLeft: 36,
-                borderRadius: 10, borderColor: '#b6b6b6', borderWidth: 1,
-              }
+                borderRadius: 10, borderColor: '#b6b6b6', borderWidth: 0.5,
+                
+              },
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.20,
+              shadowRadius: 1.41,
+              elevation: 2,
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
@@ -679,8 +707,16 @@ const styles = StyleSheet.create({
     width: wp('35%'),
     height: 45,
     borderColor: '#b6b6b6',
-    borderWidth: 1,
+    borderWidth: 0.2,
     fontSize: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   selectmonth: {
     justifyContent: 'flex-start',
