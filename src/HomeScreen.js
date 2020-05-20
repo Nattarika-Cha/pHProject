@@ -14,8 +14,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import FooterBar from './FooterBar';
 
 const { width, height } = Dimensions.get("window");
-const CARD_HEIGHT = height / 30;
-const CARD_WIDTH = CARD_HEIGHT - 100;
+const CARD_HEIGHT = height / 20;
+const CARD_WIDTH = CARD_HEIGHT - 90;
 
 //var token = '';
 var status = 0;
@@ -66,7 +66,7 @@ class HomeScreen extends React.Component {
       this.notification(title, body);
     });
     this.messageListener = firebase.messaging().onMessage((message) => {
-      //process data message
+                  //process data message
       //console.log(JSON.stringify(message));
     });
   }

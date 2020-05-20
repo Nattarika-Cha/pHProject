@@ -7,16 +7,16 @@ const IconBar = ({ name, style, size }) => {
   var img = '';
   switch (name) {
     case 'Home':
-      img = require('../../img/Path8.png');
+      img = require('../../img/home.png');
       break;
     case 'HomeActive':
-      img = require('../../img/Path8.png');
+      img = require('../../img/home-2.svg');
       break;
     case 'Device':
-      img = require('../../img/router_3.png');
+      img = require('../../img/devicei.png');
       break;
     case 'DeviceActive':
-      img = require('../../img/router_2.png');
+      img = require('../../img/devicei-2.svg');
       break;
     case 'Scan':
       img = require('../../img/sc.png');
@@ -25,16 +25,16 @@ const IconBar = ({ name, style, size }) => {
       img = require('../../img/sc.png');
       break;
     case 'Report':
-      img = require('../../img/Path8.png');
+      img = require('../../img/report.png');
       break;
     case 'ReportActive':
-      img = require('../../img/Path360.png');
+      img = require('../../img/report-2.svg');
       break;
     case 'Profile':
-      img = require('../../img/Path -1.png');
+      img = require('../../img/pro.png');
       break;
     case 'ProfileActive':
-      img = require('../../img/Path6.png');
+      img = require('../../img/report-2');
       break;
     default:
       img = require('../../img/Path8.png');
