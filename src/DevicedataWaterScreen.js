@@ -422,8 +422,13 @@ class DevicedataWaterScreen extends Component {
             </TouchableOpacity>
           </View>
           <Text style={{fontSize: hp('3%'), color: '#5BB95A', fontWeight: 'bold', paddingVertical: 14, alignItems: 'center',}}>{this.props.navigation.state.params.serialDevice}</Text>
+          <View style={{flex:1 , flexDirection:'row', justifyContent:'flex-start', paddingLeft: wp('24%')}}>
+          <Text style={styles.header}>{this.props.navigation.state.params.serialDevice}</Text>
+          </View>
+
+         
           {/* <TouchableOpacity >
-            <Text style={{ fontSize: hp('2.5%'), color: '#00000', margin: 10, marginTop: hp('2.5%'), fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>ตั้งค่า</Text>
+            <Text style={{ fontSize: hp('2.5%'), color: '#00000', margin: 10, marginTop: hp('2.5%'), fontWeight: 'bold' }} onPress={this.onEditdevice.bind(this)}>คั้งค่า</Text>
           </TouchableOpacity> */}
         </View>
 

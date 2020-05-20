@@ -132,7 +132,7 @@ class ShowdeviceHome extends Component {
             <TouchableOpacity onPress={this.gotopage.bind(this)}>
                 {this.props.obj.senser_type === "1" ?
                     <View style={styles.card}>
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center' , marginBottom: wp('2%')}}>
                             <Text style={styles.header}>{this.props.obj.serialDevice}</Text>
 
                         </View>

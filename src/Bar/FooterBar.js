@@ -34,7 +34,7 @@ export default class Footer extends Component {
                         <TouchableOpacity onPress={() => { Alert.alert('click') }}>
                             <Image
                                 style={{ width: 30, height: 30, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}
-                                source={require('../img/Path8.png')}
+                                source={require('../img/home.png')}
                                 onPress={() => { Alert.alert("") }}>
                             </Image>
                         </TouchableOpacity>
@@ -55,7 +55,7 @@ export default class Footer extends Component {
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', marginStart: 85, }}>
                         <TouchableOpacity onPress={() => { Alert.alert("click") }} >
                             <Image
-                                source={require('../img/Path360.png')}
+                                source={require('../img/report.png')}
                                 onPress={() => { Alert.alert("click") }}
                                 style={{ marginHorizontal: 16, width: 30, height: 30 }}
                                 containerStyle={{ marginHorizontal: 16 }}
@@ -67,7 +67,7 @@ export default class Footer extends Component {
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', }}>
                         <TouchableOpacity onPress={() => { Alert.alert("click") }} >
                             <Image
-                                source={require('../img/Path6.png')}
+                                source={require('../img/pro.png')}
                                 style={{ marginHorizontal: 16, width: 30, height: 30 }}
                                 containerStyle={{ marginHorizontal: 16 }}
                             />

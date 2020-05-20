@@ -22,7 +22,7 @@ export default createBottomTabNavigator(
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginStart: 10 }}>
               <Image
                 style={{ width: 30, height: 30, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}
-                source={require('../img/Path8.png')}
+                source={require('../img/home.png')}
               >
               </Image>
             </View>
@@ -30,7 +30,7 @@ export default createBottomTabNavigator(
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginStart: 10 }}>
               <Image
                 style={{ width: 30, height: 30, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}
-                source={require('../img/Path8.png')}
+                source={require('../img/h-2.png')}
               >
               </Image>
             </View>
@@ -46,14 +46,14 @@ export default createBottomTabNavigator(
           if (tintColor === '#F34C56') {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginEnd: 5 }}>
               <Image style={{ width: 40, height: 30 }}
-                source={require('../img/router_3.png')}
+                source={require('../img/devicei.png')}
               />
               {/* <Text style={{ justifyContent: 'center', alignItems: 'center' }}>อุปกรณ์</Text> */}
             </View>
           } else {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginEnd: 5 }}>
               <Image style={{ width: 40, height: 30 }}
-                source={require('../img/router_2.png')}
+                source={require('../img/d-2.png')}
               />
             </View>
           }
@@ -107,14 +107,14 @@ export default createBottomTabNavigator(
           if (tintColor === '#F34C56') {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', marginStart: 85 }}>
               <Image
-                source={require('../img/Path360.png')}
+                source={require('../img/report.png')}
                 style={{ width: 30, height: 30, marginEnd: 90 }}
               />
             </View>
           } else {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', marginStart: 85 }}>
               <Image
-                source={require('../img/Path360.png')}
+                source={require('../img/r-2.png')}
                 style={{ width: 30, height: 30, marginEnd: 90 }}
               />
             </View>
@@ -130,14 +130,14 @@ export default createBottomTabNavigator(
           if (tintColor === '#F34C56') {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
               <Image
-                source={require('../img/Path6.png')}
+                source={require('../img/pro.png')}
                 style={{ width: 30, height: 30, marginEnd: 15 }}
               />
             </View>
           } else {
             return <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
               <Image
-                source={require('../img/Path6.png')}
+                source={require('../img/p-2.png')}
                 style={{ width: 30, height: 30, marginEnd: 15 }}
               />
             </View>
