@@ -416,7 +416,7 @@ class DevicedataScreen extends Component {
       <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
         <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
           <View style={{ faex: 1, flexDirection: 'row', justifyContent: 'flex-start', }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Device')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
               <Image style={{ padding: 10, width: wp("6%"), height: hp("6%"), resizeMode: 'contain', margin: hp('0.3%'), marginLeft: hp('2%') }}
                 source={require('../img/back.png')} ></Image>
             </TouchableOpacity>
