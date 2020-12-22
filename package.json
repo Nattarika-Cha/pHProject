@@ -45,7 +45,7 @@
     "moment": "^2.24.0",
     "node": "^13.10.1",
     "node-modules": "^1.0.1",
-    "node-notifier": "^6.0.0",
+    "node-notifier": "^8.0.1",
     "nodejs": "0.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
